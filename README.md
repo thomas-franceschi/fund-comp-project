@@ -1,6 +1,6 @@
 # README #
-
-This README would normally document whatever steps are necessary to get your application up and running.
+Go here to learn the things:
+http://lazyfoo.net/tutorials/SDL/index.php
 
 ### What is this repository for? ###
 
