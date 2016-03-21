@@ -32,3 +32,13 @@ of certain frames.
 ---------------------------------------------------------------------------------
 
 Demo Code:
+
+The demo program I created uses a sprite sheet to render a "bouncing ball," complete 
+with compression when it hits the ground. I based this off of the example from lesson 
+14 in the LazyFoo tutorials on animation, though I extended it to loop through 10 
+frames instead of four for a smoother animation, though it is still pretty choppy. While 
+I could have made a better looking ball using the built in geometry rendering, I wanted 
+to get practice with creating sprite sheets and implementing them in animation graphics. 
+The program works by reading in a sprite sheet and rendering the first 64*500 (w*h) pixel 
+block, then moving on to the next 64, and so on untill it hits the 10th block, then the 
+counter resests to 0 and it begins again.
