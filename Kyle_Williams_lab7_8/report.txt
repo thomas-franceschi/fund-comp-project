@@ -3,6 +3,8 @@ Kyle Williams
 Lab 8
 Documentation
 
+BitBucket URL: https://bitbucket.org/fundcompproject/lab_7-8
+
 Program Functionality:
 
 This demo.cpp program works internally like the 14th SDL Tutorial on spritesheets and animation. I used the code that was given and found a different spritesheet for a trainer from Pokemon to render that trainer walking in different directions but staying in the same place on the screen.
