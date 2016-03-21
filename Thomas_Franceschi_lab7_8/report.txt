@@ -64,3 +64,7 @@ originally intended, though it should still be a decently complex/time consuming
 once completed. It aslo helped me learn to think about how we will be implementing specific 
 features of our game, specifically in SDL2 and how our code should be structered for maximum 
 performance/readability/maintainability. 
+
+I also learned the basics of image creaton and manipulation in GIMP, which will be very helpful 
+as we need to create a world, characters, environmental objects, etc from scratch (though we 
+may find some sprites to reuse on the internet).
