@@ -78,7 +78,7 @@ bool LTexture::loadFromFile( std::string path )
 	//Load image at specified path
 	SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
 	if( loadedSurface == NULL )
-	{0
+	{
 		printf( "Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError() );
 	}
 	else
