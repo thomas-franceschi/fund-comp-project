@@ -1,25 +1,22 @@
 #include <iostream>
+#include <stdlib.h>
 #include "pokemon.h"
 
 using namespace std;
 
-Pokemon::Pokemon(string n, int hp, int att, int def, int sp_att, int sp_def, int sp, int lev ) {
+Pokemon::Pokemon(string n, int hp, int att, int def, int lev, int ev_lev ) {
 	if ( hp < 0 ) hp = 0;
 	if (att < 0 ) att = 0;
 	if ( def < 0 ) def = 0;
-	if ( sp_att < 0 ) sp_att = 0;
-	if ( sp_def < 0 ) sp_def = 0;
-	if ( sp < 0 ) sp = 0;
 	if (lev < 2 ) lev = 2;
+	if (ev_lev < lev ) ev_lev = lev + 5;  
 	
 	name = n; 
 	hit_points = hp;
 	attack = att;
 	defense = def;
-	special_attack = sp_att;
-	special_defense = sp_def;
-	speed = sp;
 	level = lev;
+	evolve_level = ev_lev;
 	
 }
 
@@ -40,18 +37,33 @@ int Pokemon::battle ( Pokemon opponent ) {
 	}
 	
 	//Check to see if your pokemon won, return 1 for winning 0 for loss
-	if (hit_points > 0) return 1;
+	if (hit_points > 0) return 1;	//Your win
 	
-	return 0;
+	return 0;		//Your loss 
 	
 }
 
 void Pokemon::make_attack( Pokemon opponent ) {
 	
+	/*//Calculate force and accuracy of attack
+	int strike_power = attack + current_move.get_power() - oponent.get_defense()
+	
+	//Determine if attack is accurate 
+	strike_accuracy = rand() % 100 + 1;     // strike_accuracy in the range 1 to 100
+	if (strike_accuracy <= accuracy ) {
+		opponent.hitpoints -= strike_power;
+	} */
 }
 
 void Pokemon::defend( Pokemon opponent ) {
+	/*//Calculate force and accuracy of attack
+	int strike_power = opponent.attack + opponent.current_move.get_power() - get_defense()
 	
+	//Determine if attack is accurate 
+	strike_accuracy = rand() % 100 + 1;     // strike_accuracy in the range 1 to 100
+	if (strike_accuracy <= opponent.accuracy ) {
+		hitpoints -= strike_power;
+	} */
 }
 
 //This function takes the inputted type of Potion (which is an object) 

@@ -14,21 +14,21 @@ using namespace std;
 int main() {
 	
 	//Initialize firetype pokemon
-	Firetype Charmander("Charmander", 39, 52, 43, 60, 50, 65, 2, 0, 0); //No strengths or weaknesses yet 
-	Firetype Ponyta("Ponyta", 50, 85, 55, 65, 65, 90, 11, 0 , 0);
-	Firetype Magby("Magby", 45, 75, 37, 70, 55, 83, 6, 0, 0);
-	Firetype Flareon("Flareon", 65, 130, 60, 95, 110, 65, 35, 0, 0);
-	Firetype Torchic("Torchic", 45,60, 40, 70, 50, 45, 7, 0, 0);
+	Firetype Charmander; //No strengths or weaknesses yet 
+	Firetype Ponyta;
+	Firetype Magby;
+	Firetype Flareon;
+	Firetype Torchic("Torchic", 45,60, 40, 7, 12, 0, 0);
 	
 	//Initialize watertype pokemon 
-	Watertype Squirtle("Squirtle", 44, 48, 65, 50, 64, 43, 4, 0, 0 );
-	Watertype Horsea("Horsea", 30, 40, 70, 70, 25, 60, 7, 0, 0);
-	Watertype Palpitoad("Tympole", 50, 50, 40, 50, 40, 64, 9, 0, 0);
-	Watertype Mantyke("Mantyke", 45, 20, 50, 60, 120, 50, 7, 0, 0 );
-	Watertype Spheal ("Spheal", 70, 40, 50, 55, 50, 25, 4, 0, 0 );
+	Watertype Squirtle("Squirtle", 44, 48, 65, 4, 12, 0, 0 );
+	Watertype Horsea("Horsea", 30, 40, 70, 7, 12, 0, 0);
+	Watertype Palpitoad("Tympole", 50, 50, 40, 9, 12, 0, 0);
+	Watertype Mantyke("Mantyke", 45, 20, 50, 7, 12, 0, 0 );
+	Watertype Spheal ("Spheal", 70, 40, 50, 4, 12, 0, 0 );
 	
 	//Initialize Flyingtype Pokemon
-	Flyingtype Caterpie("Caterpie", 45, 30, 35, 20, 20, 45, 2, 0, 0);
+	Flyingtype Caterpie("Caterpie", 45, 30, 35, 2, 12, 0, 0);
 	Flyingtype Zapdos;
 	Flyingtype Pidgey;
 	Flyingtype Zubat;
@@ -36,12 +36,20 @@ int main() {
 	Flyingtype Dragonite;
 	
 	//Make kyle, thomas and brittany Pokemon
-	Watertype Kyle("Kyle (AKA Whale)", 52, 60, 55, 61, 64, 80, 5, 0, 0); //No strengths or weaknesses yet
-	Firetype Thomas("Tbone", 55, 58, 64, 61, 70, 74, 5, 0, 0);
-	Flyingtype Brittany("Britters", 60, 54, 61, 63, 62, 40, 5, 0, 0);
+	Watertype Kyle("Kyle (AKA Whale)", 52, 60, 55, 5, 12, 0, 0); //No strengths or weaknesses yet
+	Firetype Thomas("Tbone", 52, 60, 55, 5, 12, 0, 0);
+	Flyingtype Brittany("Britters", 52, 60, 55, 5, 12, 0, 0);
 	
+	//Initialize Potions 
 	Potion potion("potion", 20);
 	Potion super_potion ("super_potion", 50);
+	
+	//Initialize moves 
+	Moves pound("Pound", 40, 100);
+	Moves hydro_pump("Hydro Pump", 110, 80);
+	Moves headbutt("Headbutt", 70, 100);
+	Moves tackle("Tackle", 50, 100);
+	Moves bodyslam("Bodyslam", 85, 100);
 	
 	//show Pokemon's hit points before simple healing
 	cout << "Charmander has " << Charmander.get_hit_points() << " hit points." << endl;

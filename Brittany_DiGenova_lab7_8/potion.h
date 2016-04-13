@@ -1,6 +1,8 @@
 //Brittany DiGenova
 //potion.h
 //This is the base class for healing potions 
+#ifndef POTION_H
+#define POTION_H
 
 #include <iostream>
 #include <string>
@@ -18,3 +20,4 @@ class Potion {
 	int healing_power;
 };
 
+#endif
