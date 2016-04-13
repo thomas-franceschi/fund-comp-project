@@ -70,3 +70,17 @@ void Pokemon::heal(Potion healing_type) {
 int Pokemon::get_hit_points () {
 	return (hit_points);
 }
+
+
+//Checks pokemon to see if it should faint, evolve etc. 
+void Pokemon::check_pokemon(){
+	//check level and compare to evolve level
+	if (level != 100 && level >= evolve_level) {
+		evolve();
+	}
+}
+
+//Sends pokemon to the next level 
+void Pokemon::evolve(){
+	
+}
