@@ -13,9 +13,10 @@ using namespace std;
 class Moves {
 	
 	public:
-	Moves( string name = "none", int power = 10, int accuracy = 75);
+	Moves( string name = "none", int power = 10, int accuracy = 70);
 	int get_power();
 	int get_accuracy();
+	string get_name();
 	
 	private:
 	string name;

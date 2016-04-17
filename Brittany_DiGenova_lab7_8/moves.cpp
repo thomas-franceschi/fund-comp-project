@@ -10,7 +10,7 @@ using namespace std;
 //Default Constructor 
 Moves::Moves( string n, int pow , int acc ){
 	if (pow < 5) pow = 5;
-	if (acc < 60) acc = 60;
+	if (acc < 70) acc = 70;
 	
 	name = n;
 	power = pow;
@@ -28,4 +28,8 @@ int Moves::get_accuracy() {
 	
 	return (accuracy);
 	
+}
+
+string Moves::get_name(){
+	return (name);
 }

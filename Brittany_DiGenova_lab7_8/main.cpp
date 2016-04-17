@@ -36,7 +36,7 @@ int main() {
 	Flyingtype Dragonite;
 	
 	//Make kyle, thomas and brittany Pokemon
-	Watertype Kyle("Kyle (AKA Whale)", 52, 60, 55, 5, 12, 0, 0); //No strengths or weaknesses yet
+	Watertype Kyle("Kyle (AKA Whale)", 150, 60, 55, 5, 12); //No strengths or weaknesses yet
 	Firetype Thomas("Tbone", 52, 60, 55, 5, 12, 0, 0);
 	Flyingtype Brittany("Britters", 52, 60, 55, 5, 12, 0, 0);
 	
@@ -45,21 +45,34 @@ int main() {
 	Potion super_potion ("super_potion", 50);
 	
 	//Initialize moves 
-	Moves pound("Pound", 40, 100);
+	Moves pound("Pound", 40, 90);
 	Moves hydro_pump("Hydro Pump", 110, 80);
 	Moves headbutt("Headbutt", 70, 100);
-	Moves tackle("Tackle", 50, 100);
-	Moves bodyslam("Bodyslam", 85, 100);
+	Moves tackle("Tackle", 50, 90);
+	Moves bodyslam("Bodyslam", 85, 75);
 	
-	//show Pokemon's hit points before simple healing
+	//Add moves to Brittany pokemon
+	Brittany.add_move(bodyslam);
+	Brittany.add_move(headbutt);
+	
+	//Print Kyle's stats
+	cout << " Prior to the battle Kyle has " << Kyle.get_hit_points() << " hit points." << endl;
+	
+	//Attack Kyle 
+	Brittany.make_attack(Kyle);
+	
+	//Print Kyle's stats
+	cout << " After Brittany attacks Kyle he has " << Kyle.get_hit_points() << " hit points." << endl;
+	
+	/*//show Pokemon's hit points before simple healing
 	cout << "Charmander has " << Charmander.get_hit_points() << " hit points." << endl;
-	
+	lpo0pooooooooooooooo-
 	//heal Pokemon
 	Charmander.heal(potion);
 	Charmander.heal(super_potion);
 	
 	//show Pokemon's hit points after simple healing
-		cout << "Charmander has " << Charmander.get_hit_points() << " hit points." << endl;
+		cout << "Charmander has " << Charmander.get_hit_points() << " hit points." << endl;*/
 	
 	
 	
