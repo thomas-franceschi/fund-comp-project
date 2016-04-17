@@ -27,25 +27,28 @@ int Pokemon::battle ( Pokemon &opponent ) {
 	while (hit_points > 0 && opponent.get_hit_points() > 0 ) {
 		//switch between attacking and defending 
 		move = move * -1;
-		if(move = 1) {
+		if(move == -1) {
+			cout << "Making attack" << endl;
 			make_attack(opponent);
 		}
 		
 		else {
+			cout << "Defending Opponent" << endl;
 			defend(opponent);
+			
 		}
 	}
 	
 	//Check to see if your pokemon won, return 1 for winning 0 for loss
-	if (hit_points > 0) return 1;	//Your win
-	
+	if (hit_points > 0) {
+		return 1;	//Your win
+	}
 	return 0;		//Your loss 
 	
 }
 
 //Performs attack from current pokemon on a chosen pokemon 
 void Pokemon::make_attack( Pokemon &opponent ) {
-	Moves chosen_move;
 	int strike_power = 0, strike_accuracy = 0, move_number = 0, move_power = 0;
 	
 	//Prompt user to choose a move 
@@ -87,14 +90,38 @@ void Pokemon::make_attack( Pokemon &opponent ) {
 
 //Defend attack from opponent 
 void Pokemon::defend( Pokemon &opponent ) {
-	/*//Calculate force and accuracy of attack
-	int strike_power = opponent.attack + opponent.current_move.get_power() - get_defense()
+	//Set seed to time 
+	srand(time(NULL));
+
+	int strike_power = 0, strike_accuracy = 0, move_number = 0, move_power = 0;
 	
+	//Randomly choose a move  
+	move_number = rand () % opponent.moves.size();
+	cout << "Your oppononent chose move number " << move_number + 1 << " " << opponent.moves[move_number].get_name() << "." << endl;
+
+	//Find move power of chosen move 
+	move_power = moves[move_number].get_power();
+	cout << "Opponent's Move power is " << move_power << endl;
+	
+	//Calculate force and accuracy of attack
+	strike_power = opponent.get_attack() + move_power - defense;
+	cout << "strike power is " << strike_power << endl;
+
 	//Determine if attack is accurate 
 	strike_accuracy = rand() % 100 + 1;     // strike_accuracy in the range 1 to 100
-	if (strike_accuracy <= opponent.accuracy ) {
-		hitpoints -= strike_power;
-	} */
+	cout << "The strike accuracy is " << strike_accuracy << endl;
+	cout << "Chosen move accuracy is " << opponent.moves[move_number].get_accuracy() << endl;
+	
+	if (strike_accuracy <= moves[move_number].get_accuracy() ) {
+		deduct_hit_points( strike_power );
+		cout << get_hit_points() << endl; 
+	} 
+	
+	//If accuracy is not enough then display that the attack missed.
+	if (strike_accuracy > opponent.moves[move_number].get_accuracy() ) {
+		cout << "Your opponent used " << opponent.moves[move_number].get_name() << " but it missed!!" << endl;
+	}
+
 }
 
 

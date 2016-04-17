@@ -37,8 +37,8 @@ int main() {
 	
 	//Make kyle, thomas and brittany Pokemon
 	Watertype Kyle("Kyle (AKA Whale)", 150, 60, 55, 5, 12); //No strengths or weaknesses yet
-	Firetype Thomas("Tbone", 52, 60, 55, 5, 12, 0, 0);
-	Flyingtype Brittany("Britters", 52, 60, 55, 5, 12, 0, 0);
+	Firetype Thomas("Tbone", 150, 60, 55, 5, 12, 0, 0);
+	Flyingtype Brittany("Britters", 150, 60, 55, 5, 12, 0, 0);
 	
 	//Initialize Potions 
 	Potion potion("potion", 20);
@@ -55,14 +55,22 @@ int main() {
 	Brittany.add_move(bodyslam);
 	Brittany.add_move(headbutt);
 	
+	Kyle.add_move(bodyslam);
+	Kyle.add_move(headbutt);
+	
 	//Print Kyle's stats
 	cout << " Prior to the battle Kyle has " << Kyle.get_hit_points() << " hit points." << endl;
 	
 	//Attack Kyle 
-	Brittany.make_attack(Kyle);
+	if (Brittany.battle(Kyle) == 1) cout << "You Win!" << endl;
+	
+	else {
+		cout << "You lose!" << endl;
+	}
 	
 	//Print Kyle's stats
-	cout << " After Brittany attacks Kyle he has " << Kyle.get_hit_points() << " hit points." << endl;
+	cout << " After the battle Kyle has " << Kyle.get_hit_points() << " hit points." << endl;
+	cout << " After the battle Brittany has " << Brittany.get_hit_points() << " hit points." << endl;
 	
 	/*//show Pokemon's hit points before simple healing
 	cout << "Charmander has " << Charmander.get_hit_points() << " hit points." << endl;
