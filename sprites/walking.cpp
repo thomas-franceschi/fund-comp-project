@@ -12,8 +12,8 @@
 using namespace std;
 
 //Screen dimension constants
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 320;
+const int SCREEN_WIDTH = 720;
+const int SCREEN_HEIGHT = 580;
 
 //Texture wrapper class
 class LTexture
@@ -559,8 +559,8 @@ int yMoveUp( int y )
 int yMoveDown( int y )
 {
 
-	if( y >= 2400-SCREEN_HEIGHT ){
-		y = 2400-SCREEN_HEIGHT;
+	if( y >= 400-SCREEN_HEIGHT ){
+		y = 400-SCREEN_HEIGHT;
 	}
 	else{
 		y--;
@@ -576,9 +576,10 @@ int main( int argc, char* args[] )
 {
 
 	int clipSwitch = 0;
-	int waitTime = 100;
-	int x = -350;
-	int y = -250;
+	int framecounter = 0;
+	int waitTime = 10;
+	int x = -500;
+	int y = -400;
 	//Start up SDL and create window
 	if( !init() )
 	{
@@ -609,14 +610,14 @@ int main( int argc, char* args[] )
 				//Handle events on queue
 				while( SDL_PollEvent( &e ) != 0 )
 				{
-					cout << "Polling..." << endl;
+					//cout << "Polling..." << endl;
 					//User requests quit
 					if( e.type == SDL_QUIT )
 					{
 						quit = true;
 					}
 				}
-				cout << "hmmm..." << endl;
+				//cout << "hmmm..." << endl;
 				//Set texture based on current keystate
 				const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
 				cout << "hit a key" << endl;
@@ -624,23 +625,19 @@ int main( int argc, char* args[] )
 				{
 					cout << "KeyUp" << endl;
 
-					currentTexture = &gUpTexture0;
-					usleep( waitTime );
+					if (framecounter%4 == 0) currentTexture = &gUpTexture0;
 					y = yMoveUp( y );
 					print( currentTexture, &background, x, y );
 
-					currentTexture = &gUpTexture1;
-					usleep( waitTime );
+					if (framecounter%4 == 1) currentTexture = &gUpTexture1;
 					y = yMoveUp( y );
 					print( currentTexture, &background, x, y );
 
-					currentTexture = &gUpTexture2;
-					usleep( waitTime );
+					if (framecounter%4 == 2) currentTexture = &gUpTexture2;
 					y = yMoveUp( y );
 					print( currentTexture, &background, x, y );
 
-					currentTexture = &gUpTexture3;
-					usleep( waitTime );
+					if (framecounter%4 == 3) currentTexture = &gUpTexture3;
 					y = yMoveUp( y );
 					print( currentTexture, &background, x, y );
 
@@ -650,23 +647,19 @@ int main( int argc, char* args[] )
 				else if( currentKeyStates[ SDL_SCANCODE_DOWN ] )
 				{
 
-					currentTexture = &gDownTexture0;
-					usleep( waitTime );
+					if (framecounter%4 == 0) currentTexture = &gDownTexture0;
 					y = yMoveDown( y );
 					print( currentTexture, &background, x, y );
 
-					currentTexture = &gDownTexture1;
-					usleep( waitTime );
+					if (framecounter%4 == 1) currentTexture = &gDownTexture1;
 					y = yMoveDown( y );
 					print( currentTexture, &background, x, y );
 
-					currentTexture = &gDownTexture2;
-					usleep( waitTime );
+					if (framecounter%4 == 2) currentTexture = &gDownTexture2;
 					y = yMoveDown( y );
 					print( currentTexture, &background, x, y );
 
-					currentTexture = &gDownTexture3;
-					usleep( waitTime );
+					if (framecounter%4 == 3) currentTexture = &gDownTexture3;
 					y = yMoveDown( y );
 					print( currentTexture, &background, x, y );
 
@@ -676,23 +669,19 @@ int main( int argc, char* args[] )
 				else if( currentKeyStates[ SDL_SCANCODE_LEFT ] )
 				{
 
-					currentTexture = &gLeftTexture0;
-					usleep( waitTime );
+					if (framecounter%4 == 0) currentTexture = &gLeftTexture0;
 					x = xMoveLeft( x );
 					print( currentTexture, &background, x, y );
 
-					currentTexture = &gLeftTexture1;
-					usleep( waitTime );
+					if (framecounter%4 == 1) currentTexture = &gLeftTexture1;
 					x = xMoveLeft( x );
 					print( currentTexture, &background, x, y );
 
-					currentTexture = &gLeftTexture2;
-					usleep( waitTime );
+					if (framecounter%4 == 2) currentTexture = &gLeftTexture2;
 					x = xMoveLeft( x );
 					print( currentTexture, &background, x, y );
 
-					currentTexture = &gLeftTexture3;
-					usleep( waitTime );
+					if (framecounter%4 == 3) currentTexture = &gLeftTexture3;
 					x = xMoveLeft( x );
 					print( currentTexture, &background, x, y );
 
@@ -702,23 +691,19 @@ int main( int argc, char* args[] )
 				else if( currentKeyStates[ SDL_SCANCODE_RIGHT ] )
 				{
 
-					currentTexture = &gRightTexture0;
-					usleep( waitTime );
+					if (framecounter%4 == 0) currentTexture = &gRightTexture0;
 					x = xMoveRight( x );
 					print( currentTexture, &background, x, y );
 
-					currentTexture = &gRightTexture1;
-					usleep( waitTime );
+					if (framecounter%4 == 1) currentTexture = &gRightTexture1;
 					x = xMoveRight( x );
 					print( currentTexture, &background, x, y );
 
-					currentTexture = &gRightTexture2;
-					usleep( waitTime );
+					if (framecounter%4 == 2) currentTexture = &gRightTexture2;
 					x = xMoveRight( x );
 					print( currentTexture, &background, x, y );
 
-					currentTexture = &gRightTexture3;
-					usleep( waitTime );
+					if (framecounter%4 == 3) currentTexture = &gRightTexture3;
 					x = xMoveRight( x );
 					print( currentTexture, &background, x, y );
 
@@ -747,7 +732,7 @@ int main( int argc, char* args[] )
 					}
 
 				}
-
+				framecounter++;
 				print( currentTexture, &background, x, y );
 			}
 		}
