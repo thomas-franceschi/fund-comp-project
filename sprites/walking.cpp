@@ -8,6 +8,7 @@
 #include <string>
 #include <unistd.h>
 #include <iostream>
+#include <cstdlib>
 
 using namespace std;
 
@@ -516,10 +517,12 @@ void print( LTexture* currentTexture, LTexture* background, int x, int y )
 
 int xMoveLeft( int x )
 {
+	const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
 
-	if( x == 0 ){
-		x = 0;
+	if( x >= -1 ){
+		x = -1;
 	}
+	if(currentKeyStates[SDL_SCANCODE_SPACE]) x += 3;
 	else{
 		x++;
 	}
@@ -530,10 +533,11 @@ int xMoveLeft( int x )
 
 int xMoveRight( int x )
 {
-
-	if( x >= 3200-SCREEN_WIDTH ){
-		x = 3200-SCREEN_WIDTH;
+	const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
+	if( x <= -3000 ){
+		x = -3000;
 	}
+	if(currentKeyStates[SDL_SCANCODE_SPACE]) x-=3;
 	else{
 		x--;
 	}
@@ -544,10 +548,11 @@ int xMoveRight( int x )
 
 int yMoveUp( int y )
 {
-
-	if( y == 0 ){
-		y = 0;
+	const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
+	if( y >= -1 ){
+		y = -1;
 	}
+	if(currentKeyStates[SDL_SCANCODE_SPACE]) y+=3;
 	else{
 		y++;
 	}
@@ -558,10 +563,11 @@ int yMoveUp( int y )
 
 int yMoveDown( int y )
 {
-
-	if( y >= 400-SCREEN_HEIGHT ){
-		y = 400-SCREEN_HEIGHT;
+	const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
+	if( y <= -3072 + SCREEN_HEIGHT ){
+		y = -3072 + SCREEN_HEIGHT;
 	}
+	if(currentKeyStates[SDL_SCANCODE_SPACE]) y-=3;
 	else{
 		y--;
 	}
@@ -572,14 +578,38 @@ int yMoveDown( int y )
 
 //###########################//
 
+//Wild pokemon encounter-----------------------------------------------------
+void wildBattle( int x, int y){
+	srand(time(NULL));
+	int encounter = rand() % 5;
+	char battleOver = ' ';
+	cout << "encounter number" << encounter << endl;
+
+	//square patch on south quad
+	if ( x <= -632 && x >= -1004){
+		if ( y <= -1940 && y >= -2108) {
+			if ( encounter == 0 ){
+				cout << "Pokemon encounter!" << endl;
+				while ( battleOver != 'e' )
+				{
+					cout << "press 'e' to exit battle" << endl;
+					cin >> battleOver;
+					if (battleOver != 'e') battleOver = ' ';
+			 	}
+			}
+		}
+	}
+}
+
+//Main function--------------------------------------------------------------
 int main( int argc, char* args[] )
 {
 
 	int clipSwitch = 0;
 	int framecounter = 0;
 	int waitTime = 10;
-	int x = -500;
-	int y = -400;
+	int x = -716;
+	int y = -1420;
 	//Start up SDL and create window
 	if( !init() )
 	{
@@ -606,7 +636,7 @@ int main( int argc, char* args[] )
 			//While application is running
 			while( !quit )
 			{
-				cout << "Dont quit" << endl;
+				//cout << "Dont quit" << endl;
 				//Handle events on queue
 				while( SDL_PollEvent( &e ) != 0 )
 				{
@@ -620,10 +650,10 @@ int main( int argc, char* args[] )
 				//cout << "hmmm..." << endl;
 				//Set texture based on current keystate
 				const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
-				cout << "hit a key" << endl;
+				//cout << "hit a key" << endl;
 				if( currentKeyStates[ SDL_SCANCODE_UP ] )
 				{
-					cout << "KeyUp" << endl;
+					//cout << "KeyUp" << endl;
 
 					if (framecounter%4 == 0) currentTexture = &gUpTexture0;
 					y = yMoveUp( y );
@@ -642,6 +672,10 @@ int main( int argc, char* args[] )
 					print( currentTexture, &background, x, y );
 
 					clipSwitch = 1;
+					wildBattle(x, y);
+					cout << x << endl << y << endl;
+					cout << "frame count:" << framecounter << endl;
+
 					
 				}
 				else if( currentKeyStates[ SDL_SCANCODE_DOWN ] )
@@ -664,6 +698,10 @@ int main( int argc, char* args[] )
 					print( currentTexture, &background, x, y );
 
 					clipSwitch = 2;
+					wildBattle(x, y);
+					cout << x << endl << y << endl;
+					cout << "frame count:" << framecounter << endl;
+
 
 				}
 				else if( currentKeyStates[ SDL_SCANCODE_LEFT ] )
@@ -686,6 +724,9 @@ int main( int argc, char* args[] )
 					print( currentTexture, &background, x, y );
 
 					clipSwitch = 3;
+					wildBattle(x, y);
+					cout << x << endl << y << endl;
+					cout << "frame count:" << framecounter << endl;
 
 				}
 				else if( currentKeyStates[ SDL_SCANCODE_RIGHT ] )
@@ -708,11 +749,13 @@ int main( int argc, char* args[] )
 					print( currentTexture, &background, x, y );
 
 					clipSwitch = 4;
-
+					wildBattle(x, y);
+					cout << x << endl << y << endl;
+					cout << "frame count:" << framecounter << endl;
 				}
 				else
 				{
-					cout << clipSwitch << endl;
+					//cout << clipSwitch << endl;
 					switch ( clipSwitch ){
 						case 1:
 							currentTexture = &gUpTexture0;
@@ -733,11 +776,12 @@ int main( int argc, char* args[] )
 
 				}
 				framecounter++;
-				print( currentTexture, &background, x, y );
+				print( currentTexture, &background, x, y );				
 			}
 		}
 	}
-	cout << "Closing time..." << endl;
+	//STOP USING STUPID CL OUTPUTS
+	//cout << "Closing time..." << endl;
 	//Free resources and close SDL
 	close();
 
