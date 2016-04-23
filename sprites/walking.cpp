@@ -611,28 +611,41 @@ void wildBattle( int x, int y){
 	}
 }
 
-//enterMorrissey----------------------------------------------------------------
+//enterMorrissey/exitMorrissey----------------------------------------------------------------
 
 int enterMorrissey( int &x, int &y, int inMorrissey ) {
 	if (inMorrissey == 1) return 1;
 	if ( x <= -715 && x >= -720){
 		if ( y <= -1390 && y >= -1400){
-			x = -804;
-			y = -1014;
+			x = -1136;
+			y = -1390;
 			return 1;
 		}
 	}
 }
 
-int exitMorrissey( int x, int y, int inMorrissey){
-	if (inMorrissey == 1 && x <= -800 && x >= -805 && y <= 1012 && y >= -1010) {
+int exitMorrissey( int &x, int &y, int inMorrissey){
+	if (inMorrissey == 1 && x <= -1130 && x >= -1140 && y <= -1395 && y >= -1450) {
 		x = -716;
-		y = -1450;
+		y = -1410;
 		return 0;
 	}
 	else if (inMorrissey == 0) return 0;
 	else if (inMorrissey == 1) return 1;
 }
+
+//canWalk--------------------------------------------------------------------
+
+int canWalk( int x, int y, int inMorrissey ){
+	//if ( inMorrissey == 0 ) {
+		if ( x <= -636 && x >= -1024 && y <= -1222 && y >= -1410) return 0;
+		else return 1;
+	//}
+	//else return 1;
+}
+
+
+
 //Main function--------------------------------------------------------------
 int main( int argc, char* args[] )
 {
@@ -685,106 +698,102 @@ int main( int argc, char* args[] )
 				//Set texture based on current keystate
 				const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
 				//cout << "hit a key" << endl;
-				if( currentKeyStates[ SDL_SCANCODE_UP ] )
-				{
-					//cout << "KeyUp" << endl;
+				
+				if( currentKeyStates[ SDL_SCANCODE_UP ] ){
+				//cout << "KeyUp" << endl;
+					if(canWalk(x, y, inMorrissey) == 1) {
+						if (framecounter%4 == 0) currentTexture = &gUpTexture0;
+						y = yMoveUp( y );
+						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
-					if (framecounter%4 == 0) currentTexture = &gUpTexture0;
-					y = yMoveUp( y );
-					print( currentTexture, &background, &morrissey, x, y, inMorrissey );
+						if (framecounter%4 == 1) currentTexture = &gUpTexture1;
+						y = yMoveUp( y );
+						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
-					if (framecounter%4 == 1) currentTexture = &gUpTexture1;
-					y = yMoveUp( y );
-					print( currentTexture, &background, &morrissey, x, y, inMorrissey );
+						if (framecounter%4 == 2) currentTexture = &gUpTexture2;
+						y = yMoveUp( y );
+						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
-					if (framecounter%4 == 2) currentTexture = &gUpTexture2;
-					y = yMoveUp( y );
-					print( currentTexture, &background, &morrissey, x, y, inMorrissey );
-
-					if (framecounter%4 == 3) currentTexture = &gUpTexture3;
-					y = yMoveUp( y );
-					print( currentTexture, &background, &morrissey, x, y, inMorrissey );
-					clipSwitch = 1;
-					wildBattle(x, y);
-					cout << x << endl << y << endl;
-					cout << "frame count:" << framecounter << endl;
-
-					
+						if (framecounter%4 == 3) currentTexture = &gUpTexture3;
+						y = yMoveUp( y );
+						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
+						clipSwitch = 1;
+						wildBattle(x, y);
+						cout << x << endl << y << endl;
+						cout << "frame count:" << framecounter << endl;
+					}
 				}
-				else if( currentKeyStates[ SDL_SCANCODE_DOWN ] )
-				{
+				else if( currentKeyStates[ SDL_SCANCODE_DOWN ] ) {
+					if(canWalk(x, y, inMorrissey) == 1) {
+						if (framecounter%4 == 0) currentTexture = &gDownTexture0;
+						y = yMoveDown( y );
+						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
-					if (framecounter%4 == 0) currentTexture = &gDownTexture0;
-					y = yMoveDown( y );
-					print( currentTexture, &background, &morrissey, x, y, inMorrissey );
+						if (framecounter%4 == 1) currentTexture = &gDownTexture1;
+						y = yMoveDown( y );
+						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
-					if (framecounter%4 == 1) currentTexture = &gDownTexture1;
-					y = yMoveDown( y );
-					print( currentTexture, &background, &morrissey, x, y, inMorrissey );
+						if (framecounter%4 == 2) currentTexture = &gDownTexture2;
+						y = yMoveDown( y );
+						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
-					if (framecounter%4 == 2) currentTexture = &gDownTexture2;
-					y = yMoveDown( y );
-					print( currentTexture, &background, &morrissey, x, y, inMorrissey );
+						if (framecounter%4 == 3) currentTexture = &gDownTexture3;
+						y = yMoveDown( y );
+						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
-					if (framecounter%4 == 3) currentTexture = &gDownTexture3;
-					y = yMoveDown( y );
-					print( currentTexture, &background, &morrissey, x, y, inMorrissey );
-
-					clipSwitch = 2;
-					wildBattle(x, y);
-					cout << x << endl << y << endl;
-					cout << "frame count:" << framecounter << endl;
-
-
+						clipSwitch = 2;
+						wildBattle(x, y);
+						cout << x << endl << y << endl;
+						cout << "frame count:" << framecounter << endl;
+					}
 				}
-				else if( currentKeyStates[ SDL_SCANCODE_LEFT ] )
-				{
+				else if( currentKeyStates[ SDL_SCANCODE_LEFT ] ){
+					if(canWalk(x, y, inMorrissey) == 1) {
+						if (framecounter%4 == 0) currentTexture = &gLeftTexture0;
+						x = xMoveLeft( x );
+						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
-					if (framecounter%4 == 0) currentTexture = &gLeftTexture0;
-					x = xMoveLeft( x );
-					print( currentTexture, &background, &morrissey, x, y, inMorrissey );
+						if (framecounter%4 == 1) currentTexture = &gLeftTexture1;
+						x = xMoveLeft( x );
+						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
-					if (framecounter%4 == 1) currentTexture = &gLeftTexture1;
-					x = xMoveLeft( x );
-					print( currentTexture, &background, &morrissey, x, y, inMorrissey );
+						if (framecounter%4 == 2) currentTexture = &gLeftTexture2;
+						x = xMoveLeft( x );
+						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
-					if (framecounter%4 == 2) currentTexture = &gLeftTexture2;
-					x = xMoveLeft( x );
-					print( currentTexture, &background, &morrissey, x, y, inMorrissey );
+						if (framecounter%4 == 3) currentTexture = &gLeftTexture3;
+						x = xMoveLeft( x );
+						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
-					if (framecounter%4 == 3) currentTexture = &gLeftTexture3;
-					x = xMoveLeft( x );
-					print( currentTexture, &background, &morrissey, x, y, inMorrissey );
-
-					clipSwitch = 3;
-					wildBattle(x, y);
-					cout << x << endl << y << endl;
-					cout << "frame count:" << framecounter << endl;
-
+						clipSwitch = 3;
+						wildBattle(x, y);
+						cout << x << endl << y << endl;
+						cout << "frame count:" << framecounter << endl;
+					}
 				}
-				else if( currentKeyStates[ SDL_SCANCODE_RIGHT ] )
-				{
+				else if( currentKeyStates[ SDL_SCANCODE_RIGHT ] ){
+					if(canWalk(x, y, inMorrissey) == 1) {
+						if (framecounter%4 == 0) currentTexture = &gRightTexture0;
+						x = xMoveRight( x );
+						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
-					if (framecounter%4 == 0) currentTexture = &gRightTexture0;
-					x = xMoveRight( x );
-					print( currentTexture, &background, &morrissey, x, y, inMorrissey );
+						if (framecounter%4 == 1) currentTexture = &gRightTexture1;
+						x = xMoveRight( x );
+						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
-					if (framecounter%4 == 1) currentTexture = &gRightTexture1;
-					x = xMoveRight( x );
-					print( currentTexture, &background, &morrissey, x, y, inMorrissey );
+						if (framecounter%4 == 2) currentTexture = &gRightTexture2;
+						x = xMoveRight( x );
+						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
-					if (framecounter%4 == 2) currentTexture = &gRightTexture2;
-					x = xMoveRight( x );
-					print( currentTexture, &background, &morrissey, x, y, inMorrissey );
+						if (framecounter%4 == 3) currentTexture = &gRightTexture3;
+						x = xMoveRight( x );
+						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
-					if (framecounter%4 == 3) currentTexture = &gRightTexture3;
-					x = xMoveRight( x );
-					print( currentTexture, &background, &morrissey, x, y, inMorrissey );
-
-					clipSwitch = 4;
-					wildBattle(x, y);
-					cout << x << endl << y << endl;
-					cout << "frame count:" << framecounter << endl;
+						clipSwitch = 4;
+						wildBattle(x, y);
+						cout << x << endl << y << endl;
+						cout << "frame count:" << framecounter << endl;
+					}
 				}
 				else
 				{
@@ -804,10 +813,9 @@ int main( int argc, char* args[] )
 							break;
 						default:
 							currentTexture = &gDownTexture0;
-
 					}
-
 				}
+			
 				inMorrissey = enterMorrissey( x, y, inMorrissey);
 				inMorrissey = exitMorrissey( x, y, inMorrissey);
 				framecounter++;

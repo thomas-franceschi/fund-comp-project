@@ -14,6 +14,7 @@ class Potion {
 	public:
 	Potion( string name = "Potion", int healing_power = 20 );
 	int get_healing_power();
+	string get_name();
 	
 	private:
 	string name;
