@@ -115,6 +115,7 @@ LTexture gRightTexture2;
 LTexture gRightTexture3;
 
 LTexture background;
+LTexture morrissey;
 
 LTexture::LTexture()
 {
@@ -455,6 +456,12 @@ bool loadMedia()
 		success = false;
 	}
 
+		if( !morrissey.loadFromFile( "./morrissey_inside.png" ) )
+	{
+		printf( "Failed to load press texture!\n" );
+		success = false;
+	}
+
 	return success;
 }
 
@@ -484,6 +491,7 @@ void close()
 	gRightTexture3.free();
 
 	background.free();
+	morrissey.free();
 
 	//Destroy window	
 	SDL_DestroyRenderer( gRenderer );
@@ -496,7 +504,7 @@ void close()
 	SDL_Quit();
 }
 
-void print( LTexture* currentTexture, LTexture* background, int x, int y )
+void print( LTexture* currentTexture, LTexture* background, LTexture* morrissey, int x, int y, int inMorrissey )
 {
 	//Clear screen
 	SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
@@ -504,6 +512,8 @@ void print( LTexture* currentTexture, LTexture* background, int x, int y )
 
 	//Render the background
 	background->render( x, y );
+
+	if (inMorrissey == 1) morrissey->render( x, y );
 
 	//Render current texture
 	currentTexture->render( SCREEN_WIDTH/2, SCREEN_HEIGHT/2 );
@@ -601,6 +611,28 @@ void wildBattle( int x, int y){
 	}
 }
 
+//enterMorrissey----------------------------------------------------------------
+
+int enterMorrissey( int &x, int &y, int inMorrissey ) {
+	if (inMorrissey == 1) return 1;
+	if ( x <= -715 && x >= -720){
+		if ( y <= -1390 && y >= -1400){
+			x = -804;
+			y = -1014;
+			return 1;
+		}
+	}
+}
+
+int exitMorrissey( int x, int y, int inMorrissey){
+	if (inMorrissey == 1 && x <= -800 && x >= -805 && y <= 1012 && y >= -1010) {
+		x = -716;
+		y = -1450;
+		return 0;
+	}
+	else if (inMorrissey == 0) return 0;
+	else if (inMorrissey == 1) return 1;
+}
 //Main function--------------------------------------------------------------
 int main( int argc, char* args[] )
 {
@@ -609,7 +641,9 @@ int main( int argc, char* args[] )
 	int framecounter = 0;
 	int waitTime = 10;
 	int x = -716;
-	int y = -1420;
+	int y = -1450;
+	int inMorrissey = 0;
+
 	//Start up SDL and create window
 	if( !init() )
 	{
@@ -657,20 +691,19 @@ int main( int argc, char* args[] )
 
 					if (framecounter%4 == 0) currentTexture = &gUpTexture0;
 					y = yMoveUp( y );
-					print( currentTexture, &background, x, y );
+					print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
 					if (framecounter%4 == 1) currentTexture = &gUpTexture1;
 					y = yMoveUp( y );
-					print( currentTexture, &background, x, y );
+					print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
 					if (framecounter%4 == 2) currentTexture = &gUpTexture2;
 					y = yMoveUp( y );
-					print( currentTexture, &background, x, y );
+					print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
 					if (framecounter%4 == 3) currentTexture = &gUpTexture3;
 					y = yMoveUp( y );
-					print( currentTexture, &background, x, y );
-
+					print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 					clipSwitch = 1;
 					wildBattle(x, y);
 					cout << x << endl << y << endl;
@@ -683,19 +716,19 @@ int main( int argc, char* args[] )
 
 					if (framecounter%4 == 0) currentTexture = &gDownTexture0;
 					y = yMoveDown( y );
-					print( currentTexture, &background, x, y );
+					print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
 					if (framecounter%4 == 1) currentTexture = &gDownTexture1;
 					y = yMoveDown( y );
-					print( currentTexture, &background, x, y );
+					print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
 					if (framecounter%4 == 2) currentTexture = &gDownTexture2;
 					y = yMoveDown( y );
-					print( currentTexture, &background, x, y );
+					print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
 					if (framecounter%4 == 3) currentTexture = &gDownTexture3;
 					y = yMoveDown( y );
-					print( currentTexture, &background, x, y );
+					print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
 					clipSwitch = 2;
 					wildBattle(x, y);
@@ -709,19 +742,19 @@ int main( int argc, char* args[] )
 
 					if (framecounter%4 == 0) currentTexture = &gLeftTexture0;
 					x = xMoveLeft( x );
-					print( currentTexture, &background, x, y );
+					print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
 					if (framecounter%4 == 1) currentTexture = &gLeftTexture1;
 					x = xMoveLeft( x );
-					print( currentTexture, &background, x, y );
+					print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
 					if (framecounter%4 == 2) currentTexture = &gLeftTexture2;
 					x = xMoveLeft( x );
-					print( currentTexture, &background, x, y );
+					print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
 					if (framecounter%4 == 3) currentTexture = &gLeftTexture3;
 					x = xMoveLeft( x );
-					print( currentTexture, &background, x, y );
+					print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
 					clipSwitch = 3;
 					wildBattle(x, y);
@@ -734,19 +767,19 @@ int main( int argc, char* args[] )
 
 					if (framecounter%4 == 0) currentTexture = &gRightTexture0;
 					x = xMoveRight( x );
-					print( currentTexture, &background, x, y );
+					print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
 					if (framecounter%4 == 1) currentTexture = &gRightTexture1;
 					x = xMoveRight( x );
-					print( currentTexture, &background, x, y );
+					print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
 					if (framecounter%4 == 2) currentTexture = &gRightTexture2;
 					x = xMoveRight( x );
-					print( currentTexture, &background, x, y );
+					print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
 					if (framecounter%4 == 3) currentTexture = &gRightTexture3;
 					x = xMoveRight( x );
-					print( currentTexture, &background, x, y );
+					print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
 					clipSwitch = 4;
 					wildBattle(x, y);
@@ -775,8 +808,10 @@ int main( int argc, char* args[] )
 					}
 
 				}
+				inMorrissey = enterMorrissey( x, y, inMorrissey);
+				inMorrissey = exitMorrissey( x, y, inMorrissey);
 				framecounter++;
-				print( currentTexture, &background, x, y );				
+				print( currentTexture, &background, &morrissey, x, y, inMorrissey );				
 			}
 		}
 	}
