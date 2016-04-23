@@ -20,3 +20,7 @@ int Potion::get_healing_power() {
 	return (healing_power);
 	
 }
+
+string Potion::get_name() {
+	return (name);
+}

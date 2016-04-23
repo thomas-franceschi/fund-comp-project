@@ -1,7 +1,7 @@
 all: main
 
-main: main.o pokemon.o potion.o moves.o firetype.o flyingtype.o watertype.o
-	g++ main.o pokemon.o potion.o moves.o firetype.o flyingtype.o watertype.o -o main
+main: main.o pokemon.o potion.o moves.o firetype.o flyingtype.o watertype.o trainer.o
+	g++ main.o pokemon.o potion.o moves.o firetype.o flyingtype.o watertype.o trainer.o -o main
 	
 main.o: main.cpp
 	g++ -c main.cpp
@@ -23,6 +23,9 @@ flyingtype.o: flyingtype.cpp
 	
 watertype.o: watertype.cpp
 	g++ -c watertype.cpp
+	
+trainer.o: trainer.cpp
+	g++ -c trainer.cpp
 	
 clean:
 	rm -f *.o main

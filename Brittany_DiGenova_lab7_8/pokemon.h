@@ -21,6 +21,7 @@ class Pokemon {
 	int get_hit_points();
 	int get_attack();
 	int get_defense();
+	string get_name ();
 	void make_attack( Pokemon & );	//makes attack on specified pokemon 
 	void deduct_hit_points(int); 
 	void defend( Pokemon & );
@@ -28,7 +29,7 @@ class Pokemon {
 	void evolve();		// Sets evolved pokemon attributes 
 	void add_move( Moves ); //Adds inputted move to moves vector
 	void list_moves();
-	//void set_hit_points(int);
+	void set_hit_points(int);
 	//Moves chose_move();	//Returns move that the user wants to use 
 	
 	private:

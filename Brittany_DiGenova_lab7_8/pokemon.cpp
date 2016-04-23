@@ -4,6 +4,7 @@
 
 using namespace std;
 
+//Constructor 
 Pokemon::Pokemon(string n, int hp, int att, int def, int lev, int ev_lev ) {
 	if ( hp < 0 ) hp = 0;
 	if (att < 0 ) att = 0;
@@ -39,6 +40,10 @@ int Pokemon::battle ( Pokemon &opponent ) {
 		}
 	}
 	
+	//Sets negative hit point values to zero
+	if (hit_points < 0 ) hit_points = 0;
+	if (opponent.get_hit_points() < 0) opponent.set_hit_points(0);
+	
 	//Check to see if your pokemon won, return 1 for winning 0 for loss
 	if (hit_points > 0) {
 		return 1;	//Your win
@@ -46,6 +51,8 @@ int Pokemon::battle ( Pokemon &opponent ) {
 	return 0;		//Your loss 
 	
 }
+
+
 
 //Performs attack from current pokemon on a chosen pokemon 
 void Pokemon::make_attack( Pokemon &opponent ) {
@@ -87,6 +94,8 @@ void Pokemon::make_attack( Pokemon &opponent ) {
 		cout << "Used " << moves[move_number].get_name() << " but it missed!!" << endl;
 	}
 }
+
+
 
 //Defend attack from opponent 
 void Pokemon::defend( Pokemon &opponent ) {
@@ -174,7 +183,7 @@ void Pokemon::add_move( Moves input_move ) {
 //List moves
 void Pokemon::list_moves() {
 	
-	//cout << "Your Pokemon has the following moves:" << endl;
+	cout << "Your Pokemon has the following moves:" << endl;
 	for (int i = 0; i < moves.size(); i++ ) {
 		cout << i + 1 << ".	" << moves[i].get_name() << endl;
 	}
@@ -189,6 +198,11 @@ void Pokemon::deduct_hit_points( int deduction_amount ) {
 }
 
 
-/*void Pokemon::set_hit_points(int val) {
+void Pokemon::set_hit_points(int val) {
 	hit_points = val;
-}*/
+}
+
+string Pokemon::get_name () {
+	return (name);
+}
+
