@@ -688,17 +688,11 @@ int main( int argc, char* args[] )
 	trainer.add_potion(super_potion);
 
 	//Start up SDL and create window
-	if( !init() )
-	{
-		printf( "Failed to initialize!\n" );
-	}
+	if( !init() ) printf( "Failed to initialize!\n" );
 	else
 	{
 		//Load media
-		if( !loadMedia() )
-		{
-			printf( "Failed to load media!\n" );
-		}
+		if( !loadMedia() ) printf( "Failed to load media!\n" );
 		else
 		{	
 			//Main loop flag
@@ -711,16 +705,13 @@ int main( int argc, char* args[] )
 			LTexture* currentTexture = NULL;
 
 			//While application is running
-			while( !quit )
-			{
+			while( !quit ) {
 				//cout << "Dont quit" << endl;
 				//Handle events on queue
-				while( SDL_PollEvent( &e ) != 0 )
-				{
+				while( SDL_PollEvent( &e ) != 0 ) {
 					//cout << "Polling..." << endl;
 					//User requests quit
-					if( e.type == SDL_QUIT )
-					{
+					if( e.type == SDL_QUIT ) {
 						quit = true;
 					}
 				}
@@ -847,26 +838,26 @@ int main( int argc, char* args[] )
 								currentTexture = &gDownTexture0;
 						}
 					}
-<<<<<<< HEAD
+//<<<<<<< HEAD
 				
 				inMorrissey = enterMorrissey( x, y, inMorrissey);
 				inMorrissey = exitMorrissey( x, y, inMorrissey);
-=======
+//=======
 				}
 			
 				//inMorrissey = enterMorrissey( x, y, inMorrissey);
 				//inMorrissey = exitMorrissey( x, y, inMorrissey);
->>>>>>> 52c68d772354bbf1f072fed9cc0c2a860c159a6c
+//>>>>>>> 52c68d772354bbf1f072fed9cc0c2a860c159a6c
 				framecounter++;
 				print( currentTexture, &background, &morrissey, x, y, inMorrissey );				
 			}
 		}
+		//	close();
 	}
-	//STOP USING STUPID CL OUTPUTS
-	//cout << "Closing time..." << endl;
+
 	//Free resources and close SDL
 
-	close();
 
-	return 0;
+
+	//return 0;
 }
