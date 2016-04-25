@@ -87,6 +87,8 @@ int xMoveRight( int );
 int yMoveUp( int );
 int yMoveDown( int );
 
+void battleGFX();
+
 //The window we'll be rendering to
 SDL_Window* gWindow = NULL;
 
@@ -118,6 +120,11 @@ LTexture gRightTexture3;
 
 LTexture background;
 LTexture morrissey;
+
+LTexture encounterGFX;
+LTexture trainerBackGFX;
+
+LTexture SquirtleGFX;
 
 LTexture::LTexture()
 {
@@ -464,6 +471,33 @@ bool loadMedia()
 		success = false;
 	}
 
+//================================================================================//
+
+	//Load battle texture
+	if( !encounterGFX.loadFromFile( "./encounter.png" ) )
+	{
+		printf( "Failed to load press texture!\n" );
+		success = false;
+	}
+
+//================================================================================//
+
+	//Load battle texture
+	if( !SquirtleGFX.loadFromFile( "./squirtle.png" ) )
+	{
+		printf( "Failed to load press texture!\n" );
+		success = false;
+	}
+
+//================================================================================//
+
+	//Load trainer texture
+	if( !trainerBackGFX.loadFromFile( "./trainerBack.png" ) )
+	{
+		printf( "Failed to load press texture!\n" );
+		success = false;
+	}
+
 	return success;
 }
 
@@ -495,6 +529,8 @@ void close()
 	background.free();
 	morrissey.free();
 
+	encounterGFX.free();
+
 	//Destroy window	
 	SDL_DestroyRenderer( gRenderer );
 	SDL_DestroyWindow( gWindow );
@@ -521,6 +557,22 @@ void print( LTexture* currentTexture, LTexture* background, LTexture* morrissey,
 	currentTexture->render( SCREEN_WIDTH/2, SCREEN_HEIGHT/2 );
 
 	//Update screen
+	SDL_RenderPresent( gRenderer );
+
+}
+
+//###################################################################################################################################//
+
+void battleGFX(){
+
+	//Clear screen
+	SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
+	SDL_RenderClear( gRenderer );
+
+	encounterGFX.render(0, 0);
+	SquirtleGFX.render(440, 95);
+	trainerBackGFX.render(50, 150);
+
 	SDL_RenderPresent( gRenderer );
 
 }
@@ -591,7 +643,7 @@ int yMoveDown( int y )
 //###########################//
 
 //Wild pokemon encounter-----------------------------------------------------
-void wildBattle( int x, int y, Trainer trainer, Pokemon &wildPoke ){
+void wildBattle( int x, int y, Trainer trainer, Pokemon &wildPoke, LTexture *encounterGFX ){
 	srand(time(NULL));
 	int encounter = rand() % 5;
 	char battleOver = ' ';
@@ -604,6 +656,7 @@ void wildBattle( int x, int y, Trainer trainer, Pokemon &wildPoke ){
 				cout << "Pokemon encounter!" << endl;
 				while ( battleOver != 'e' )
 				{
+					battleGFX();
 					trainer.encounter_pokemon( wildPoke );
 					cout << "press 'e' to exit battle" << endl;
 					cin >> battleOver;
@@ -612,6 +665,7 @@ void wildBattle( int x, int y, Trainer trainer, Pokemon &wildPoke ){
 			}
 		}
 	}
+
 }
 
 //enterMorrissey/exitMorrissey----------------------------------------------------------------
@@ -742,7 +796,7 @@ int main( int argc, char* args[] )
 						y = yMoveUp( y );
 						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 						clipSwitch = 1;
-						wildBattle(x, y, trainer, Squirtle);
+						wildBattle(x, y, trainer, Squirtle, &encounterGFX);
 						cout << x << endl << y << endl;
 						cout << "frame count:" << framecounter << endl;
 					}
@@ -766,7 +820,7 @@ int main( int argc, char* args[] )
 						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
 						clipSwitch = 2;
-						wildBattle(x, y, trainer, Squirtle);
+						wildBattle(x, y, trainer, Squirtle, &encounterGFX);
 						cout << x << endl << y << endl;
 						cout << "frame count:" << framecounter << endl;
 					}
@@ -790,7 +844,7 @@ int main( int argc, char* args[] )
 						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
 						clipSwitch = 3;
-						wildBattle(x, y, trainer, Squirtle);
+						wildBattle(x, y, trainer, Squirtle, &encounterGFX);
 						cout << x << endl << y << endl;
 						cout << "frame count:" << framecounter << endl;
 					}
@@ -814,7 +868,7 @@ int main( int argc, char* args[] )
 						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
 						clipSwitch = 4;
-						wildBattle(x, y, trainer, Squirtle);
+						wildBattle(x, y, trainer, Squirtle, &encounterGFX);
 						cout << x << endl << y << endl;
 						cout << "frame count:" << framecounter << endl;
 					}
