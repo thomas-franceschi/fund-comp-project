@@ -10,6 +10,8 @@
 #include <iostream>
 #include <cstdlib>
 
+#include "trainer.h"
+
 using namespace std;
 
 //Screen dimension constants
@@ -595,7 +597,7 @@ int yMoveDown( int y )
 //###########################//
 
 //Wild pokemon encounter-----------------------------------------------------
-void wildBattle( int x, int y){
+void wildBattle( int x, int y, Trainer trainer, Pokemon &wildPoke ){
 	srand(time(NULL));
 	int encounter = rand() % 5;
 	char battleOver = ' ';
@@ -608,6 +610,7 @@ void wildBattle( int x, int y){
 				cout << "Pokemon encounter!" << endl;
 				while ( battleOver != 'e' )
 				{
+					trainer.encounter_pokemon( wildPoke );
 					cout << "press 'e' to exit battle" << endl;
 					cin >> battleOver;
 					if (battleOver != 'e') battleOver = ' ';
@@ -662,6 +665,27 @@ int main( int argc, char* args[] )
 	int x = -716;
 	int y = -1450;
 	int inMorrissey = 0;
+
+	Trainer trainer;
+	Moves pound("Pound", 40, 90);
+	Moves tackle("Tackle", 50, 90 );
+
+	Potion potion("potion", 20);
+	Potion super_potion("Super Potion", 50);
+
+	Watertype Squirtle("Squirtle", 44, 48, 65, 4, 12, 0, 0 );
+	Flyingtype Caterpie("Caterpie", 45, 30, 35, 2, 12, 0, 0);
+
+	Squirtle.add_move(pound);
+	Squirtle.add_move(tackle);
+
+	Caterpie.add_move(pound);
+	Caterpie.add_move(tackle);
+
+	trainer.catch_pokemon(Squirtle);
+	trainer.catch_pokemon(Caterpie);
+	trainer.add_potion(potion);
+	trainer.add_potion(super_potion);
 
 	//Start up SDL and create window
 	if( !init() )
@@ -724,7 +748,7 @@ int main( int argc, char* args[] )
 						y = yMoveUp( y );
 						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 						clipSwitch = 1;
-						wildBattle(x, y);
+						wildBattle(x, y, trainer, Squirtle);
 						cout << x << endl << y << endl;
 						cout << "frame count:" << framecounter << endl;
 
@@ -750,7 +774,7 @@ int main( int argc, char* args[] )
 						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
 						clipSwitch = 2;
-						wildBattle(x, y);
+						wildBattle(x, y, trainer, Squirtle);
 						cout << x << endl << y << endl;
 						cout << "frame count:" << framecounter << endl;
 					}
@@ -774,7 +798,7 @@ int main( int argc, char* args[] )
 						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
 						clipSwitch = 3;
-						wildBattle(x, y);
+						wildBattle(x, y, trainer, Squirtle);
 						cout << x << endl << y << endl;
 						cout << "frame count:" << framecounter << endl;
 
@@ -799,7 +823,7 @@ int main( int argc, char* args[] )
 						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
 						clipSwitch = 4;
-						wildBattle(x, y);
+						wildBattle(x, y, trainer, Squirtle);
 						cout << x << endl << y << endl;
 						cout << "frame count:" << framecounter << endl;
 					}
@@ -823,9 +847,16 @@ int main( int argc, char* args[] )
 								currentTexture = &gDownTexture0;
 						}
 					}
+<<<<<<< HEAD
 				
 				inMorrissey = enterMorrissey( x, y, inMorrissey);
 				inMorrissey = exitMorrissey( x, y, inMorrissey);
+=======
+				}
+			
+				//inMorrissey = enterMorrissey( x, y, inMorrissey);
+				//inMorrissey = exitMorrissey( x, y, inMorrissey);
+>>>>>>> 52c68d772354bbf1f072fed9cc0c2a860c159a6c
 				framecounter++;
 				print( currentTexture, &background, &morrissey, x, y, inMorrissey );				
 			}
@@ -834,6 +865,7 @@ int main( int argc, char* args[] )
 	//STOP USING STUPID CL OUTPUTS
 	//cout << "Closing time..." << endl;
 	//Free resources and close SDL
+
 	close();
 
 	return 0;

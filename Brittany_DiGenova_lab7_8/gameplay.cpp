@@ -4,13 +4,16 @@
 //SDL graphics to build our game interface later on
 
 #include <iostream>
-#include "trainer.h"
+#include "watertype.h"
+#include "flyingtype.h"
+#include "firetype.h"
 
 using namespace std;
 
 
 int main() {
-	
+	int win = 0;
+	//INITIALIZE ALL POKEMON BEFORE GAMEPLAY
 	//Initialize firetype pokemon
 	Firetype Charmander; //No strengths or weaknesses yet 
 	Firetype Ponyta;
@@ -42,12 +45,17 @@ int main() {
 	Potion potion("potion", 20);
 	Potion super_potion ("super_potion", 50);
 	
+	
+	//INITIALIZE ALL MOVES 
+	
 	//Initialize moves 
 	Moves pound("Pound", 40, 90);
 	Moves hydro_pump("Hydro Pump", 110, 80);
 	Moves headbutt("Headbutt", 70, 100);
 	Moves tackle("Tackle", 50, 90);
 	Moves bodyslam("Bodyslam", 85, 75);
+	
+	//ADD MOVES TO POKEMON
 	
 	//Add moves to Brittany pokemon
 	Brittany.add_move(bodyslam);
@@ -56,10 +64,12 @@ int main() {
 	Kyle.add_move(bodyslam);
 	Kyle.add_move(headbutt);
 	
-	//Initialize trainer
-	Trainer Kyle_Williams("Kyle Williams", 2);
-	cout << "The trainer's name is " << Kyle_Williams.get_name() << " and he has " << Kyle_Williams.get_pokeball() << " pokeballs." << endl;
-	
+	//WHILE LOOP THAT HOLDS GAMEPLAY UNTIL THERE IS A WINNER 
+	while (win == 0 ) {
+		//PUT IN ALL MOVEMENT CODE 
+		
+		
+	}
 	//Print Kyle's stats
 	cout << " Prior to the battle Kyle has " << Kyle.get_hit_points() << " hit points." << endl;
 	
