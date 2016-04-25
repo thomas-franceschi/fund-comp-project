@@ -87,7 +87,13 @@ int xMoveRight( int );
 int yMoveUp( int );
 int yMoveDown( int );
 
+<<<<<<< HEAD
 void battleGFX();
+=======
+//walking functions
+int canWalk( int, int, int);
+//int enterMorrissey( int&, int&, int&);
+>>>>>>> b25a40636c4386ed6500e1aab37c4f5e9d5cc69d
 
 //The window we'll be rendering to
 SDL_Window* gWindow = NULL;
@@ -295,7 +301,7 @@ bool init()
 		}
 
 		//Create window
-		gWindow = SDL_CreateWindow( "Walking Demo", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
+		gWindow = SDL_CreateWindow( "Pokemon Blue & Gold", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
 		if( gWindow == NULL )
 		{
 			printf( "Window could not be created! SDL Error: %s\n", SDL_GetError() );
@@ -579,61 +585,64 @@ void battleGFX(){
 
 //###########################//
 
-int xMoveLeft( int x )
+int xMoveLeft( int x, int y, int inMorrissey )
 {
 	const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
 
-	if( x >= -1 ){
-		x = -1;
-	}
-	if(currentKeyStates[SDL_SCANCODE_SPACE]) x += 3;
-	else{
-		x++;
+	if (canWalk(x + 3, y, inMorrissey) == 1){
+
+		if(currentKeyStates[SDL_SCANCODE_SPACE]) x += 3;
+		else{
+			x++;
+		}
 	}
 
 	return x;
 
 }
 
-int xMoveRight( int x )
+int xMoveRight( int x, int y, int inMorrissey )
 {
 	const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
-	if( x <= -3000 ){
-		x = -3000;
-	}
-	if(currentKeyStates[SDL_SCANCODE_SPACE]) x-=3;
-	else{
-		x--;
+
+	if (canWalk(x - 3, y, inMorrissey) == 1){
+		if(currentKeyStates[SDL_SCANCODE_SPACE]) x -= 3;
+		else{
+			x--;
+		}
 	}
 
 	return x;
 
 }
 
-int yMoveUp( int y )
+int yMoveUp( int x, int y, int inMorrissey )
 {
 	const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
-	if( y >= -1 ){
-		y = -1;
-	}
-	if(currentKeyStates[SDL_SCANCODE_SPACE]) y+=3;
-	else{
-		y++;
+
+	if (canWalk(x, y + 3, inMorrissey) == 1){	
+		if(currentKeyStates[SDL_SCANCODE_SPACE]) y += 3;
+		else{
+			y++;
+		}
 	}
 
 	return y;
 
 }
 
-int yMoveDown( int y )
+int yMoveDown( int x, int y, int inMorrissey )
 {
 	const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
-	if( y <= -3072 + SCREEN_HEIGHT ){
-		y = -3072 + SCREEN_HEIGHT;
-	}
-	if(currentKeyStates[SDL_SCANCODE_SPACE]) y-=3;
-	else{
-		y--;
+
+	if (canWalk(x, y - 3, inMorrissey) == 1){
+		if( y <= -3072 + SCREEN_HEIGHT ){
+			y = -3072 + SCREEN_HEIGHT;
+		}
+		else if(currentKeyStates[SDL_SCANCODE_SPACE]) y -= 3;
+		else{
+			y--;
+		}
 	}
 
 	return y;
@@ -673,32 +682,67 @@ void wildBattle( int x, int y, Trainer trainer, Pokemon &wildPoke, LTexture *enc
 int enterMorrissey( int &x, int &y, int inMorrissey ) {
 	if (inMorrissey == 1) return 1;
 	if ( x <= -715 && x >= -720){
-		if ( y <= -1390 && y >= -1400){
+		if ( y <= -1390 && y >= -1405){
 			x = -1136;
 			y = -1390;
 			return 1;
 		}
 	}
+	else return 0;
 }
 
 int exitMorrissey( int &x, int &y, int inMorrissey){
+	//exit front door
 	if (inMorrissey == 1 && x <= -1130 && x >= -1140 && y <= -1395 && y >= -1450) {
 		x = -716;
 		y = -1410;
 		return 0;
 	}
+	//exit right side door
+	if (inMorrissey == 1 && x <= -2048 && x >= -2058 && y <= -1158 && y >= -1166) {
+		x = -1027;
+		y = -1338;
+		return 0;
+	}
+	//exit left side door
+	if (inMorrissey == 1 && x <= -150 && x >= -160 && y <= -1158 && y >= -1166) {
+		x = -637;
+		y = -1322;
+		return 0;
+	}
+
 	else if (inMorrissey == 0) return 0;
 	else if (inMorrissey == 1) return 1;
+	else return 0;
 }
 
 //canWalk--------------------------------------------------------------------
 
 int canWalk( int x, int y, int inMorrissey ){
-	//if ( inMorrissey == 0 ) {
-		if ( x <= -636 && x >= -1024 && y <= -1222 && y >= -1410) return 0;
+	//overworld boundaries
+	if ( inMorrissey != 1 ) {
+		//out of bounds
+		if ( x + 3 > 0 ) return 0;
+		if ( y + 3 > 0 ) return 0;
+		if ( x + 3 < -2618 ) return 0;
+		//morrissey
+		if ( x <= -640 && x >= -1024 && y <= -1235 && y >= -1402) return 0;
+		//morrissey tower
+		if ( x <= -640 && x >= -838 && y <= -1065 && y >= -1402) return 0;
+		//Howard Hall
+		if ( x <= -1101 && x >= -1289 && y <= -1353 && y >= -1791) return 0;
+		if ( x <= -1101 && x >= -1353 && y <= -1553 && y >= -1791) return 0;
+
+
 		else return 1;
-	//}
-	//else return 1;
+
+
+	}
+	//inside morrissey boundaries
+	else if ( inMorrissey == 1){
+		return 1;
+	}
+	else return 1;
 }
 
 
@@ -736,19 +780,11 @@ int main( int argc, char* args[] )
 	trainer.add_potion(super_potion);
 
 	//Start up SDL and create window
-	if( !init() )
-	{
-		printf( "Failed to initialize!\n" );
-	}
-	else
-	{
+	if( !init() ) printf( "Failed to initialize!\n" );
+	else {
 		//Load media
-		if( !loadMedia() )
-		{
-			printf( "Failed to load media!\n" );
-		}
-		else
-		{	
+		if( !loadMedia() ) printf( "Failed to load media!\n" );
+		else {	
 			//Main loop flag
 			bool quit = false;
 
@@ -757,66 +793,59 @@ int main( int argc, char* args[] )
 
 			//Current rendered texture
 			LTexture* currentTexture = NULL;
-
+			inMorrissey = 0;
 			//While application is running
-			while( !quit )
-			{
-				//cout << "Dont quit" << endl;
+			while( !quit ) {
 				//Handle events on queue
-				while( SDL_PollEvent( &e ) != 0 )
-				{
-					//cout << "Polling..." << endl;
+				while( SDL_PollEvent( &e ) != 0 ) {
 					//User requests quit
-					if( e.type == SDL_QUIT )
-					{
-						quit = true;
-					}
+					if( e.type == SDL_QUIT ) quit = true;
 				}
 				//cout << "hmmm..." << endl;
 				//Set texture based on current keystate
 				const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
 				//cout << "hit a key" << endl;
 				
-				if( currentKeyStates[ SDL_SCANCODE_UP ] ){
-				//cout << "KeyUp" << endl;
-					if(canWalk(x, y, inMorrissey) == 1) {
+					if( currentKeyStates[ SDL_SCANCODE_UP ] ){
+					//cout << "KeyUp" << endl;
+
 						if (framecounter%4 == 0) currentTexture = &gUpTexture0;
-						y = yMoveUp( y );
+						y = yMoveUp( x, y, inMorrissey );
 						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
 						if (framecounter%4 == 1) currentTexture = &gUpTexture1;
-						y = yMoveUp( y );
+						y = yMoveUp( x, y, inMorrissey );
 						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
 						if (framecounter%4 == 2) currentTexture = &gUpTexture2;
-						y = yMoveUp( y );
+						y = yMoveUp( x, y, inMorrissey );
 						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
 						if (framecounter%4 == 3) currentTexture = &gUpTexture3;
-						y = yMoveUp( y );
+						y = yMoveUp( x, y, inMorrissey );
 						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
+						
 						clipSwitch = 1;
 						wildBattle(x, y, trainer, Squirtle, &encounterGFX);
 						cout << x << endl << y << endl;
 						cout << "frame count:" << framecounter << endl;
 					}
-				}
-				else if( currentKeyStates[ SDL_SCANCODE_DOWN ] ) {
-					if(canWalk(x, y, inMorrissey) == 1) {
+					else if( currentKeyStates[ SDL_SCANCODE_DOWN ] )
+					{
 						if (framecounter%4 == 0) currentTexture = &gDownTexture0;
-						y = yMoveDown( y );
+						y = yMoveDown( x, y, inMorrissey );
 						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
 						if (framecounter%4 == 1) currentTexture = &gDownTexture1;
-						y = yMoveDown( y );
+						y = yMoveDown( x, y, inMorrissey );
 						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
 						if (framecounter%4 == 2) currentTexture = &gDownTexture2;
-						y = yMoveDown( y );
+						y = yMoveDown( x, y, inMorrissey );
 						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
 						if (framecounter%4 == 3) currentTexture = &gDownTexture3;
-						y = yMoveDown( y );
+						y = yMoveDown( x, y, inMorrissey );
 						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
 						clipSwitch = 2;
@@ -824,47 +853,48 @@ int main( int argc, char* args[] )
 						cout << x << endl << y << endl;
 						cout << "frame count:" << framecounter << endl;
 					}
-				}
-				else if( currentKeyStates[ SDL_SCANCODE_LEFT ] ){
-					if(canWalk(x, y, inMorrissey) == 1) {
+					else if( currentKeyStates[ SDL_SCANCODE_LEFT ] )
+					{
+
 						if (framecounter%4 == 0) currentTexture = &gLeftTexture0;
-						x = xMoveLeft( x );
+						x = xMoveLeft( x, y, inMorrissey );
 						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
 						if (framecounter%4 == 1) currentTexture = &gLeftTexture1;
-						x = xMoveLeft( x );
+						x = xMoveLeft( x, y, inMorrissey );
 						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
 						if (framecounter%4 == 2) currentTexture = &gLeftTexture2;
-						x = xMoveLeft( x );
+						x = xMoveLeft( x, y, inMorrissey );
 						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
 						if (framecounter%4 == 3) currentTexture = &gLeftTexture3;
-						x = xMoveLeft( x );
+						x = xMoveLeft( x, y, inMorrissey );
 						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
 						clipSwitch = 3;
 						wildBattle(x, y, trainer, Squirtle, &encounterGFX);
 						cout << x << endl << y << endl;
 						cout << "frame count:" << framecounter << endl;
+
 					}
-				}
-				else if( currentKeyStates[ SDL_SCANCODE_RIGHT ] ){
-					if(canWalk(x, y, inMorrissey) == 1) {
+					else if( currentKeyStates[ SDL_SCANCODE_RIGHT ] )
+					{
+
 						if (framecounter%4 == 0) currentTexture = &gRightTexture0;
-						x = xMoveRight( x );
+						x = xMoveRight( x, y, inMorrissey );
 						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
 						if (framecounter%4 == 1) currentTexture = &gRightTexture1;
-						x = xMoveRight( x );
+						x = xMoveRight( x, y, inMorrissey );
 						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
 						if (framecounter%4 == 2) currentTexture = &gRightTexture2;
-						x = xMoveRight( x );
+						x = xMoveRight( x, y, inMorrissey );
 						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
 						if (framecounter%4 == 3) currentTexture = &gRightTexture3;
-						x = xMoveRight( x );
+						x = xMoveRight( x, y, inMorrissey );
 						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
 						clipSwitch = 4;
@@ -872,40 +902,43 @@ int main( int argc, char* args[] )
 						cout << x << endl << y << endl;
 						cout << "frame count:" << framecounter << endl;
 					}
-				}
-				else
-				{
-					//cout << clipSwitch << endl;
-					switch ( clipSwitch ){
-						case 1:
-							currentTexture = &gUpTexture0;
-							break;
-						case 2:
-							currentTexture = &gDownTexture0;
-							break;
-						case 3:
-							currentTexture = &gLeftTexture0;
-							break;
-						case 4:
-							currentTexture = &gRightTexture0;
-							break;
-						default:
-							currentTexture = &gDownTexture0;
+					else
+					{
+						//cout << clipSwitch << endl;
+						switch ( clipSwitch )
+						{
+							case 1:
+								currentTexture = &gUpTexture0;
+								break;
+							case 2:
+								currentTexture = &gDownTexture0;
+								break;
+							case 3:
+								currentTexture = &gLeftTexture0;
+								break;
+							case 4:
+								currentTexture = &gRightTexture0;
+								break;
+							default:
+								currentTexture = &gDownTexture0;
+						}
 					}
-				}
-			
-				//inMorrissey = enterMorrissey( x, y, inMorrissey);
-				//inMorrissey = exitMorrissey( x, y, inMorrissey);
+				
+				inMorrissey = enterMorrissey( x, y, inMorrissey);
+				inMorrissey = exitMorrissey( x, y, inMorrissey);
+				
+
 				framecounter++;
+				//if ( framecounter > 10000) framecounter = 0;
 				print( currentTexture, &background, &morrissey, x, y, inMorrissey );				
 			}
 		}
+		//	close();
 	}
-	//STOP USING STUPID CL OUTPUTS
-	//cout << "Closing time..." << endl;
+
 	//Free resources and close SDL
 
-	close();
 
-	return 0;
+
+	//return 0;
 }
