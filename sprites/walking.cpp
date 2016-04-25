@@ -87,13 +87,10 @@ int xMoveRight( int );
 int yMoveUp( int );
 int yMoveDown( int );
 
-<<<<<<< HEAD
 void battleGFX();
-=======
 //walking functions
 int canWalk( int, int, int);
 //int enterMorrissey( int&, int&, int&);
->>>>>>> b25a40636c4386ed6500e1aab37c4f5e9d5cc69d
 
 //The window we'll be rendering to
 SDL_Window* gWindow = NULL;
@@ -128,8 +125,8 @@ LTexture background;
 LTexture morrissey;
 
 LTexture encounterGFX;
+LTexture battleTXT;
 LTexture trainerBackGFX;
-
 LTexture SquirtleGFX;
 
 LTexture::LTexture()
@@ -504,6 +501,15 @@ bool loadMedia()
 		success = false;
 	}
 
+//================================================================================//
+
+	//Load battle text texture
+	if( !battleTXT.loadFromFile( "./battletext.png" ) )
+	{
+		printf( "Failed to load press texture!\n" );
+		success = false;
+	}
+
 	return success;
 }
 
@@ -536,6 +542,9 @@ void close()
 	morrissey.free();
 
 	encounterGFX.free();
+	SquirtleGFX.free();
+	trainerBackGFX.free();
+	battleTXT.free();
 
 	//Destroy window	
 	SDL_DestroyRenderer( gRenderer );
@@ -577,7 +586,8 @@ void battleGFX(){
 
 	encounterGFX.render(0, 0);
 	SquirtleGFX.render(440, 95);
-	trainerBackGFX.render(50, 150);
+	trainerBackGFX.render(50, 165);
+	battleTXT.render(30, 425);
 
 	SDL_RenderPresent( gRenderer );
 
