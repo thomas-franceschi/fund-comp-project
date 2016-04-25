@@ -689,12 +689,10 @@ int main( int argc, char* args[] )
 
 	//Start up SDL and create window
 	if( !init() ) printf( "Failed to initialize!\n" );
-	else
-	{
+	else {
 		//Load media
 		if( !loadMedia() ) printf( "Failed to load media!\n" );
-		else
-		{	
+		else {	
 			//Main loop flag
 			bool quit = false;
 
@@ -706,14 +704,10 @@ int main( int argc, char* args[] )
 
 			//While application is running
 			while( !quit ) {
-				//cout << "Dont quit" << endl;
 				//Handle events on queue
 				while( SDL_PollEvent( &e ) != 0 ) {
-					//cout << "Polling..." << endl;
 					//User requests quit
-					if( e.type == SDL_QUIT ) {
-						quit = true;
-					}
+					if( e.type == SDL_QUIT ) quit = true;
 				}
 				//cout << "hmmm..." << endl;
 				//Set texture based on current keystate
@@ -742,12 +736,9 @@ int main( int argc, char* args[] )
 						wildBattle(x, y, trainer, Squirtle);
 						cout << x << endl << y << endl;
 						cout << "frame count:" << framecounter << endl;
-
-						
 					}
 					else if( currentKeyStates[ SDL_SCANCODE_DOWN ] )
 					{
-
 						if (framecounter%4 == 0) currentTexture = &gDownTexture0;
 						y = yMoveDown( y );
 						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
@@ -821,7 +812,8 @@ int main( int argc, char* args[] )
 					else
 					{
 						//cout << clipSwitch << endl;
-						switch ( clipSwitch ){
+						switch ( clipSwitch )
+						{
 							case 1:
 								currentTexture = &gUpTexture0;
 								break;
@@ -838,16 +830,11 @@ int main( int argc, char* args[] )
 								currentTexture = &gDownTexture0;
 						}
 					}
-//<<<<<<< HEAD
 				
 				inMorrissey = enterMorrissey( x, y, inMorrissey);
 				inMorrissey = exitMorrissey( x, y, inMorrissey);
-//=======
-				}
-			
-				//inMorrissey = enterMorrissey( x, y, inMorrissey);
-				//inMorrissey = exitMorrissey( x, y, inMorrissey);
-//>>>>>>> 52c68d772354bbf1f072fed9cc0c2a860c159a6c
+				
+
 				framecounter++;
 				print( currentTexture, &background, &morrissey, x, y, inMorrissey );				
 			}
