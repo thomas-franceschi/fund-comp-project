@@ -535,10 +535,6 @@ int xMoveLeft( int x, int y, int inMorrissey )
 {
 	const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
 
-		if( x >= -1 ){
-			x = -1;
-		}
-
 	if (canWalk(x + 3, y, inMorrissey) == 1){
 
 		if(currentKeyStates[SDL_SCANCODE_SPACE]) x += 3;
@@ -556,9 +552,6 @@ int xMoveRight( int x, int y, int inMorrissey )
 	const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
 
 	if (canWalk(x - 3, y, inMorrissey) == 1){
-		if( x <= -3000 ){
-			x = -3000;
-		}
 		if(currentKeyStates[SDL_SCANCODE_SPACE]) x -= 3;
 		else{
 			x--;
@@ -573,12 +566,7 @@ int yMoveUp( int x, int y, int inMorrissey )
 {
 	const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
 
-	if( y >= -1 ){
-			y = -1;
-		}
-
-	if (canWalk(x, y + 3, inMorrissey) == 1){
-		
+	if (canWalk(x, y + 3, inMorrissey) == 1){	
 		if(currentKeyStates[SDL_SCANCODE_SPACE]) y += 3;
 		else{
 			y++;
@@ -644,6 +632,7 @@ int enterMorrissey( int &x, int &y, int inMorrissey ) {
 			return 1;
 		}
 	}
+	else return 0;
 }
 
 int exitMorrissey( int &x, int &y, int inMorrissey){
@@ -654,16 +643,29 @@ int exitMorrissey( int &x, int &y, int inMorrissey){
 	}
 	else if (inMorrissey == 0) return 0;
 	else if (inMorrissey == 1) return 1;
+	else return 0;
 }
 
 //canWalk--------------------------------------------------------------------
 
 int canWalk( int x, int y, int inMorrissey ){
-	//if ( inMorrissey == 0 ) {
-		if ( x <= -636 && x >= -1024 && y <= -1235 && y >= -1402) return 0;
+	//overworld boundaries
+	if ( inMorrissey != 1 ) {
+		//out of bounds
+		if ( x + 3 > 0 ) return 0;
+		if ( y + 3 > 0 ) return 0;
+		if ( x + 3 < -2618 ) return 0;
+		//morrissey
+		if ( x <= -640 && x >= -1024 && y <= -1235 && y >= -1402) return 0;
+		//morrissey tower
+		if ( x <= -640 && x >= -838 && y <= -1065 && y >= -1402) return 0;
 		else return 1;
-	//}
-	//else return 1;
+	}
+	//inside morrissey boundaries
+	else if ( inMorrissey == 1){
+		return 1;
+	}
+	else return 1;
 }
 
 
@@ -714,7 +716,7 @@ int main( int argc, char* args[] )
 
 			//Current rendered texture
 			LTexture* currentTexture = NULL;
-
+			inMorrissey = 0;
 			//While application is running
 			while( !quit ) {
 				//Handle events on queue
