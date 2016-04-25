@@ -667,8 +667,10 @@ int canWalk( int x, int y, int inMorrissey ){
 	if ( inMorrissey != 1 ) {
 		//out of bounds
 		if ( x + 3 > 0 ) return 0;
-		if ( y + 3 > 0 ) return 0;
+		if ( y + 3 > -113 ) return 0;
 		if ( x + 3 < -2618 ) return 0;
+		//Upper left corner bound
+		if( x > -1225 && y > -378 ) return 0;
 		//morrissey
 		if ( x <= -640 && x >= -1024 && y <= -1235 && y >= -1402) return 0;
 		//morrissey tower
@@ -676,6 +678,22 @@ int canWalk( int x, int y, int inMorrissey ){
 		//Howard Hall
 		if ( x <= -1101 && x >= -1289 && y <= -1353 && y >= -1791) return 0;
 		if ( x <= -1101 && x >= -1353 && y <= -1553 && y >= -1791) return 0;
+		//Badin Hall
+		if ( x <= -1430 && x >= -1616 && y <= -1363 && y >= -1791) return 0;
+		if ( x <= -1430 && x >= -1697 && y <= -1523 && y >= -1775) return 0;
+		if ( x <= -1430 && x >= -1635 && y <= -1600 && y >= -1791) return 0;
+		//Bond Hall
+		if ( x <= -1101 && x >= -1288 && y <= -988 && y >= -1240) return 0;
+		if ( x <= -1101 && x >= -1370 && y <= -1171 && y >= -1240) return 0;
+		if ( x <= -1101 && x >= -1370 && y <= -988 && y >= -1109) return 0;
+		//Bond dumpster and truck
+		if ( x <= -953 && x >= -1110 && y <= -1005 && y >= -1093) return 0;
+		//Lyons to left edge
+		if ( x <= 0 && x >= -551 && y <= -1360 && y >= -1776) return 0;
+		//Lyons parking lot
+		if ( x <= 0 && x >= -193 && y <= -987 && y >= -1400 ) return 0;
+
+
 
 
 		else return 1;
