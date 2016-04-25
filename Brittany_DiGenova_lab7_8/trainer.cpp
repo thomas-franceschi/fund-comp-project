@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <string>
+#include <cstdlib>
 #include "trainer.h"
 
 using namespace std;
@@ -32,7 +33,7 @@ void Trainer::list_pokemon () {
 	cout << "You have the following pokemon: " << endl;
 	
 	for ( int i = 0; i < pokemon.size(); i++ ){
-		cout << i + 1 << ". " << pokemon[i].get_name() << endl;
+		cout << i + 1 << ". " << pokemon[i].get_name() << ": " << pokemon[i].get_hit_points() << " hp" << endl;
 	}
 	
 	cout << endl;
@@ -78,31 +79,66 @@ void Trainer::encounter_pokemon ( Pokemon & battle_pokemon ) {
 }
 
 
-void Trainer::battle_trainer ( Trainer & opponent ){
-	int kill = 0, choice = 0;
+//Battle function 
+int Trainer::battle_trainer ( Trainer & opponent ){
+	srand(time(NULL));
+	
+	int kill = 0, choice = 0, pokemon_number;
+	vector < Pokemon > usable_pokemon;
+	vector < Pokemon > usable_opponent_pokemon;
+	Pokemon opponent_pokemon;
 	
 	while (kill == 0) {
-		cout << " Please choose a Pokemon " << endl;
-		list_pokemon();
-		cin >> choice;
 		
-		if (choice < 1 || choice > pokemon.size() ) choice = 1;
+		usable_pokemon.clear();
 		
-		//Change choice to choice - 1 since access starts at 0
-		choice = choice - 1;
+		for (int i = 0; i < pokemon.size(); i++ ){
+			if (pokemon[i].get_hit_points()> 0) usable_pokemon.push_back(pokemon[i]);
+		}
 		
-		if (pokemon[choice].get_hit_points() <= 0) {
-			cout << "Sorry that Pokemon is fainted please pick another." << endl;
+		if ( usable_pokemon.size() == 0 ) {
+			cout << "All your Pokemon have fainted. Go heal them, then you can battle." << endl;
+			return 0;
 		}
 		
 		else {
-				cout << "You picked a valid Pokemon" << endl;
-				kill = 1;
-			//PICK POKEMON FOR OPPONENT TRAINER THAT IS ALIVE AND IF ALL POKEMON ARE
-			//FAINTED FOR EITHER TRAINER OR OPPONENT MAKE KILL = 1;
+			cout << " Please choose a Pokemon " << endl;
+			list_pokemon();
+			cin >> choice;
 			
-		}
+			if (choice < 1 || choice > pokemon.size() ) choice = 1;
+			
+			//Change choice to choice - 1 since access starts at 0
+			choice = choice - 1;
+			
+			if (pokemon[choice].get_hit_points() <= 0) {
+				cout << "Sorry that Pokemon is fainted please pick another." << endl;
+			}
+			
+			else {
+				cout << "You picked " << pokemon[choice].get_name() << "." << endl;
+				usable_opponent_pokemon.clear();
+				for (int i = 0; i < opponent.pokemon.size(); i++ ){
+					if (opponent.pokemon[i].get_hit_points()!=0) usable_opponent_pokemon.push_back(opponent.pokemon[i]);
+				}
 		
+				if ( usable_opponent_pokemon.size() == 0 ) {
+					cout << "All the opponents Pokemon have fainted. You win!" << endl;
+					return 1;
+				}
+				
+				else {
+					pokemon_number = rand () % opponent.pokemon.size();
+					
+					while ( opponent.pokemon[pokemon_number].get_hit_points() == 0 ) {
+						//choose a different pokemon
+						pokemon_number = rand () % opponent.pokemon.size();
+					}
+					
+					pokemon[choice].battle(opponent.pokemon[pokemon_number]);	
+				}				
+			}	
+		}
 	}
 }
 

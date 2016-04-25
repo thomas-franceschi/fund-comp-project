@@ -26,7 +26,7 @@ class Trainer {
 	void list_potion ();
 	void list_stats ();
 	void encounter_pokemon ( Pokemon &);
-	void battle_trainer ( Trainer & );
+	int battle_trainer ( Trainer & );
 	int get_pokeball();
 	int add_pokeball();
 	

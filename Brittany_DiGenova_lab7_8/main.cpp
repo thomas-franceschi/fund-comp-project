@@ -58,9 +58,18 @@ int main() {
 	
 	//Initialize trainer
 	Trainer Kyle_Williams("Kyle Williams", 2);
-	cout << "The trainer's name is " << Kyle_Williams.get_name() << " and he has " << Kyle_Williams.get_pokeball() << " pokeballs." << endl;
+	Trainer Brittany_DiGenova("Brittany DiGenova", 3);
 	
-	//Print Kyle's stats
+	cout << "The trainer's name is " << Kyle_Williams.get_name() << " and he has " << Kyle_Williams.get_pokeball() << " pokeballs." << endl;
+	Kyle_Williams.catch_pokemon(Kyle);
+	
+	Brittany_DiGenova.catch_pokemon(Brittany);
+	Brittany_DiGenova.list_stats();
+	
+	
+	Brittany_DiGenova.battle_trainer(Kyle_Williams);
+	
+	/*//Print Kyle's stats
 	cout << " Prior to the battle Kyle has " << Kyle.get_hit_points() << " hit points." << endl;
 	
 	//Attack Kyle 
@@ -72,19 +81,7 @@ int main() {
 	
 	//Print Kyle's stats
 	cout << " After the battle Kyle has " << Kyle.get_hit_points() << " hit points." << endl;
-	cout << " After the battle Brittany has " << Brittany.get_hit_points() << " hit points." << endl;
-	
-	/*//show Pokemon's hit points before simple healing
-	cout << "Charmander has " << Charmander.get_hit_points() << " hit points." << endl;
-	lpo0pooooooooooooooo-
-	//heal Pokemon
-	Charmander.heal(potion);
-	Charmander.heal(super_potion);
-	
-	//show Pokemon's hit points after simple healing
-		cout << "Charmander has " << Charmander.get_hit_points() << " hit points." << endl;*/
-	
-	
+	cout << " After the battle Brittany has " << Brittany.get_hit_points() << " hit points." << endl;*/
 	
 	return 0;
 }

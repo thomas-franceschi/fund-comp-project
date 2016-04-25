@@ -23,33 +23,59 @@ Pokemon::Pokemon(string n, int hp, int att, int def, int lev, int ev_lev ) {
 
 //Battle function returns 1 for a win and 0 for a loss
 int Pokemon::battle ( Pokemon &opponent ) {
-	int move = 1;
+	int move = 1, kill = 0, run = 0;
+	int choice;
 	
-	while (hit_points > 0 && opponent.get_hit_points() > 0 ) {
+	while (hit_points > 0 && opponent.get_hit_points() > 0 && kill == 0 ) {
 		//switch between attacking and defending 
-		move = move * -1;
-		if(move == -1) {
-			cout << "Making attack" << endl;
-			make_attack(opponent);
+		cout << "Press (1) to fight and (2) to run." << endl;
+		cin >> choice;
+		
+		if (choice == 2) {
+			kill = 1;
+			run = 1;
+			break;
 		}
 		
-		else {
-			cout << "Defending Opponent" << endl;
-			defend(opponent);
+		else{
+			move = move * -1;
+			if(move == -1) {
+				//cout << "Making attack" << endl;
+				make_attack(opponent);
+			}
 			
+			else {
+				//cout << "Defending Opponent" << endl;
+				defend(opponent);
+				
+			}
+			//Sets negative hit point values to zero
+			if (hit_points < 0 ) hit_points = 0;
+			if (opponent.get_hit_points() < 0) opponent.set_hit_points(0);
+			
+			cout << "Your HitPoints: " << hit_points << endl;
+			cout << "Opponent HitPoints: " << opponent.get_hit_points() << endl;
+			cout << endl;
 		}
 	}
 	
-	//Sets negative hit point values to zero
-	if (hit_points < 0 ) hit_points = 0;
-	if (opponent.get_hit_points() < 0) opponent.set_hit_points(0);
-	
-	//Check to see if your pokemon won, return 1 for winning 0 for loss
-	if (hit_points > 0) {
-		return 1;	//Your win
+	if (run == 1 ) {
+		cout << "You fled the battle!" << endl;
+		return 0;
 	}
-	return 0;		//Your loss 
 	
+	else {
+		
+		//Check to see if your pokemon won, return 1 for winning 0 for loss
+		if (hit_points > 0) {
+			return 1;	//Your win
+		}
+	
+		else {
+			return 0;
+		}
+	}
+
 }
 
 
@@ -58,40 +84,46 @@ int Pokemon::battle ( Pokemon &opponent ) {
 void Pokemon::make_attack( Pokemon &opponent ) {
 	int strike_power = 0, strike_accuracy = 0, move_number = 0, move_power = 0;
 	
+	srand(time(NULL));
+	
 	//Prompt user to choose a move 
-	cout << "Please choose a move" << endl;
+	cout << "Please choose a move for " << name << " to use on " << opponent.get_name() << endl;
+	cout << " ----------------------------------------------------------" << endl;
 	list_moves();
 
 	//Choose a move
-	cout << "Which move would you like to use? Incorrect input will choose first move." << endl;
+	cout << endl << "Which move would you like to use? Incorrect input will choose first move." << endl;
 	cin >> move_number;
+	cout << endl;
 	
 	//Check that move number is valid
 	if (move_number < 1 || move_number > moves.size()) move_number = 1;
 	
 	//Change move number to move number - 1 since access starts at 0
-	move_number = move_number - 1;
-	
+	move_number = move_number - 1;	
 	move_power = moves[move_number].get_power();
-	cout << "Brittany's Move power is " << move_power << endl;
+
 	//Calculate force and accuracy of attack
-	strike_power = attack + move_power - opponent.get_defense();
-	cout << "strike power is " << strike_power << endl;
+	strike_power = attack + move_power - opponent.get_defense() - (rand() % 10 + 55);
 
 	//Determine if attack is accurate 
-	srand(time(NULL));
+
 	strike_accuracy = rand() % 100 + 1;     // strike_accuracy in the range 1 to 100
-	cout << "The strike accuracy is " << strike_accuracy << endl;
-	cout << "Chosen move accuracy is " << moves[move_number].get_accuracy() << endl;
-	
+
 	if (strike_accuracy <= moves[move_number].get_accuracy() ) {
+		cout << name << " used " << moves[move_number].get_name() << " and " << opponent.get_name() << " lost " << strike_power << " hit points!" << endl << endl;
 		opponent.deduct_hit_points( strike_power );
-		cout << opponent.get_hit_points() << endl; 
+		cout << "-------------------------------------------------" << endl;
+		cout << "-------------------------------------------------" << endl;
+		cout << endl;
 	} 
 	
 	//If accuracy is not enough then display that the attack missed.
 	if (strike_accuracy > moves[move_number].get_accuracy() ) {
-		cout << "Used " << moves[move_number].get_name() << " but it missed!!" << endl;
+		cout << name << " used " << moves[move_number].get_name() << " but it missed!!" << endl;
+		cout << "-------------------------------------------------" << endl;
+		cout << "-------------------------------------------------" << endl;
+		cout << endl;	
 	}
 }
 
@@ -106,29 +138,30 @@ void Pokemon::defend( Pokemon &opponent ) {
 	
 	//Randomly choose a move  
 	move_number = rand () % opponent.moves.size();
-	cout << "Your oppononent chose move number " << move_number + 1 << " " << opponent.moves[move_number].get_name() << "." << endl;
 
 	//Find move power of chosen move 
 	move_power = moves[move_number].get_power();
-	cout << "Opponent's Move power is " << move_power << endl;
 	
 	//Calculate force and accuracy of attack
-	strike_power = opponent.get_attack() + move_power - defense;
-	cout << "strike power is " << strike_power << endl;
+	strike_power = opponent.get_attack() + move_power - defense - (rand() % 10 + 55);
 
 	//Determine if attack is accurate 
 	strike_accuracy = rand() % 100 + 1;     // strike_accuracy in the range 1 to 100
-	cout << "The strike accuracy is " << strike_accuracy << endl;
-	cout << "Chosen move accuracy is " << opponent.moves[move_number].get_accuracy() << endl;
-	
+
 	if (strike_accuracy <= moves[move_number].get_accuracy() ) {
 		deduct_hit_points( strike_power );
-		cout << get_hit_points() << endl; 
+		cout << "You've been hit by " << opponent.moves[move_number].get_name() << "! You lost " << strike_power << " hit points." << endl;
+		cout << "-------------------------------------------------" << endl;
+		cout << "-------------------------------------------------" << endl;
+		cout << endl;
 	} 
 	
 	//If accuracy is not enough then display that the attack missed.
 	if (strike_accuracy > opponent.moves[move_number].get_accuracy() ) {
 		cout << "Your opponent used " << opponent.moves[move_number].get_name() << " but it missed!!" << endl;
+		cout << "-------------------------------------------------" << endl;
+		cout << "-------------------------------------------------" << endl;
+		cout << endl;
 	}
 
 }
