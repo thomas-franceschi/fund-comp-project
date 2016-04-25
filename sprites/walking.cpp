@@ -292,7 +292,7 @@ bool init()
 		}
 
 		//Create window
-		gWindow = SDL_CreateWindow( "Walking Demo", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
+		gWindow = SDL_CreateWindow( "Pokemon Blue & Gold", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
 		if( gWindow == NULL )
 		{
 			printf( "Window could not be created! SDL Error: %s\n", SDL_GetError() );
@@ -636,11 +636,25 @@ int enterMorrissey( int &x, int &y, int inMorrissey ) {
 }
 
 int exitMorrissey( int &x, int &y, int inMorrissey){
+	//exit front door
 	if (inMorrissey == 1 && x <= -1130 && x >= -1140 && y <= -1395 && y >= -1450) {
 		x = -716;
 		y = -1410;
 		return 0;
 	}
+	//exit right side door
+	if (inMorrissey == 1 && x <= -2048 && x >= -2058 && y <= -1158 && y >= -1166) {
+		x = -1027;
+		y = -1338;
+		return 0;
+	}
+	//exit left side door
+	if (inMorrissey == 1 && x <= -150 && x >= -160 && y <= -1158 && y >= -1166) {
+		x = -637;
+		y = -1322;
+		return 0;
+	}
+
 	else if (inMorrissey == 0) return 0;
 	else if (inMorrissey == 1) return 1;
 	else return 0;
@@ -659,7 +673,14 @@ int canWalk( int x, int y, int inMorrissey ){
 		if ( x <= -640 && x >= -1024 && y <= -1235 && y >= -1402) return 0;
 		//morrissey tower
 		if ( x <= -640 && x >= -838 && y <= -1065 && y >= -1402) return 0;
+		//Howard Hall
+		if ( x <= -1101 && x >= -1289 && y <= -1353 && y >= -1791) return 0;
+		if ( x <= -1101 && x >= -1353 && y <= -1553 && y >= -1791) return 0;
+
+
 		else return 1;
+
+
 	}
 	//inside morrissey boundaries
 	else if ( inMorrissey == 1){
@@ -852,6 +873,7 @@ int main( int argc, char* args[] )
 				
 
 				framecounter++;
+				//if ( framecounter > 10000) framecounter = 0;
 				print( currentTexture, &background, &morrissey, x, y, inMorrissey );				
 			}
 		}
