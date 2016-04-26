@@ -3,11 +3,11 @@
 
 Group Members:
 
-Brittany DiGenova
- - bdigenov@nd.edu
+Brittany DiGenova 
+ -bdigenov@nd.edu
 
 Thomas Franceschi     
- - tfrances@nd.edu
+ -tfrances@nd.edu
 
 Kyle Williams
- - kwilli20@nd.edu
+ -kwilli20@nd.edu
