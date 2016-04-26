@@ -1,7 +1,8 @@
-//Pokemon: Notre Dame Edition
-// Walking Demo
+// Pokemon: Notre Dame Edition
 
-//Using SDL, SDL_image, standard IO, and strings
+// Kyle Williams, Brittany DiGenova, Thomas Franceschi
+
+// Using SDL, SDL_image, standard IO, and strings
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <stdio.h>
@@ -10,128 +11,138 @@
 #include <iostream>
 #include <cstdlib>
 
-#include "trainer.h"
+#include "trainer.h" // Include the trainer class
 
 using namespace std;
 
-//Screen dimension constants
+// Screen dimension constants
 const int SCREEN_WIDTH = 720;
 const int SCREEN_HEIGHT = 580;
 
-//Texture wrapper class
+// Texture wrapper class
 class LTexture
 {
 	public:
-		//Initializes variables
+		// Initializes variables
 		LTexture();
 
 		//Deallocates memory
 		~LTexture();
 
-		//Loads image at specified path
+		// Loads image at specified path
 		bool loadFromFile( std::string path );
 		
 		#ifdef _SDL_TTF_H
-		//Creates image from font string
+		// Creates image from font string
 		bool loadFromRenderedText( std::string textureText, SDL_Color textColor );
 		#endif
 		
-		//Deallocates texture
+		// Deallocates texture
 		void free();
 
-		//Set color modulation
+		// Set color modulation
 		void setColor( Uint8 red, Uint8 green, Uint8 blue );
 
-		//Set blending
+		// Set blending
 		void setBlendMode( SDL_BlendMode blending );
 
-		//Set alpha modulation
+		// Set alpha modulation
 		void setAlpha( Uint8 alpha );
 		
-		//Renders texture at given point
+		// Renders texture at given point
 		void render( int x, int y, SDL_Rect* clip = NULL, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE );
 
-		//Gets image dimensions
+		// Gets image dimensions
 		int getWidth();
 		int getHeight();
 
 	private:
-		//The actual hardware texture
+		// The actual hardware texture
 		SDL_Texture* mTexture;
 
-		//Image dimensions
+		// Image dimensions
 		int mWidth;
 		int mHeight;
 };
 
-//Starts up SDL and creates window
+// Starts up SDL and creates window
 bool init();
 
-//Loads media
+// Loads media
 bool loadMedia();
 
-//Frees media and shuts down SDL
+// Frees media and shuts down SDL
 void close();
 
-//Load background graphics
+// Load background graphics
 bool loadBackground( std::string path );
 
-//Displays updated graphics on screen
+// Displays updated graphics on screen
 void print( LTexture*, LTexture*, int, int );
 
-//Moves the x position for the background
+// Moves the x position for the background
 int xMoveLeft( int );
 int xMoveRight( int );
 
-//Moves the y position for the background
+// Moves the y position for the background
 int yMoveUp( int );
 int yMoveDown( int );
 
 void battleGFX();
-//walking functions
+// walking functions
 int canWalk( int, int, int);
-//int enterMorrissey( int&, int&, int&);
+// int enterMorrissey( int&, int&, int&);
 
-//The window we'll be rendering to
+// The window we'll be rendering to
 SDL_Window* gWindow = NULL;
 
-//The window renderer
+// The window renderer
 SDL_Renderer* gRenderer = NULL;
 
-//Scene textures
+// Scene textures
 LTexture gPressTexture;
 
+// Upward facing trainer sprite objects
 LTexture gUpTexture0;
 LTexture gUpTexture1;
 LTexture gUpTexture2;
 LTexture gUpTexture3;
 
+// Downward facing trainer sprite objects
 LTexture gDownTexture0;
 LTexture gDownTexture1;
 LTexture gDownTexture2;
 LTexture gDownTexture3;
 
+// Leftward facing trainer sprite objects
 LTexture gLeftTexture0;
 LTexture gLeftTexture1;
 LTexture gLeftTexture2;
 LTexture gLeftTexture3;
 
+// Rightward facing trainer sprite objects
 LTexture gRightTexture0;
 LTexture gRightTexture1;
 LTexture gRightTexture2;
 LTexture gRightTexture3;
 
+// Pokemon world texture objects
 LTexture background;
 LTexture morrissey;
 
+// Pokemon battle texture objects
 LTexture encounterGFX;
 LTexture battleTXT;
 LTexture trainerBackGFX;
 LTexture SquirtleGFX;
 
+//======================================================================================================================//
+
+// Functions used with the LTexture class based on the class from Lazyfoo
+
 LTexture::LTexture()
 {
-	//Initialize
+	// Initialize
 	mTexture = NULL;
 	mWidth = 0;
 	mHeight = 0;
@@ -139,19 +150,19 @@ LTexture::LTexture()
 
 LTexture::~LTexture()
 {
-	//Deallocate
+	// Deallocate
 	free();
 }
 
 bool LTexture::loadFromFile( std::string path )
 {
-	//Get rid of preexisting texture
+	// Get rid of preexisting texture
 	free();
 
-	//The final texture
+	// The final texture
 	SDL_Texture* newTexture = NULL;
 
-	//Load image at specified path
+	// Load image at specified path
 	SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
 	if( loadedSurface == NULL )
 	{
@@ -159,10 +170,10 @@ bool LTexture::loadFromFile( std::string path )
 	}
 	else
 	{
-		//Color key image
+		// Color key image
 		SDL_SetColorKey( loadedSurface, SDL_TRUE, SDL_MapRGB( loadedSurface->format, 0, 0xFF, 0xFF ) );
 
-		//Create texture from surface pixels
+		// Create texture from surface pixels
         newTexture = SDL_CreateTextureFromSurface( gRenderer, loadedSurface );
 		if( newTexture == NULL )
 		{
@@ -170,17 +181,17 @@ bool LTexture::loadFromFile( std::string path )
 		}
 		else
 		{
-			//Get image dimensions
+			// Get image dimensions
 			mWidth = loadedSurface->w;
 			mHeight = loadedSurface->h;
 
 		}
 
-		//Get rid of old loaded surface
+		// Get rid of old loaded surface
 		SDL_FreeSurface( loadedSurface );
 	}
 
-	//Return success
+	// Return success
 	mTexture = newTexture;
 	return mTexture != NULL;
 }
@@ -188,14 +199,14 @@ bool LTexture::loadFromFile( std::string path )
 #ifdef _SDL_TTF_H
 bool LTexture::loadFromRenderedText( std::string textureText, SDL_Color textColor )
 {
-	//Get rid of preexisting texture
+	// Get rid of preexisting texture
 	free();
 
-	//Render text surface
+	// Render text surface
 	SDL_Surface* textSurface = TTF_RenderText_Solid( gFont, textureText.c_str(), textColor );
 	if( textSurface != NULL )
 	{
-		//Create texture from surface pixels
+		// Create texture from surface pixels
         mTexture = SDL_CreateTextureFromSurface( gRenderer, textSurface );
 		if( mTexture == NULL )
 		{
@@ -203,12 +214,12 @@ bool LTexture::loadFromRenderedText( std::string textureText, SDL_Color textColo
 		}
 		else
 		{
-			//Get image dimensions
+			// Get image dimensions
 			mWidth = textSurface->w;
 			mHeight = textSurface->h;
 		}
 
-		//Get rid of old surface
+		// Get rid of old surface
 		SDL_FreeSurface( textSurface );
 	}
 	else
@@ -217,14 +228,14 @@ bool LTexture::loadFromRenderedText( std::string textureText, SDL_Color textColo
 	}
 
 	
-	//Return success
+	// Return success
 	return mTexture != NULL;
 }
 #endif
 
 void LTexture::free()
 {
-	//Free texture if it exists
+	// Free texture if it exists
 	if( mTexture != NULL )
 	{
 		SDL_DestroyTexture( mTexture );
@@ -236,35 +247,35 @@ void LTexture::free()
 
 void LTexture::setColor( Uint8 red, Uint8 green, Uint8 blue )
 {
-	//Modulate texture rgb
+	// Modulate texture rgb
 	SDL_SetTextureColorMod( mTexture, red, green, blue );
 }
 
 void LTexture::setBlendMode( SDL_BlendMode blending )
 {
-	//Set blending function
+	// Set blending function
 	SDL_SetTextureBlendMode( mTexture, blending );
 }
 		
 void LTexture::setAlpha( Uint8 alpha )
 {
-	//Modulate texture alpha
+	// Modulate texture alpha
 	SDL_SetTextureAlphaMod( mTexture, alpha );
 }
 
 void LTexture::render( int x, int y, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip )
 {
-	//Set rendering space and render to screen
+	// Set rendering space and render to screen
 	SDL_Rect renderQuad = { x, y, mWidth, mHeight };
 
-	//Set clip rendering dimensions
+	// Set clip rendering dimensions
 	if( clip != NULL )
 	{
 		renderQuad.w = clip->w;
 		renderQuad.h = clip->h;
 	}
 
-	//Render to screen
+	// Render to screen
 	SDL_RenderCopyEx( gRenderer, mTexture, clip, &renderQuad, angle, center, flip );
 }
 
@@ -280,10 +291,10 @@ int LTexture::getHeight()
 
 bool init()
 {
-	//Initialization flag
+	// Initialization flag
 	bool success = true;
 
-	//Initialize SDL
+	// Initialize SDL
 	if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
 	{
 		printf( "SDL could not initialize! SDL Error: %s\n", SDL_GetError() );
@@ -291,13 +302,13 @@ bool init()
 	}
 	else
 	{
-		//Set texture filtering to linear
+		// Set texture filtering to linear
 		if( !SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1" ) )
 		{
 			printf( "Warning: Linear texture filtering not enabled!" );
 		}
 
-		//Create window
+		// Create window
 		gWindow = SDL_CreateWindow( "Pokemon Blue & Gold", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
 		if( gWindow == NULL )
 		{
@@ -306,7 +317,7 @@ bool init()
 		}
 		else
 		{
-			//Create vsynced renderer for window
+			// Create vsynced renderer for window
 			gRenderer = SDL_CreateRenderer( gWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
 			if( gRenderer == NULL )
 			{
@@ -315,10 +326,10 @@ bool init()
 			}
 			else
 			{
-				//Initialize renderer color
+				// Initialize renderer color
 				SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
 
-				//Initialize PNG loading
+				// Initialize PNG loading
 				int imgFlags = IMG_INIT_PNG;
 				if( !( IMG_Init( imgFlags ) & imgFlags ) )
 				{
@@ -334,35 +345,35 @@ bool init()
 
 bool loadMedia()
 {
-	//Loading success flag
+	// Loading success flag
 	bool success = true;
 
-	//Load press texture
+	// Load press texture
 	if( !gPressTexture.loadFromFile( "./DOWN_0.png" ) )
 	{
 		printf( "Failed to load press texture!\n" );
 		success = false;
 	}
 //======================================================================================================================//
-	//Load up texture
+	// Load up texture
 	if( !gUpTexture0.loadFromFile( "./UP_0.png" ) )
 	{
 		printf( "Failed to load up texture!\n" );
 		success = false;
 	}
-	//Load up texture
+	// Load up texture
 	if( !gUpTexture1.loadFromFile( "./UP_1.png" ) )
 	{
 		printf( "Failed to load up texture!\n" );
 		success = false;
 	}
-	//Load up texture
+	// Load up texture
 	if( !gUpTexture2.loadFromFile( "./UP_2.png" ) )
 	{
 		printf( "Failed to load up texture!\n" );
 		success = false;
 	}
-	//Load up texture
+	// Load up texture
 	if( !gUpTexture3.loadFromFile( "./UP_3.png" ) )
 	{
 		printf( "Failed to load up texture!\n" );
@@ -371,28 +382,28 @@ bool loadMedia()
 
 //======================================================================================================================//
 
-	//Load down texture
+	// Load down texture
 	if( !gDownTexture0.loadFromFile( "./DOWN_0.png" ) )
 	{
 		printf( "Failed to load down texture!\n" );
 		success = false;
 	}
 
-	//Load down texture
+	// Load down texture
 	if( !gDownTexture1.loadFromFile( "./DOWN_1.png" ) )
 	{
 		printf( "Failed to load down texture!\n" );
 		success = false;
 	}
 
-	//Load down texture
+	// Load down texture
 	if( !gDownTexture2.loadFromFile( "./DOWN_2.png" ) )
 	{
 		printf( "Failed to load down texture!\n" );
 		success = false;
 	}
 
-	//Load down texture
+	// Load down texture
 	if( !gDownTexture3.loadFromFile( "./DOWN_3.png" ) )
 	{
 		printf( "Failed to load down texture!\n" );
@@ -401,28 +412,28 @@ bool loadMedia()
 
 //======================================================================================================================//
 
-	//Load left texture
+	// Load left texture
 	if( !gLeftTexture0.loadFromFile( "./LEFT_0.png" ) )
 	{
 		printf( "Failed to load left texture!\n" );
 		success = false;
 	}
 
-	//Load left texture
+	// Load left texture
 	if( !gLeftTexture1.loadFromFile( "./LEFT_1.png" ) )
 	{
 		printf( "Failed to load left texture!\n" );
 		success = false;
 	}
 
-	//Load left texture
+	// Load left texture
 	if( !gLeftTexture2.loadFromFile( "./LEFT_2.png" ) )
 	{
 		printf( "Failed to load left texture!\n" );
 		success = false;
 	}
 
-	//Load left texture
+	// Load left texture
 	if( !gLeftTexture3.loadFromFile( "./LEFT_3.png" ) )
 	{
 		printf( "Failed to load left texture!\n" );
@@ -431,28 +442,28 @@ bool loadMedia()
 
 //======================================================================================================================//
 
-	//Load right texture
+	// Load right texture
 	if( !gRightTexture0.loadFromFile( "./RIGHT_0.png" ) )
 	{
 		printf( "Failed to load right texture!\n" );
 		success = false;
 	}
 
-	//Load right texture
+	// Load right texture
 	if( !gRightTexture1.loadFromFile( "./RIGHT_1.png" ) )
 	{
 		printf( "Failed to load right texture!\n" );
 		success = false;
 	}
 
-	//Load right texture
+	// Load right texture
 	if( !gRightTexture2.loadFromFile( "./RIGHT_2.png" ) )
 	{
 		printf( "Failed to load right texture!\n" );
 		success = false;
 	}
 
-	//Load right texture
+	// Load right texture
 	if( !gRightTexture3.loadFromFile( "./RIGHT_3.png" ) )
 	{
 		printf( "Failed to load right texture!\n" );
@@ -461,7 +472,7 @@ bool loadMedia()
 
 //======================================================================================================================//
 
-	//Load background image
+	// Load background image
 	if( !background.loadFromFile( "./notre_dame_pokemon_map.png" ) )
 	{
 		printf( "Failed to load press texture!\n" );
@@ -476,7 +487,7 @@ bool loadMedia()
 
 //================================================================================//
 
-	//Load battle texture
+	// Load battle texture
 	if( !encounterGFX.loadFromFile( "./encounter.png" ) )
 	{
 		printf( "Failed to load press texture!\n" );
@@ -485,7 +496,7 @@ bool loadMedia()
 
 //================================================================================//
 
-	//Load battle texture
+	// Load wild squirtle texture
 	if( !SquirtleGFX.loadFromFile( "./squirtle.png" ) )
 	{
 		printf( "Failed to load press texture!\n" );
@@ -494,7 +505,7 @@ bool loadMedia()
 
 //================================================================================//
 
-	//Load trainer texture
+	// Load trainer texture
 	if( !trainerBackGFX.loadFromFile( "./trainerBack.png" ) )
 	{
 		printf( "Failed to load press texture!\n" );
@@ -503,7 +514,7 @@ bool loadMedia()
 
 //================================================================================//
 
-	//Load battle text texture
+	// Load battle text texture
 	if( !battleTXT.loadFromFile( "./battletext.png" ) )
 	{
 		printf( "Failed to load press texture!\n" );
@@ -511,79 +522,90 @@ bool loadMedia()
 	}
 
 	return success;
-}
+} // end of load media function
 
 void close()
 {
-	//Free loaded images
+	// Free loaded images
 	gPressTexture.free();
 
+	// Free up textures
 	gUpTexture0.free();
 	gUpTexture1.free();
 	gUpTexture2.free();
 	gUpTexture3.free();
 
+	// Free down textures
 	gDownTexture0.free();
 	gDownTexture1.free();
 	gDownTexture2.free();
 	gDownTexture3.free();
 
+	// Free left textures
 	gLeftTexture0.free();
 	gLeftTexture1.free();
 	gLeftTexture2.free();
 	gLeftTexture3.free();
 
+	// Free right textures
 	gRightTexture0.free();
 	gRightTexture1.free();
 	gRightTexture2.free();
 	gRightTexture3.free();
 
+	// Free world map textures
 	background.free();
 	morrissey.free();
 
+	// Free battle textures
 	encounterGFX.free();
 	SquirtleGFX.free();
 	trainerBackGFX.free();
 	battleTXT.free();
 
-	//Destroy window	
+	// Destroy window	
 	SDL_DestroyRenderer( gRenderer );
 	SDL_DestroyWindow( gWindow );
 	gWindow = NULL;
 	gRenderer = NULL;
 
-	//Quit SDL subsystems
+	// Quit SDL subsystems
 	IMG_Quit();
 	SDL_Quit();
 }
 
+//======================================================================================================================//
+
+// This function renders the trainer, the background, and the Morrissey inside
+//  The trainer sprites is rendered in the center of the screen, while the background
+//  and Morrissey are rendered based on the x and y parameters to allow for movement by the trainer
 void print( LTexture* currentTexture, LTexture* background, LTexture* morrissey, int x, int y, int inMorrissey )
 {
-	//Clear screen
+	// Clear screen
 	SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
 	SDL_RenderClear( gRenderer );
 
-	//Render the background
+	// Render the background
 	background->render( x, y );
 
 	if (inMorrissey == 1) morrissey->render( x, y );
 
-	//Render current texture
+	// Render current texture
 	currentTexture->render( SCREEN_WIDTH/2, SCREEN_HEIGHT/2 );
 
-	//Update screen
+	// Update screen
 	SDL_RenderPresent( gRenderer );
 
 }
 
-//###################################################################################################################################//
 
 void battleGFX(){
 
-	//Clear screen
+	// Clear screen
 	SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
 	SDL_RenderClear( gRenderer );
 
+	// Render the battle textures: background, trainer, Pokemon, and text
 	encounterGFX.render(0, 0);
 	SquirtleGFX.render(440, 95);
 	trainerBackGFX.render(50, 165);
@@ -593,71 +615,89 @@ void battleGFX(){
 
 }
 
-//###########################//
-
+// This function increments the x value of where the background is being rendered 
+//  to make it appear like the trainer sprite is walking around
 int xMoveLeft( int x, int y, int inMorrissey )
 {
 	const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
 
+	// Checks if player is not out of bounds, or in Morrissey Hall
 	if (canWalk(x + 3, y, inMorrissey) == 1){
 
+		// Checks if space bar is pressed to run
 		if(currentKeyStates[SDL_SCANCODE_SPACE]) x += 3;
 		else{
 			x++;
 		}
+
 	}
 
 	return x;
 
 }
 
+// This function decrements the x value of where the background is being rendered 
+//  to make it appear like the trainer sprite is walking around
 int xMoveRight( int x, int y, int inMorrissey )
 {
 	const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
 
+	// Checks if player is not out of bounds, or in Morrissey Hall
 	if (canWalk(x - 3, y, inMorrissey) == 1){
+
+		// Checks if space bar is pressed to run
 		if(currentKeyStates[SDL_SCANCODE_SPACE]) x -= 3;
 		else{
 			x--;
 		}
+
 	}
 
 	return x;
 
 }
 
+// This function increments the y value of where the background is being rendered 
+//  to make it appear like the trainer sprite is walking around
 int yMoveUp( int x, int y, int inMorrissey )
 {
 	const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
 
+	// Checks if player is not out of bounds, or in Morrissey Hall
 	if (canWalk(x, y + 3, inMorrissey) == 1){	
+
+		// Checks if space bar is pressed to run
 		if(currentKeyStates[SDL_SCANCODE_SPACE]) y += 3;
 		else{
 			y++;
 		}
+
 	}
 
 	return y;
 
 }
 
+// This function deccrements the y value of where the background is being rendered 
+//  to make it appear like the trainer sprite is walking around
 int yMoveDown( int x, int y, int inMorrissey )
 {
 	const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
 
+	// Checks if player is not out of bounds, or in Morrissey Hall
 	if (canWalk(x, y - 3, inMorrissey) == 1){
 
+		// Checks if space bar is pressed to run
 		if(currentKeyStates[SDL_SCANCODE_SPACE]) y -= 3;
 		else{
 			y--;
 		}
+
 	}
 
 	return y;
 
 }
-
-//###########################//
 
 //Wild pokemon encounter-----------------------------------------------------
 void wildBattle( int x, int y, Trainer trainer, Pokemon &wildPoke, LTexture *encounterGFX ){
@@ -687,6 +727,7 @@ void wildBattle( int x, int y, Trainer trainer, Pokemon &wildPoke, LTexture *enc
 
 //enterMorrissey/exitMorrissey----------------------------------------------------------------
 
+// This function checks to see if the player is within the certain x and y parameters that puts the trainer in Morrissey
 int enterMorrissey( int &x, int &y, int inMorrissey ) {
 	if (inMorrissey == 1) return 1;
 	if ( x <= -715 && x >= -720){
@@ -699,20 +740,21 @@ int enterMorrissey( int &x, int &y, int inMorrissey ) {
 	else return 0;
 }
 
+// This function checks to see if the player is within the certain x and y parameters that puts the trainer out of Morrissey
 int exitMorrissey( int &x, int &y, int inMorrissey){
-	//exit front door
+	// exit front door
 	if (inMorrissey == 1 && x <= -1130 && x >= -1140 && y <= -1395 && y >= -1450) {
 		x = -716;
 		y = -1410;
 		return 0;
 	}
-	//exit right side door
+	// exit right side door
 	if (inMorrissey == 1 && x <= -2048 && x >= -2058 && y <= -1158 && y >= -1166) {
 		x = -1027;
 		y = -1338;
 		return 0;
 	}
-	//exit left side door
+	// exit left side door
 	if (inMorrissey == 1 && x <= -150 && x >= -160 && y <= -1158 && y >= -1166) {
 		x = -637;
 		y = -1322;
@@ -726,6 +768,7 @@ int exitMorrissey( int &x, int &y, int inMorrissey){
 
 //canWalk--------------------------------------------------------------------
 
+// This function checks to see if the player can move the trainer in the specified areas so as not to go out of bounds
 int canWalk( int x, int y, int inMorrissey ){
 	//overworld boundaries
 	if ( inMorrissey != 1 ) {
@@ -760,11 +803,7 @@ int canWalk( int x, int y, int inMorrissey ){
 		//Lyons parking lot
 		if ( x <= 0 && x >= -193 && y <= -987 && y >= -1400 ) return 0;
 
-
-
-
 		else return 1;
-
 
 	}
 	//inside morrissey boundaries
@@ -780,64 +819,71 @@ int canWalk( int x, int y, int inMorrissey ){
 int main( int argc, char* args[] )
 {
 
-	int clipSwitch = 0;
-	int framecounter = 0;
-	int waitTime = 10;
-	int x = -716;
-	int y = -1450;
-	int inMorrissey = 0;
+	int clipSwitch = 0; // determines the frame to render when the player stops moving
+	int framecounter = 0; // count the frames being rendered
+	int waitTime = 10; 
+	int x = -716; // initial x position
+	int y = -1450; // initial y position
+	int inMorrissey = 0; // integer telling whether or not the player is inside Morrissey
 
+	// Trainer object instantiation
 	Trainer trainer;
+
+	// initializes Pokemon Move objects
 	Moves pound("Pound", 40, 90);
 	Moves tackle("Tackle", 50, 90 );
 
+	// initialize Pokemon Potion objects
 	Potion potion("potion", 20);
 	Potion super_potion("Super Potion", 50);
 
+	// initialize Pokemon objects based on type
 	Watertype Squirtle("Squirtle", 44, 48, 65, 4, 12, 0, 0 );
 	Flyingtype Caterpie("Caterpie", 45, 30, 35, 2, 12, 0, 0);
 
+	// add initialized moves to Pokemon
 	Squirtle.add_move(pound);
 	Squirtle.add_move(tackle);
 
 	Caterpie.add_move(pound);
 	Caterpie.add_move(tackle);
 
+	// give trainer Pokemon and potions to start with
 	trainer.catch_pokemon(Squirtle);
 	trainer.catch_pokemon(Caterpie);
 	trainer.add_potion(potion);
 	trainer.add_potion(super_potion);
 
-	//Start up SDL and create window
+	// Start up SDL and create window
 	if( !init() ) printf( "Failed to initialize!\n" );
 	else {
-		//Load media
+		// Load media
 		if( !loadMedia() ) printf( "Failed to load media!\n" );
 		else {	
-			//Main loop flag
+			// Main loop flag
 			bool quit = false;
 
-			//Event handler
+			// Event handler
 			SDL_Event e;
 
-			//Current rendered texture
+			// Current rendered texture
 			LTexture* currentTexture = NULL;
 			inMorrissey = 0;
-			//While application is running
+			// While application is running
 			while( !quit ) {
-				//Handle events on queue
+				// Handle events on queue
 				while( SDL_PollEvent( &e ) != 0 ) {
-					//User requests quit
+					// User requests quit
 					if( e.type == SDL_QUIT ) quit = true;
 				}
-				//cout << "hmmm..." << endl;
-				//Set texture based on current keystate
+				// Set texture based on current keystate
 				const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
-				//cout << "hit a key" << endl;
 				
+					// When "up" arrow key is held down...
 					if( currentKeyStates[ SDL_SCANCODE_UP ] ){
-					//cout << "KeyUp" << endl;
 
+						// moves the trainer in the y direction, rendering a different up image each frame to
+						//  make it look like the tainer is walking with one foot forward at a time
 						if (framecounter%4 == 0) currentTexture = &gUpTexture0;
 						y = yMoveUp( x, y, inMorrissey );
 						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
@@ -854,13 +900,21 @@ int main( int argc, char* args[] )
 						y = yMoveUp( x, y, inMorrissey );
 						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 						
+						// sets stopping sprite image to one facing the same direction the sprite was walking
 						clipSwitch = 1;
+
+						// checks if trainer has entered a wild Pokemon battle
 						wildBattle(x, y, trainer, Squirtle, &encounterGFX);
+
+						// displays x and y position and framecount to terminal
 						cout << x << endl << y << endl;
 						cout << "frame count:" << framecounter << endl;
 					}
+					// When "down" arrow key is held down...
 					else if( currentKeyStates[ SDL_SCANCODE_DOWN ] )
 					{
+						// moves the trainer in the y direction, rendering a different down image each frame to
+						//  make it look like the tainer is walking with one foot forward at a time
 						if (framecounter%4 == 0) currentTexture = &gDownTexture0;
 						y = yMoveDown( x, y, inMorrissey );
 						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
@@ -877,14 +931,22 @@ int main( int argc, char* args[] )
 						y = yMoveDown( x, y, inMorrissey );
 						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
+						// sets stopping sprite image to one facing the same direction the sprite was walking
 						clipSwitch = 2;
+
+						// checks if trainer has entered a wild Pokemon battle
 						wildBattle(x, y, trainer, Squirtle, &encounterGFX);
+
+						// displays x and y position and framecount to terminal
 						cout << x << endl << y << endl;
 						cout << "frame count:" << framecounter << endl;
 					}
+					// When "left" arrow key is held down...
 					else if( currentKeyStates[ SDL_SCANCODE_LEFT ] )
 					{
 
+						// moves the trainer in the x direction, rendering a different left image each frame to
+						//  make it look like the tainer is walking with one foot forward at a time
 						if (framecounter%4 == 0) currentTexture = &gLeftTexture0;
 						x = xMoveLeft( x, y, inMorrissey );
 						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
@@ -901,15 +963,23 @@ int main( int argc, char* args[] )
 						x = xMoveLeft( x, y, inMorrissey );
 						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
+						// sets stopping sprite image to one facing the same direction the sprite was walking
 						clipSwitch = 3;
+
+						// checks if trainer has entered a wild Pokemon battle
 						wildBattle(x, y, trainer, Squirtle, &encounterGFX);
+
+						// displays x and y position and framecount to terminal
 						cout << x << endl << y << endl;
 						cout << "frame count:" << framecounter << endl;
 
 					}
+					// When "right" arrow key is held down...
 					else if( currentKeyStates[ SDL_SCANCODE_RIGHT ] )
 					{
 
+						// moves the trainer in the x direction, rendering a different right image each frame to
+						//  make it look like the tainer is walking with one foot forward at a time
 						if (framecounter%4 == 0) currentTexture = &gRightTexture0;
 						x = xMoveRight( x, y, inMorrissey );
 						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
@@ -926,14 +996,20 @@ int main( int argc, char* args[] )
 						x = xMoveRight( x, y, inMorrissey );
 						print( currentTexture, &background, &morrissey, x, y, inMorrissey );
 
+						// sets stopping sprite image to one facing the same direction the sprite was walking
 						clipSwitch = 4;
+
+						// checks if trainer has entered a wild Pokemon battle
 						wildBattle(x, y, trainer, Squirtle, &encounterGFX);
+
+						// displays x and y position and framecount to terminal
 						cout << x << endl << y << endl;
 						cout << "frame count:" << framecounter << endl;
 					}
 					else
 					{
-						//cout << clipSwitch << endl;
+						// sets the position of the trainer sprite to face the direction that
+						//  he was facing before the user let go of one of the  arrow keys
 						switch ( clipSwitch )
 						{
 							case 1:
@@ -953,10 +1029,11 @@ int main( int argc, char* args[] )
 						}
 					}
 				
+				// checks if the trainer has entered Morrissey
 				inMorrissey = enterMorrissey( x, y, inMorrissey);
 				inMorrissey = exitMorrissey( x, y, inMorrissey);
 				
-
+				// increment frames
 				framecounter++;
 				//if ( framecounter > 10000) framecounter = 0;
 				print( currentTexture, &background, &morrissey, x, y, inMorrissey );				
