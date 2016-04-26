@@ -1,29 +1,10 @@
-# README #
-Go here to learn the things:
-http://lazyfoo.net/tutorials/SDL/index.php
+**Pokémon: Notre Dame Edition**
+-
 
-### What is this repository for? ###
+Group Members:
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+Brittany DiGenova     bdigenov@nd.edu
 
-### How do I get set up? ###
+Thomas Franceschi     tfrances@nd.edu
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+Kyle Williams         kwilli20@nd.edu
