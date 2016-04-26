@@ -646,10 +646,8 @@ int yMoveDown( int x, int y, int inMorrissey )
 	const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
 
 	if (canWalk(x, y - 3, inMorrissey) == 1){
-		if( y <= -3072 + SCREEN_HEIGHT ){
-			y = -3072 + SCREEN_HEIGHT;
-		}
-		else if(currentKeyStates[SDL_SCANCODE_SPACE]) y -= 3;
+
+		if(currentKeyStates[SDL_SCANCODE_SPACE]) y -= 3;
 		else{
 			y--;
 		}
@@ -735,8 +733,11 @@ int canWalk( int x, int y, int inMorrissey ){
 		if ( x + 3 > 0 ) return 0;
 		if ( y + 3 > -113 ) return 0;
 		if ( x + 3 < -2618 ) return 0;
+		if ( y + 3 < -2274 ) return 0;
 		//Upper left corner bound
-		if( x > -1225 && y > -378 ) return 0;
+		if ( x > -1225 && y > -378 ) return 0;
+		//upper right corner bound
+		if ( x < -1680 && y > -950 ) return 0;
 		//morrissey
 		if ( x <= -640 && x >= -1024 && y <= -1235 && y >= -1402) return 0;
 		//morrissey tower
