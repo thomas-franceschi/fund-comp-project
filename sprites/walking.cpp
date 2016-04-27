@@ -855,8 +855,9 @@ int exitMorrissey( int &x, int &y, int inMorrissey){
 
 // This function checks to see if the player can move the trainer in the specified areas so as not to go out of bounds
 int canWalk( int x, int y, int inMorrissey ){
+	//cout << "in Morrissey: " << inMorrissey << endl;
 	//overworld boundaries
-	if ( inMorrissey != 1 ) {
+	if ( inMorrissey == 0 ) {
 		//out of bounds
 		if ( x + 3 > 0 ) return 0;
 		if ( y + 3 > -113 ) return 0;
@@ -948,15 +949,22 @@ int canWalk( int x, int y, int inMorrissey ){
 		if ( x <= -1780 && x >= -2600 && y <= -2130 && y >= -2250) return 0;
 
 		//Lyons parking lot
-		if ( x <= 0 && x >= -193 && y <= -987 && y >= -1400 ) return 0;
+		if ( x <= -0 && x >= -194 && y <= -985 && y >= -1360 ) return 0;
 
 		else return 1;
 
 	}
 	//inside morrissey boundaries
-	else if ( inMorrissey == 1){
+	if(inMorrissey){
+		//lobby
+		if ( x <= -940 && x >= -1250 && y <= -1400 && y >= -1500 ) return 0;
+		//front right abyss
+		if ( x <= -1208 && x >= -1780 && y <= -1186 && y >= -2000 ) return 0;
+
+		//front left abyss
 		return 1;
 	}
+	
 	else return 1;
 }
 
@@ -1259,6 +1267,7 @@ int main( int argc, char* args[] )
 				
 				// increment frames
 				framecounter++;
+				//cout << "in Morrissey: " << inMorrissey << endl;
 				//if ( framecounter > 10000) framecounter = 0;
 				print( currentTexture, &background, &morrissey, x, y, inMorrissey );				
 			}
