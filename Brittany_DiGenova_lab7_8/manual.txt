@@ -54,11 +54,15 @@ and ensure that X11 forwarding is on).
 	
 	The game can be played as long as the user wishes, but there is only one way to win. The user must get four pokemon to level 18 (partially because this is our graduation year and partially
 	because the game would never end if we made the level requirement too high). When the user has four pokemon that are level 18 he or she can take them to the ____INSERT GAME WINNING LOCATION HERE___
-	At this point the user's pokemon are evaluated and if there are enough at level 18 the user wins! A congadulatory message is printed and the game ends. 
+	At this point the user's pokemon are evaluated and if there are enough at level 18 the user wins! A congratulatory message is printed and the game ends. 
 
 
 //Known Bugs
+When moving around the map, the program prints the user’s Pokemon to the terminal window. When the user encounters a Pokemon, and the user beats the Pokemon in a battle, the Pokemon does not always become a part of the trainer’s inventory. Also if the does catch a Pokemon and then battles an catches an additional Pokemon, the previously caught Pokemon may not remain a part of the user’s inventory.
+
+When prompted to enter a (1) or a (2) during a battle from the command line, if the user enters a character, sometimes the program continuously prints out the prompt to have the user end the battle, but the prompt is in a while loop, so the user may have to close the terminal window and try again.
 
 //Additional Info
+We originally wanted to make all of Notre Dame’s campus, complete with gyms and an Elite Four to battle to be able to win the game. This proved to be a huge task, so we decided to scale down to just a portion of South Quad, with random wild Pokemon encounters, and one trainer to face. Even though we scaled down, we still had a lot of fun and learned a lot with this project.
 
 	
