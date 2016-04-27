@@ -136,6 +136,8 @@ LTexture encounterGFX;
 LTexture battleTXT;
 LTexture trainerBackGFX;
 
+LTexture FrVGFX;
+
 LTexture SquirtleGFX;
 LTexture DragoniteGFX;
 LTexture MankeyGFX;
@@ -573,6 +575,15 @@ bool loadMedia()
 		success = false;
 	}
 
+//================================================================================//
+
+	// Load Fr. V texture
+	if( !FrVGFX.loadFromFile( "./frv.png" ) )
+	{
+		printf( "Failed to load press texture!\n" );
+		success = false;
+	}
+
 	return success;
 } // end of load media function
 
@@ -612,6 +623,7 @@ void close()
 	// Free battle textures
 	encounterGFX.free();
 	trainerBackGFX.free();
+	FrVGFX.free();
 	battleTXT.free();
 
 	SquirtleGFX.free();
@@ -688,6 +700,8 @@ void battleGFX( int i ){
 		case 5:
 			DragoniteGFX.render(440, 95);
 			break;
+		case 6:
+			FrVGFX.render(440, 95);
 	}
 
 	SDL_RenderPresent( gRenderer );
