@@ -866,10 +866,21 @@ int canWalk( int x, int y, int inMorrissey ){
 		if ( x > -1225 && y > -378 ) return 0;
 		//upper right corner bound
 		if ( x < -1680 && y > -950 ) return 0;
+		//lake
+		//if ( x <= -758 && x >= -1066 && y <= -1354 && y >= -1446) return 0;
+
 		//morrissey
 		if ( x <= -640 && x >= -1024 && y <= -1235 && y >= -1402) return 0;
-		//morrissey tower
 		if ( x <= -640 && x >= -838 && y <= -1065 && y >= -1402) return 0;
+		if ( x <= -572 && x >= -696 && y <= -1330 && y >= -1446) return 0;
+		if ( x <= -758 && x >= -1066 && y <= -1354 && y >= -1446) return 0;
+		//parking lot trees
+		if ( x <= -190 && x >= -468 && y <= -1148 && y >= -1284) return 0;
+		//volleyb all net
+		if ( x <= -308 && x >= -340 && y <= -1004 && y >= -1172) return 0;
+
+
+
 		//Howard Hall
 		if ( x <= -1101 && x >= -1289 && y <= -1353 && y >= -1791) return 0;
 		if ( x <= -1101 && x >= -1353 && y <= -1553 && y >= -1791) return 0;
@@ -885,6 +896,30 @@ int canWalk( int x, int y, int inMorrissey ){
 		if ( x <= -953 && x >= -1110 && y <= -1005 && y >= -1093) return 0;
 		//Lyons to left edge
 		if ( x <= 0 && x >= -551 && y <= -1360 && y >= -1776) return 0;
+		if ( x <= -313 && x >= -551 && y <= -1776 && y >= -1855) return 0;
+		if ( x <= 0 && x >= -301 && y <= -1776 && y >= -1855) return 0;
+		//CoMo
+		if ( x <= -1904 && x >= -2212 && y <= -1432 && y >= -1792) return 0;
+
+
+		//South quad upper trees + fenced areas
+		if ( x <= -541 && x >= -1067 && y <= -1740 && y >= -1855) return 0;
+		if ( x <= -1083 && x >= -1183 && y <= -1777 && y >= -1855) return 0;
+		if ( x <= -1211 && x >= -1371 && y <= -1353 && y >= -1855) return 0;
+		if ( x <= -1560 && x >= -1720 && y <= -1353 && y >= -1855) return 0;
+		if ( x <= -1904 && x >= -1988 && y <= -1432 && y >= -1855) return 0;
+		if ( x <= -2128 && x >= -2212 && y <= -1432 && y >= -1855) return 0;
+
+
+		//South quad lower trees
+		if ( x <= 0 && x >= -388 && y <= -2130 && y >= -2250) return 0;
+		if ( x <= -472 && x >= -1064 && y <= -2130 && y >= -2250) return 0;
+		if ( x <= -1084 && x >= -1552 && y <= -2130 && y >= -2250) return 0;
+		if ( x <= -1780 && x >= -2600 && y <= -2130 && y >= -2250) return 0;
+
+
+
+
 		//Lyons parking lot
 		if ( x <= 0 && x >= -193 && y <= -987 && y >= -1400 ) return 0;
 
@@ -1069,7 +1104,7 @@ int main( int argc, char* args[] )
 						wildBattle(x, y, trainer, game_pokemon[pokemon_val], &encounterGFX, pokemon_val);
 
 						// displays x and y position and framecount to terminal
-						//cout << x << endl << y << endl;
+						cout << x << endl << y << endl;
 						//cout << "frame count:" << framecounter << endl;
 					}
 					// When "down" arrow key is held down...
@@ -1100,7 +1135,7 @@ int main( int argc, char* args[] )
 						wildBattle(x, y, trainer, game_pokemon[pokemon_val], &encounterGFX, pokemon_val);
 
 						// displays x and y position and framecount to terminal
-						//cout << x << endl << y << endl;
+						cout << x << endl << y << endl;
 						//cout << "frame count:" << framecounter << endl;
 					}
 					// When "left" arrow key is held down...
@@ -1132,7 +1167,7 @@ int main( int argc, char* args[] )
 						wildBattle(x, y, trainer, game_pokemon[pokemon_val], &encounterGFX, pokemon_val);
 
 						// displays x and y position and framecount to terminal
-						//cout << x << endl << y << endl;
+						cout << x << endl << y << endl;
 						//cout << "frame count:" << framecounter << endl;
 
 					}
@@ -1165,7 +1200,7 @@ int main( int argc, char* args[] )
 						wildBattle(x, y, trainer, game_pokemon[pokemon_val] , &encounterGFX, pokemon_val);
 
 						// displays x and y position and framecount to terminal
-						//cout << x << endl << y << endl;
+						cout << x << endl << y << endl;
 						//cout << "frame count:" << framecounter << endl;
 					}
 					else

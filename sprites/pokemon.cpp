@@ -251,7 +251,7 @@ void Pokemon::check_pokemon(){
 	if (exp > 7000) level = 17;
 	if (exp > 8000) level = 18;
 	
-	if (level > inital_level) {
+	if (level > initial_level) {
 		max_hit_points += 10;
 		attack += 5;
 		defense += 5;
