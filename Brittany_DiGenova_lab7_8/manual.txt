@@ -53,7 +53,7 @@ and ensure that X11 forwarding is on).
 	//Winning the game
 	
 	The game can be played as long as the user wishes, but there is only one way to win. The user must get four pokemon to level 18 (partially because this is our graduation year and partially
-	because the game would never end if we made the level requirement too high). When the user has four pokemon that are level 18 he or she can take them to the ____INSERT GAME WINNING LOCATION HERE___
+	because the game would never end if we made the level requirement too high). When the user has four pokemon that are level 18 he or she can take them to the inside of Morrissey and battle Fr. V (Morrissey' rector).
 	At this point the user's pokemon are evaluated and if there are enough at level 18 the user wins! A congratulatory message is printed and the game ends. 
 
 
