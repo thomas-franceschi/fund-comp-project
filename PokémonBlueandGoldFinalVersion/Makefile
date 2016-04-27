@@ -1,10 +1,10 @@
-all: walking
+all: main
 
-walking: walking.o trainer.o pokemon.o potion.o moves.o firetype.o flyingtype.o watertype.o
-	g++ walking.o trainer.o pokemon.o potion.o moves.o firetype.o flyingtype.o watertype.o -lSDL2 -lSDL2_image -o walking
+main: main.o trainer.o pokemon.o potion.o moves.o firetype.o flyingtype.o watertype.o
+	g++ main.o trainer.o pokemon.o potion.o moves.o firetype.o flyingtype.o watertype.o -lSDL2 -lSDL2_image -o main
 		
-walking.o: walking.cpp
-	g++ -c walking.cpp -o walking.o
+main.o: main.cpp
+	g++ -c main.cpp -o main.o
 
 trainer.o: trainer.cpp
 	g++ -c trainer.cpp -o trainer.o
@@ -28,4 +28,4 @@ watertype.o: watertype.cpp
 	g++ -c watertype.cpp
 																		
 clean:
-	rm -f *.o walking
+	rm -f *.o main

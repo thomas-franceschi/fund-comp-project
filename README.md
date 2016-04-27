@@ -1,7 +1,8 @@
 **Pokémon: Notre Dame Edition**
 -
+Note: All of the final files are in the *PokémonBlueandGoldFinalVersion* folder
 
-Group Members:
+**Group Members:**
 
 Brittany DiGenova (bdigenov@nd.edu)
 
