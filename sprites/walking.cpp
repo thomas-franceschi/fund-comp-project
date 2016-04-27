@@ -827,6 +827,7 @@ void wildBattle( int x, int y, Trainer trainer, Pokemon &wildPoke, LTexture *enc
 int battleFRV(int x, int y, int inMorrissey, Trainer &trainer, Trainer &opponent ) {
 	if (inMorrissey){
 		if( x <= -1497 && x >= -1513 && y <= -911 && y >= -923){
+			battleGFX( 6 );
 			trainer.battle_trainer(opponent);
 			if( trainer.is_winner() == 1 ) return 1; 
 			else return 0;
