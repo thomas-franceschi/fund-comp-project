@@ -1,0 +1,10 @@
+//Pokemon
+
+
+//Trainer
+
+
+//Potions
+
+
+//Moves 

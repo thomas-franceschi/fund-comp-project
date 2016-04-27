@@ -13,13 +13,13 @@ using namespace std;
 class Moves {
 	
 	public:
-	Moves( string name = "none", int power = 10, int accuracy = 70);
+	Moves( string name = "none", int power = 10, int accuracy = 70); //Constructor with fall backs 
 	int get_power();
 	int get_accuracy();
 	string get_name();
 	
 	private:
-	string name;
+	string name;	//Name of move 
 	int power;		//Determines damage done by move 
 	int accuracy; 	//Value between 1 and 100 that denotes percentage change of making contact 
 };

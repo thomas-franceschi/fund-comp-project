@@ -16,17 +16,17 @@ int main() {
 	Firetype Ponyta;
 	Firetype Magby;
 	Firetype Flareon;
-	Firetype Torchic("Torchic", 45,60, 40, 7, 12, 0, 0);
+	Firetype Torchic("Torchic", 45, 45,60, 40, 7, 12, 0, 0);
 	
 	//Initialize watertype pokemon 
-	Watertype Squirtle("Squirtle", 44, 48, 65, 4, 12, 0, 0 );
-	Watertype Horsea("Horsea", 30, 40, 70, 7, 12, 0, 0);
-	Watertype Palpitoad("Tympole", 50, 50, 40, 9, 12, 0, 0);
-	Watertype Mantyke("Mantyke", 45, 20, 50, 7, 12, 0, 0 );
-	Watertype Spheal ("Spheal", 70, 40, 50, 4, 12, 0, 0 );
+	Watertype Squirtle("Squirtle", 44, 44, 48, 65, 4, 12, 0, 0 );
+	Watertype Horsea("Horsea", 30, 30, 40, 70, 7, 12, 0, 0);
+	Watertype Palpitoad("Tympole", 50, 50, 50, 40, 9, 12, 0, 0);
+	Watertype Mantyke("Mantyke", 45, 45, 20, 50, 7, 12, 0, 0 );
+	Watertype Spheal ("Spheal", 70, 70, 40, 50, 4, 12, 0, 0 );
 	
 	//Initialize Flyingtype Pokemon
-	Flyingtype Caterpie("Caterpie", 45, 30, 35, 2, 12, 0, 0);
+	Flyingtype Caterpie("Caterpie", 45, 45, 30, 35, 2, 12, 0, 0);
 	Flyingtype Zapdos;
 	Flyingtype Pidgey;
 	Flyingtype Zubat;
@@ -34,9 +34,9 @@ int main() {
 	Flyingtype Dragonite;
 	
 	//Make kyle, thomas and brittany Pokemon
-	Watertype Kyle("Kyle (AKA Whale)", 150, 60, 55, 5, 12); //No strengths or weaknesses yet
-	Firetype Thomas("Tbone", 150, 60, 55, 5, 12, 0, 0);
-	Flyingtype Brittany("Britters", 150, 60, 55, 5, 12, 0, 0);
+	Watertype Kyle("Kyle (AKA Whale)", 150, 150, 60, 55, 5, 12); //No strengths or weaknesses yet
+	Firetype Thomas("Tbone", 150, 150, 60, 55, 5, 12, 0, 0);
+	Flyingtype Brittany("Britters", 150, 150, 60, 55, 5, 12, 0, 0);
 	
 	//Initialize Potions 
 	Potion potion("potion", 20);
