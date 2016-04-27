@@ -1,0 +1,68 @@
+//Brittany DiGenova, Kyle Williams, Thomas Franceschi
+//Manual.txt
+//This is the user manual for our pokemon game submitted for Fundamentals 2 Final Project
+
+Welcome to Pokemon Blue and Gold Edition! In order to set up and play the game, follow the instructions below.
+
+
+//Special Libraries
+All of Pokemon Blue and Gold's graphics are done in SDL2 which means the user will need access to the SDL2 library. This also requires enabling X11
+forwarding so that a GUI can appear on the screen. Once X11 forwarding is up and running and the user has access to an SDL2 library they will be able 
+to interact with our Pokemon map interface. Other libraries that are linked to pokemon are: iostream, string, cstdlib, cmath, and vector. These libraries
+are used for command line input/output, storing names, randomizing values, creating vectors and performing basic math function such as power.
+
+//Compilation Instructions
+Once all of the program files are copied to a directory, move to that directory and type make. Our makefile will do the rest of the work! The makefile 
+creates eight binary (.o) files from the .cpp files of all the gameplay classes. These include trainer.cpp, pokemon.cpp, potion.cpp, moves.cpp, firetype.cpp,
+flyingtype.cpp, watertype.cpp, and main.cpp. Once these .o files have been compiled they are all linked into the final executable main. After the makefile has
+run type ./main and the game will begin! (If you run into compilation issues make sure you have access to all the libraries listed in part one as well as SDL2,
+and ensure that X11 forwarding is on).
+
+//User Manual
+
+	//Begginning game and encountering wild pokemon
+	
+	Now it's time to start the game!! Upon running ./main a viewing window will appear on your screen. Pull this up next to the command line and prepare to catch some
+	pokemon! The user begins with a trainer who is shown in the middle of the screen. He begins with only one pokemon, but not to worry there are some in the grass on south 
+	quad. Before encountering pokemon the user will be asked what he or she would like to be called. This inputted name will become the name of the trainer. In order to move
+	the trainer click on the viewing window and use the four arrow keys to navigate. To walk faster press the spacebar. This is how the user explores the map. Pokemon can be 
+	found in the thick grass on south quad. Once the trainer encounters a pokemon the screen will stop and move into a battle screen. The battle prompts will appear in
+	the command line. The trainer can choose to fight or run with keypress inputs. If run is chosen gameplay continues, otherwise the trainer's pokemon are listed and the user
+	is prompted to choose a pokemon (unless all the pokemon are fainted in which case an error message will be output and the user will be told to go heal the pokemon). After a 
+	valid pokemon is chosen the list of the pokemon's moves are printed and the user chooses which move to use on the first attack. The battle switches between attack and defend
+	until one of the pokemon has fainted. If the encountered pokemon faints the trainer gets the pokemon and the pokemon used in the battle gains experience points. The experience
+	points gained are 2^(level of pokemon defeated). Defeating better pokemon grants more experience points. As pokemon gain experience points they will level up and become more
+	powerful. 
+	
+	//Battling Trainers
+	
+	Another fun part of the original game that is also included in Pokemon Blue and Gold is trainer battles. When you see another person standing around walk up to them and look for 
+	prompts in the command line. If you want to exit hit the appropriate button when prompted, otherwise agree to battle the trainer. Once the user decides to battle a trainer all the
+	user's pokemon and potions will be listed in order that he or she knows what is available to go into the fight. (Note: trying to fight a trainer with no healthy pokemon will result 
+	in a loss and the user will be told to go heal their pokemon). In the command line prompts will appear asking the user which pokemon he or she would like to use for the battle. After
+	a pokemon is chosen one of the opponents pokemon is randomly chosen and the pokemon battle begins. This process continues until one of the trainers has no healthy pokemon. If the user
+	wins his wins tally will increase by one, otherwise the losses tally will increase by one. 
+	
+	//Healing Pokemon
+	
+	There are two ways to heal pokemon: potions and the health center. Each user begins with one regular potion and one super potion. These can be used on any unhealthy pokemon. The potions
+	will increase the chosen pokemon's health by the potion healing power. This is a good option if a pokemon is about to faint in a battle (it can be chosen instead of a move). Otherwise 
+	fainted pokemon should be taken to the health center for healing. Once the user is in the health pad at the health center the command line will inform them as pokemon are healed. When 
+	pokemon are taken to the health center the hitpoints are returned to their maximum amount. After pokemon are healed they can fight again. 
+	
+	//Winning the game
+	
+	The game can be played as long as the user wishes, but there is only one way to win. The user must get four pokemon to level 18 (partially because this is our graduation year and partially
+	because the game would never end if we made the level requirement too high). When the user has four pokemon that are level 18 he or she can take them to the inside of Morrissey and battle Fr. V (Morrissey' rector).
+	At this point the user's pokemon are evaluated and if there are enough at level 18 the user wins! A congratulatory message is printed and the game ends. 
+
+
+//Known Bugs
+When moving around the map, the program prints the user’s Pokemon to the terminal window. When the user encounters a Pokemon, and the user beats the Pokemon in a battle, the Pokemon does not always become a part of the trainer’s inventory. Also if the does catch a Pokemon and then battles an catches an additional Pokemon, the previously caught Pokemon may not remain a part of the user’s inventory.
+
+When prompted to enter a (1) or a (2) during a battle from the command line, if the user enters a character, sometimes the program continuously prints out the prompt to have the user end the battle, but the prompt is in a while loop, so the user may have to close the terminal window and try again.
+
+//Additional Info
+We originally wanted to make all of Notre Dame’s campus, complete with gyms and an Elite Four to battle to be able to win the game. This proved to be a huge task, so we decided to scale down to just a portion of South Quad, with random wild Pokemon encounters, and one trainer to face. Even though we scaled down, we still had a lot of fun and learned a lot with this project.
+
+	
