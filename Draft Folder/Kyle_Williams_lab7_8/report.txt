@@ -1,0 +1,50 @@
+Kyle Williams
+3/21/16
+Lab 8
+Documentation
+
+BitBucket URL: https://bitbucket.org/fundcompproject/lab_7-8
+
+Program Functionality:
+
+This demo.cpp program works internally like the 14th SDL Tutorial on spritesheets and animation. I used the code that was given and found a different spritesheet for a trainer from Pokemon to render that trainer walking in different directions but staying in the same place on the screen.
+
+The main program starts by initializing SDL and creating the window. If the window cannot be created, an error messages is displayed. Then the program loads the media for an animation. In the loadMedia function, the spritesheet is read into the program. If it cannot be read into the program, an error message is printed. Setting the sprite clips is what I changed from this LazyFoo Tutorial code. In the example that they gave, the spritesheet for a walking stick figure had four different renderings on the sheet. The spritesheet that I wanted to use for this Pokemon game has 16 renderings. So I was able to add more instances of the individual sprite clips in this loadMedia function. I first ran the program using the numbers that were already given and using the spritesheet that I had this program read in. Based on how the sprites were drawn, I updated the numbers for the x and y coordinates for the clip and the height and width of the box conatining that particular sprite. After changing some numbers and adding sprite clips instances, the trainer appears to be walking in left, right, up, and down directions.
+
+The program then checks for an event to happen in a while loop, clears the screen, renders the current frame. The current frame correpsonds to a particular sprite in the spritesheet. Then the program calls usleep for an instance to slow down the walking pace of the animated Pokemon trainer. The screen is updated, the frame is incremented to the next one, and the program checks to make sure the frame number is less than the number of walking animation frames. If 'quit' is set to true during the animation, the while loop will terminate, and the resources will be freed and the SDL window will close with the 'close()' function.
+
+/------------------------------------------------------------------------/
+
+Time Log:
+
+Monday, 2/29/16, 3:00pm - 4:00pm
+	In-lab SDL tutorials. Developed milestones. Tried installing SDL libraries to be used natively on Xcode.
+
+Thursday, 3/3/16, 9:00pm - 10:00pm
+	Initial team meeting. Talked project ideas, started developing ideas of implementation.
+
+Monday, 3/14/16, 3:00pm - 4:00pm
+	In-lab SDL tutorials. Was not able to get SDL working on Xcode for some reason. Decided to try to run it off of my Ubuntu VM. Worked on installing libraries there and checking out SDL functionality with a Linux based VM as opposed to Xcode.
+
+Wednesday, 3/16/16, 8:00pm - 9:00pm
+	More SDL tutorials. Worked through lesson 6.
+
+Saturday, 3/19/16, 11:00am - 1:00pm
+	Worked on SDL tutorials through lesson 14.
+
+Sunday, 3/20/16, 11:00pm - 12:00am
+	Tried to jump ahead in SDL tutorials to control animation with keyboard. Was unsuccessful with trying to control a sprite from a Pokemon spritesheet. Decided to implement simply animating that sprite walking in different directions.
+
+/------------------------------------------------------------------------/
+
+What I Learned:
+
+During the course of Labs 7 and 8, I learned a lot about SDL2 through the LazyFoo tutorials. I made it through lesson 14, and the tutorials leading up to that included getting images onto the screen, dealing with events, key pressing, and other renderings. These tutorials also included some clip rendering and animation as well. That animation is what I demonstrated by making the Pokemon trainer sprite turn and walk in place in different directions.
+
+I also spent some time trying to render a simple ball in GIMP to animate, but I decided to stick with manipulating that spritesheet because it is applicable to our final project.
+
+The majority of our Lab 8 milestone points resided in simply working through the SDL LazyFoo Tutorials. Other than that, we also spent some time individually coming up with ideas regarding the artwork, background, Pokemon, and trainers for our game environment. Our plan is to meet again and combine our ideas, seeing what will work the best.
+
+Our original plan was to make the whole environment for our Pokemon game mirror Notre Dame's campus. I think that we should scale that environment down to just God Quad. We can render the buildings along the sides of God Quad rather than all of the ones on campus. We can also make sure to include enough people and interactive Pokemon battles within that space. Originally, the goal of the game was to beat a number of other trainers and then go to a sort of elite four set-up like that traditional Pokemon games. I think that we should have the final trainer be someone like Fr. Jenkins that the user will have to beat. By scaling down the entire environment, we can focus on rendering the interiors of a few buildings, meaningful trainers and interactive battles, and one final trainer to beat. With this scaled-down apporoach, we can focus on making the smaller version of the environment more refined than if we used the whole of campus.
+
+With some additional review of the LazyFoo Tutorials, and some more practice, we will be ready to start rendering the intended gameplay.

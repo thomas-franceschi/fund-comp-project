@@ -1,0 +1,70 @@
+//Thomas Franceschi
+//Lab 7 &8 report.txt
+//3/21/2016
+
+Time Log:
+
+Thursday 3/3/16 9 pm - 10 pm:
+First Team Meeting: Brainstormed project ideas, how to implement them, general 
+game flow.
+
+Monday 2/29/16 3 pm - 4 pm:
+Computing Lab: Worked through LazyFoo SDL tutorials
+
+Tuesday 3/1/2016 7 pm - 8 pm:
+Art brainstorming: Hand drew basis for maps/building interiors/game flow. 
+
+Monday 3/14/16 3 pm - 4 pm:
+Computing Lab: Worked through LazyFoo SDL tutorials
+
+Monday 3/14/2016 8 pm - 10 pm:
+LazyFoo Tutorials: Worked through more SDL tutorials on my own.
+
+Sunday 3/20/2016 9 pm - 11 pm:
+LazyFoo Tutorials: Worked through more SDL tutorials on my own.
+
+Sunday 3/20/2016 11 pm - 12:30 am:
+GIMP: Read documentation and practiced using GIMP to create/manipulate sprites, 
+maps, etc. and created a demo sprite for the lab deliverable. Created a sprite 
+sheet for a bouncing ball. Allignments was slightly off so some bits gets cut off 
+of certain frames.
+
+---------------------------------------------------------------------------------
+
+Demo Code:
+
+The demo program I created uses a sprite sheet to render a "bouncing ball," complete 
+with compression when it hits the ground. I based this off of the example from lesson 
+14 in the LazyFoo tutorials on animation, though I extended it to loop through 10 
+frames instead of four for a smoother animation, though it is still pretty choppy. While 
+I could have made a better looking ball using the built in geometry rendering, I wanted 
+to get practice with creating sprite sheets and implementing them in animation graphics. 
+The program works by reading in a sprite sheet and rendering the first 64*500 (w*h) pixel 
+block, then moving on to the next 64, and so on until it hits the 10th block, then the 
+counter resests to 0 and it begins again.
+
+I created the sprite sheet png file in GIMP, and while the sprites themselves are very 
+simple, I spent a large quantity of time learning the ins and outs of GIMP, its commands, 
+and the tools it has that we can use in image creation and manipulation.
+
+--------------------------------------------------------------------------------------
+
+What I Learned:
+
+Throughout Lab 7&8 I learned alot about the basic ins and outs of SDL2, such as how to 
+load images, make them move on command, render geometric shapes, and animate sprites. It 
+was very helpful to learn how to use key inputs as a means for controlling on screen images, 
+since we will need to make our character move on command, as well as sprite animation for 
+the walking animations/making NPCs move/battle animations. I learned just how much code goes 
+into flashing a single image on the screen and it heped me understand the magnitude of the 
+project we are taking on in creating a full(ish) pokemon game. I realize that our original 
+goal may have been a bit too much and instead we should focus on making a smaller but more 
+detailed version using a subset of the Notre Dame campus, pokemon, and battles that we 
+originally intended, though it should still be a decently complex/time consuming game to play 
+once completed. It aslo helped me learn to think about how we will be implementing specific 
+features of our game, specifically in SDL2 and how our code should be structered for maximum 
+performance/readability/maintainability. 
+
+I also learned the basics of image creaton and manipulation in GIMP, which will be very helpful 
+as we need to create a world, characters, environmental objects, etc from scratch (though we 
+may find some sprites to reuse on the internet).
