@@ -232,6 +232,8 @@ int Pokemon::get_exp() {
 
 //Checks pokemon to see if it should faint, evolve etc. (This may not be used but created just in case)
 void Pokemon::check_pokemon(){
+	int initial_level = level;
+	
 	if (exp > 50) level = 3;
 	if (exp > 100) level =4;
 	if (exp > 150) level = 5;
@@ -248,6 +250,12 @@ void Pokemon::check_pokemon(){
 	if (exp > 6000) level = 16;
 	if (exp > 7000) level = 17;
 	if (exp > 8000) level = 18;
+	
+	if (level > inital_level) {
+		max_hit_points += 10;
+		attack += 5;
+		defense += 5;
+	}
 }
 
 //Sends pokemon to the next level (Most likely will not be used)
