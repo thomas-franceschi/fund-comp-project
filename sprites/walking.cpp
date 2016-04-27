@@ -830,7 +830,10 @@ int battleFRV(int x, int y, int inMorrissey, Trainer &trainer, Trainer &opponent
 			battleGFX( 6 );
 			trainer.battle_trainer(opponent);
 			if( trainer.is_winner() == 1 ) return 1; 
-			else return 0;
+			else {
+				fatherV.heal_all();
+				return 0;
+			}
 		}
 		else return 0;
 	}
@@ -1092,6 +1095,7 @@ int main( int argc, char* args[] )
 	trainer.add_potion(potion);
 	trainer.add_potion(super_potion);
 
+	//give fatherv Pokemon
 	fatherV.catch_pokemon(Dragonite);
 	fatherV.catch_pokemon(Mankey);
 	fatherV.catch_pokemon(Magikarp);
@@ -1105,8 +1109,6 @@ int main( int argc, char* args[] )
 	game_pokemon.push_back(Pidgey);
 	game_pokemon.push_back(Dragonite);
 
-
-	//give fatherv Pokemon
 
 	// Start up SDL and create window
 	if( !init() ) printf( "Failed to initialize!\n" );
@@ -1136,14 +1138,22 @@ int main( int argc, char* args[] )
 				for (int i = 0; i < game_pokemon.size(); i++ ) {
 					game_pokemon[i].set_hit_points(game_pokemon[i].get_max_hit_points()); //Make all encounterable pokemon full health
 				}
-				//cout << "MENU: " << endl << "===================" << "PRESS 1 to list stats" << endl << "PRESS 2 to list Pokemon" << endl << "PRESS e TO EXIT" << endl;
-				//Trainer.check_press();
+
 				// Set texture based on current keystate
 				const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
 				
 					// When "up" arrow key is held down...
 					if( currentKeyStates[ SDL_SCANCODE_UP ] ){
-						if (battleFRV( x, y, inMorrissey, trainer, fatherV ) == 1) return 1;
+						if (inMorrissey && x <= -1497 && x >= -1513 && y <= -911 && y >= -923){
+							if (battleFRV( x, y, inMorrissey, trainer, fatherV ) == 1) {
+								cout << "YOU BEAT FATHER V!!! CONGRATS " << trainer.get_name() <<"!" << endl;
+								return 1;
+							}
+							
+							else {
+								"KEEP TRAINING AND COME BACK TO FIGHT FATHER V!" << endl;
+							}
+						}
 						// moves the trainer in the y direction, rendering a different up image each frame to
 						//  make it look like the tainer is walking with one foot forward at a time
 						if (framecounter%4 == 0) currentTexture = &gUpTexture0;
@@ -1297,6 +1307,18 @@ int main( int argc, char* args[] )
 				//check for win
 				// increment frames
 				framecounter++;
+				
+				//Check to see if all your pokemon are dead
+				if (trainer.dead_pokemon() == 1 ) {
+					trainer.heal_all();
+					
+					//Send player back to initial state 
+					x = -716; // initial x position
+					y = -1450; // initial y position
+					inMorrissey = 0; // integer telling whether or not the player is inside Morrissey
+					
+				}
+				
 				//cout << "in Morrissey: " << inMorrissey << endl;
 				//if ( framecounter > 10000) framecounter = 0;
 				print( currentTexture, &background, &morrissey, x, y, inMorrissey );				
