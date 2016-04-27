@@ -89,7 +89,7 @@ int xMoveRight( int );
 int yMoveUp( int );
 int yMoveDown( int );
 
-void battleGFX();
+void battleGFX( int );
 // walking functions
 int canWalk( int, int, int);
 // int enterMorrissey( int&, int&, int&);
@@ -141,7 +141,7 @@ LTexture DragoniteGFX;
 LTexture MankeyGFX;
 LTexture CharmanderGFX;
 LTexture MagikarpGFX;
-LTexture PidgeyGFX
+LTexture PidgeyGFX;
 
 //======================================================================================================================//
 
@@ -537,6 +537,42 @@ bool loadMedia()
 		success = false;
 	}
 
+//================================================================================//
+
+	// Load wild magikarp texture
+	if( !MagikarpGFX.loadFromFile( "./magikarp.png" ) )
+	{
+		printf( "Failed to load press texture!\n" );
+		success = false;
+	}
+
+//================================================================================//
+
+	// Load wild charmander texture
+	if( !CharmanderGFX.loadFromFile( "./charmander.png" ) )
+	{
+		printf( "Failed to load press texture!\n" );
+		success = false;
+	}
+
+//================================================================================//
+
+	// Load wild pidgey texture
+	if( !PidgeyGFX.loadFromFile( "./pidgey.png" ) )
+	{
+		printf( "Failed to load press texture!\n" );
+		success = false;
+	}
+
+//================================================================================//
+
+	// Load wild mankey texture
+	if( !MankeyGFX.loadFromFile( "./mankey.png" ) )
+	{
+		printf( "Failed to load press texture!\n" );
+		success = false;
+	}
+
 	return success;
 } // end of load media function
 
@@ -575,9 +611,15 @@ void close()
 
 	// Free battle textures
 	encounterGFX.free();
-	SquirtleGFX.free();
 	trainerBackGFX.free();
 	battleTXT.free();
+
+	SquirtleGFX.free();
+	CharmanderGFX.free();
+	MankeyGFX.free();
+	DragoniteGFX.free();
+	MagikarpGFX.free();
+	PidgeyGFX.free();
 
 	// Destroy window	
 	SDL_DestroyRenderer( gRenderer );
@@ -615,7 +657,7 @@ void print( LTexture* currentTexture, LTexture* background, LTexture* morrissey,
 }
 
 
-void battleGFX(){
+void battleGFX( int i ){
 
 	// Clear screen
 	SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
@@ -623,9 +665,30 @@ void battleGFX(){
 
 	// Render the battle textures: background, trainer, Pokemon, and text
 	encounterGFX.render(0, 0);
-	SquirtleGFX.render(440, 95);
 	trainerBackGFX.render(50, 165);
 	battleTXT.render(30, 425);
+
+	// switches the random Pokemon that is encountered
+	switch (i){
+		case 0:
+			CharmanderGFX.render(440, 95);
+			break;
+		case 1:
+			MankeyGFX.render(440, 95);
+			break;
+		case 2:
+			SquirtleGFX.render(440, 95);
+			break;
+		case 3:
+			MagikarpGFX.render(440, 95);
+			break;
+		case 4:
+			PidgeyGFX.render(440, 95);
+			break;
+		case 5:
+			DragoniteGFX.render(440, 95);
+			break;
+	}
 
 	SDL_RenderPresent( gRenderer );
 
@@ -716,7 +779,7 @@ int yMoveDown( int x, int y, int inMorrissey )
 }
 
 //Wild pokemon encounter-----------------------------------------------------
-void wildBattle( int x, int y, Trainer trainer, Pokemon &wildPoke, LTexture *encounterGFX ){
+void wildBattle( int x, int y, Trainer trainer, Pokemon &wildPoke, LTexture *encounterGFX, int i ){
 	srand(time(NULL));
 	int encounter = rand() % 5;
 	char battleOver = ' ';
@@ -729,7 +792,7 @@ void wildBattle( int x, int y, Trainer trainer, Pokemon &wildPoke, LTexture *enc
 				cout << "You've encountered a wild " << wildPoke.get_name() << endl;
 				while ( battleOver != 'e' )
 				{
-					battleGFX();
+					battleGFX( i );
 					trainer.encounter_pokemon( wildPoke );
 					cout << "press 'e' to exit battle and 's' to list stats" << endl;
 					cin >> battleOver;
@@ -967,7 +1030,7 @@ int main( int argc, char* args[] )
 					// User requests quit
 					if( e.type == SDL_QUIT ) quit = true;
 				}
-
+				// randomizes Pokemon that a trainer can encounter
 				srand(time(NULL));
 				pokemon_val = rand () % game_pokemon.size();
 				for (int i = 0; i < game_pokemon.size(); i++ ) {
@@ -1003,7 +1066,7 @@ int main( int argc, char* args[] )
 						clipSwitch = 1;
 
 						// checks if trainer has entered a wild Pokemon battle
-						wildBattle(x, y, trainer, game_pokemon[pokemon_val] , &encounterGFX);
+						wildBattle(x, y, trainer, game_pokemon[pokemon_val], &encounterGFX, pokemon_val);
 
 						// displays x and y position and framecount to terminal
 						//cout << x << endl << y << endl;
@@ -1034,7 +1097,7 @@ int main( int argc, char* args[] )
 						clipSwitch = 2;
 
 						// checks if trainer has entered a wild Pokemon battle
-						wildBattle(x, y, trainer, game_pokemon[pokemon_val], &encounterGFX);
+						wildBattle(x, y, trainer, game_pokemon[pokemon_val], &encounterGFX, pokemon_val);
 
 						// displays x and y position and framecount to terminal
 						//cout << x << endl << y << endl;
@@ -1066,7 +1129,7 @@ int main( int argc, char* args[] )
 						clipSwitch = 3;
 
 						// checks if trainer has entered a wild Pokemon battle
-						wildBattle(x, y, trainer, game_pokemon[pokemon_val], &encounterGFX);
+						wildBattle(x, y, trainer, game_pokemon[pokemon_val], &encounterGFX, pokemon_val);
 
 						// displays x and y position and framecount to terminal
 						//cout << x << endl << y << endl;
@@ -1099,7 +1162,7 @@ int main( int argc, char* args[] )
 						clipSwitch = 4;
 
 						// checks if trainer has entered a wild Pokemon battle
-						wildBattle(x, y, trainer, game_pokemon[pokemon_val] , &encounterGFX);
+						wildBattle(x, y, trainer, game_pokemon[pokemon_val] , &encounterGFX, pokemon_val);
 
 						// displays x and y position and framecount to terminal
 						//cout << x << endl << y << endl;
