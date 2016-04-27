@@ -988,8 +988,19 @@ int canWalk( int x, int y, int inMorrissey ){
 	if(inMorrissey){
 		//lobby
 		if ( x <= -940 && x >= -1250 && y <= -1400 && y >= -1500 ) return 0;
+		if ( x <= -1148 && x >= -1300 && y <= -1358 && y >= -1500 ) return 0;
+		if ( x <= -1169 && x >= -1205 && y <= -1334 && y >= -1500 ) return 0;
 		//front right abyss
 		if ( x <= -1208 && x >= -1780 && y <= -1186 && y >= -2000 ) return 0;
+		//right wing
+		if ( x <= -1493 && x >= -2000 && y <= -1021 && y >= -2000 ) return 0;
+		if ( x <= -1697 && x >= -2000 && y <= 0 && y >= -2000 ) return 0;
+		if ( x <= -1146 && x >= -1474 && y <= -1023 && y >= -1091 ) return 0;
+		if ( x <= -1198 && x >= -1354 && y <= 0  && y >= -1051 ) return 0;
+		if ( x <= -1198 && x >= -2000 && y <= 0 && y >= -887 ) return 0;
+
+
+
 
 		//left side
 		if ( x <= 0 && x >= -964 && y <= 0 && y >= -2000 ) return 0;
@@ -1048,21 +1059,21 @@ int main( int argc, char* args[] )
 		
 
 	//Moves 
-	Moves pound("Pound", 40, 90);
-	Moves hydro_pump("Hydro Pump", 110, 80);
-	Moves headbutt("Headbutt", 70, 100);
-	Moves tackle("Tackle", 50, 90);
-	Moves bodyslam("Bodyslam", 85, 75);
-	Moves peck("Peck", 35, 100);
-	Moves flamethrower("Flamethrower", 90 , 100); 
+	Moves pound("Pound", 15, 90);
+	Moves hydro_pump("Hydro Pump", 30, 80);
+	Moves headbutt("Headbutt", 25, 100);
+	Moves tackle("Tackle", 10, 90);
+	Moves bodyslam("Bodyslam", 40, 75);
+	Moves peck("Peck", 15, 100);
+	Moves flamethrower("Flamethrower", 35 , 100); 
 	Moves splash("Splash", 0, 0);
-	Moves vinewhip("Vine Whip", 45, 100);
-	Moves quick_attack("Quick Attack", 40, 100);
-	Moves thunder("Thunder", 110, 70);
-	Moves powder_snow("Powder Snow", 40, 100);
-	Moves slash("Slash", 70, 100);
-	Moves rock_slide("Rock Slide", 75, 90);
-	Moves wing_attack("Wing Attack", 60, 100);
+	Moves vinewhip("Vine Whip", 20, 100);
+	Moves quick_attack("Quick Attack", 20, 100);
+	Moves thunder("Thunder", 35, 70);
+	Moves powder_snow("Powder Snow", 15, 100);
+	Moves slash("Slash", 20, 100);
+	Moves rock_slide("Rock Slide", 35, 90);
+	Moves wing_attack("Wing Attack", 30, 100);
 
 
 	//Give Pokemon moves
@@ -1092,6 +1103,9 @@ int main( int argc, char* args[] )
 
 	trainer.catch_pokemon(Squirtle);
 	trainer.catch_pokemon(Pidgey);
+	trainer.catch_pokemon(Mankey);
+	trainer.catch_pokemon(Dragonite);
+	trainer.catch_pokemon(Charmander);
 	trainer.add_potion(potion);
 	trainer.add_potion(super_potion);
 
@@ -1300,11 +1314,8 @@ int main( int argc, char* args[] )
 								currentTexture = &gDownTexture0;
 						}
 					}
-				
-				// checks if the trainer has entered Morrissey
 				inMorrissey = enterMorrissey( x, y, inMorrissey);
 				inMorrissey = exitMorrissey( x, y, inMorrissey);
-				//check for win
 				// increment frames
 				framecounter++;
 				
