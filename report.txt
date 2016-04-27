@@ -1,0 +1,50 @@
+Kyle Williams
+Brittany DiGenova
+Thomas Franceschi
+-----------------
+CSE 20212
+Final Project Group Report
+Due: 4/26/16
+-----------------
+BitBucket Repository Link:
+
+https://bitbucket.org/fundcompproject/fund_comp_project/overview
+
+=================================================================
+Time Log:
+Individual Logs
+---------------
+Brittany DiGenova:
+
+Thomas Franceschi:
+
+Kyle Williams:
+
+Team Meeting Logs
+-----------------
+
+- 2 hours 	-> Initial SDL2 Animation Attempt 3/16/2016, 9:00pm-11:00pm
+- 1 hour 	-> Discussed desired game features in initial design 4/6/2016, 10:20am-11:20am
+- 1 hour 	-> Scaled back original design and assigned tasks 4/13/2016, 10:20am-11:20am
+- 1 hour 	-> Worked on combining graphics and game logic, debugged hit detection 4/20/2016, 10:20am-11:20am
+- 3 hours 	-> Combining, finetuning, debugging game before turn in 4/26/2016, 9:00pm-12:00am 
+
+=================================================================
+
+From a user perspective, this program begins when the user executes it. A graphics window will open and the user will see the trainer standing on the steps of Morrissey Hall. Initially, the trainer has a {       }. The user can use the arrow keys to control the trainer and walk around the Notre Dame campus. If the user hold down the space bar, the trainer will run. If the user guides the trainer over the grass on the map, there is a chance that the trainer will encounter a wild Pokemon. If a wild Pokemon is encountered, the user will battle that Pokemon from the commmand line, using numbers to indicate desired moves to use on the wild Pokemon.
+
+***INSERT INFO ABOUT BATTLE TRAINERS***
+
+***INSERT GAME OBJECTIVE***
+
+***INSERT TRAINER AND POKEMON OBJECT INTERNAL FUNCT***
+
+Internally, the main part of the program is in the {       } file. This file contains the header file for the trainer class, and this file contains the LTexture class for the graphics window. This program begins with the LTexture class followed by function prototypes for methods not included in the LTexture class. Next are instantiation of the textures to be used for the graphics for the trainer, the backgrounds, the Pokemon, and the battle screen. Under those object instantiations are the function implementations for the LTexture class, including the constructor and destructor. The loadFromFile function loads the specified image from a specified path, sets the image color key, and creates a texture from the surface pixels. The loadFromRenderedText function is similar to the loadFromFile function, but it renders the text suface and creates the texture from surface pixels. The free function destroys the texture and sets its data members to NULL or 0. SetColor, setBlendMode, and setAlpha each call another set function from the SDL2 library, and were not explicitly used in our project. The render function was used heavily to render the intended image to the graphics window; this function also uses another function from the SDL2 library. 
+
+The getWidth and getHeight functions return the width and height of the texture. The init function is used to create and sync the actual graphics window that the project is rendered in. The loadMedia function takes the paths to the .png images that are used in the project and loads them into a certain texture object, calling the loadFromFile method. This function is long, as many texture objects were used throughout the game. The close function calls the free method on all of the texture objects, destroys the SDL window and quits any SDL subsystems to clean up when the user decides to quit the game. The print function renders the background world, the inside of Morrissey if the player is inside Morrissey, and it renders the trainer in whichever direction the arrow keys are making him walk. The battleGFX function renders the battle graphics background, the trainer, the text indicating the user to look at the command line, and a picture of whichever Pokemon the user is battling. The xMoveLeft, xMoveRight, yMoveUp, and yMoveDown functions increase or decrease the top left position of where the background picture is being rendered in order to produce motion for the trainer. The trainer just faces different directions and moves his feet; the background is the image that is actual being translated across the graphics window. 
+
+The wildBattle function uses a random integer to deteremine whether or not the trainer encounters a wild Pokemon when he is in the grass. If a wild Pokemon is encountered, the user will see the battle graphics from the battleGFX function and the encounter_pokemon method from the trainer class is called so the user can battle. The enterMorrissey and exitMorrissey functions use the trainer's x and y positions on the background image to determine if the trainer is inside Morrissey. An one is returned if the trainer is in Morrissey and this helps change the order that the graphics are rendered, so the trainer will appear to be inside Morrissey. The can walk function contains hard-coded parameters based on certain obstacles on the map. This function compares the trainer's x and y poistion to the constaints and limits where the trainer can walk.
+
+Inside of main, a Trainer object is instantiated along with Moves objects, Potion objects, Pokemon objects (from the Pokemon type classes). The Moves objects are added to the Pokemon that were instantiated. Some Pokemon are initially given to the Trainer object along with some Potion objects. Then the SDL window is initialized, the media is loaded into the specified textures, and the program enters a while loop that continues to run until SDL_PollEvent exits out of the graphics window. Inside of the loop, the current arrow key state is checked in a series of if statements, depending on the arrow key that is held down, the program then renders the different pictures of the trainer sprite moving with one foot behind the other. In each movement, the background x and y coordinates are either increased or decreased based on which arrow key is being held down. The wildBattle function is called to see if the trainer has encountered a wild Pokemon. The default image for the trainer sprite is one that is standing with its feet in line, and the trainer faces the direction of the last pressed arrow key. Outside of the if statements, the program checks to see if the trainer is inside of Morrissey. The framecounter is incremented and the print function prints the background and trainer. Outside of the loop, the close function is called that frees the SDL resources and closes SDL before the program returns 0.
+
+The output of all of this project was verified in increments. We used the Prototyping design type as we worked on little portions of the project and tried to produce a working product quickly before assessing and changing the code where is did not work as intended. For example, the trainer walking functionality was tested and perfected, as the battling functionality was tested and perfected before both code sets were combined and tested. The separate code modules were assessed again after they were all assembled into the final project to verify the intended output. The game was played frequently as well to make srue that everything worked as intended.
