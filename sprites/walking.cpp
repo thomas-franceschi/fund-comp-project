@@ -831,7 +831,7 @@ int battleFRV(int x, int y, int inMorrissey, Trainer &trainer, Trainer &opponent
 			trainer.battle_trainer(opponent);
 			if( trainer.is_winner() == 1 ) return 1; 
 			else {
-				fatherV.heal_all();
+				opponent.heal_all();
 				return 0;
 			}
 		}
@@ -1151,7 +1151,7 @@ int main( int argc, char* args[] )
 							}
 							
 							else {
-								"KEEP TRAINING AND COME BACK TO FIGHT FATHER V!" << endl;
+								cout << "KEEP TRAINING AND COME BACK TO FIGHT FATHER V!" << endl;
 							}
 						}
 						// moves the trainer in the y direction, rendering a different up image each frame to
@@ -1309,7 +1309,7 @@ int main( int argc, char* args[] )
 				framecounter++;
 				
 				//Check to see if all your pokemon are dead
-				if (trainer.dead_pokemon() == 1 ) {
+				if (trainer.dead_pokemon() == 0 ) {
 					trainer.heal_all();
 					
 					//Send player back to initial state 
