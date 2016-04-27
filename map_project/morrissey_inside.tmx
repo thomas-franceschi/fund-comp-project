@@ -6,9 +6,12 @@
  <tileset firstgid="742" name="public_indoor_tileset" tilewidth="16" tileheight="16" margin="15">
   <image source="public_indoor_tileset.png" width="894" height="894"/>
  </tileset>
+ <tileset firstgid="3658" name="people" tilewidth="16" tileheight="16">
+  <image source="DS - Pokemon HeartGold SoulSilver - Trainer Overworlds.png" width="957" height="1101"/>
+ </tileset>
  <layer name="Abyss" width="150" height="150">
   <data encoding="base64" compression="zlib">
-   eJzt0sENQQEARMFPP7rRgZtyVOyoAJHHmsPcN5t3P47jztd4jKh/RFfoSle/qe5BV5vqHnS1qe5BV5vqHnS1qe5BV5vqHnS1qe5BV5vqHnS1qe5BV5vqHnS1qe5BV5vqHnS1qe5BV5vqHnS1qe5BV5vqHnS1qe5BV5vqHnS1qe5BV5vqHnS1qe5BV5vqHnS1qe5BV5vqHnS1qe5BV5vqHnS1qe5BV5vqHnS1qe5BV5vqHnS1qe5BV5vqHnS1qe5BV5vqHnS1qe5BV5vqHnS1qe5BV5vqHnS1qe5BV5vqHnS1qe5BV5vqHnS1qe5BV5vqHnS1qe5BV5vqHnS1qe4BAAAAAAD4X5dzv4E9V10BvO12eqm3sENPfIKuAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgF/wBLLUFAU=
+   eJzt0jFNBFAARMEPLTi4s4AbHNCdHJSBI0oEAHncZorpN5t3O+fc+DfeR9Q/oit0pav7VPegq011D7raVPegq011D7raVPegq011D7raVPegq011D7raVPegq011D7raVPegq011D7raVPegq011D7raVPegq011D7raVPegq011D7raVPegq011D7raVPegq011D7raVPegq011D7raVPegq011D7raVPegq011D7raVPegq011D7raVPegq011D7raVPegq011D7raVPegq011D7raVPegq011D7raVPegq011D7raVPegq011D7raVPegq011D7raVPegq011D7raVPcAAAAAAPCbPi7nfF76HWx5up7zfO13LHp57Dew51VXAD/29vCt3sIOPfEXdAUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADcgy8xcBPj
   </data>
  </layer>
  <layer name="Floor" width="150" height="150">
@@ -34,6 +37,11 @@
  <layer name="even higher layer" width="150" height="150">
   <data encoding="base64" compression="zlib">
    eJzt2kFKw0AYBtBUvIIrPYBSRJcKrvQASlEX7Ql0Ie4sCHoKcaM79TR6FTd6AKfQYiiYNGkmrcl78JMmM1Nm8TEZhiQJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANMNLqgAAqMbTyqJnAABA1T4y7qfbYFbfGffTbQAAQDzPzvWBmr1nPL8KdV3jXJhP3jukznfMV8bzh1CP9U2FguY9Yy46ftR/O2RzN9ROTkY7oX0l1Fbn72I5zXvGXHT8qP9pyMpZqPOcXG2OMiVXVOw4ZOpErlon9nd6WXmSK8qSK2KQK4paLTnuM/nNVNn/oLm6qd/rISMbM649a6m1qpvfvTBZ/V9uwh5/mNrn91JthyEjRzPm6iCVq15+98JiZJXFuAgZuVySvVKMrAIAwDK5LTluWOksaJr9kuP2Kp0FTSNXxCBXxCBXxCBX7RT7Ozy5Iga5IoaiuZqsn3JFFusVAEC7lNnHld0z0i53oe4r7Af9UK+h3sb3g/E1naH++DrpN0ignHTWAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGiOH18PNK0=
+  </data>
+ </layer>
+ <layer name="people" width="150" height="150">
+  <data encoding="base64" compression="zlib">
+   eJzt1cENwkAMBEDnvtBBUgBUA92EaqCa8IaOcAP5JY50zDSwltbSRgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABs5zNGfMejr6A3pyniPB19BQAAAADwz4YW0Vpt5px5j+JMal2y32txx8/Me/mrrt2y33txx0vmvf1V1+wge7CD7MEOAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACw5gfOAwur
   </data>
  </layer>
 </map>
