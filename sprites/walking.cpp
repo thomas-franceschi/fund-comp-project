@@ -867,7 +867,13 @@ int canWalk( int x, int y, int inMorrissey ){
 		//upper right corner bound
 		if ( x < -1680 && y > -950 ) return 0;
 		//lake
-		//if ( x <= -758 && x >= -1066 && y <= -1354 && y >= -1446) return 0;
+		if ( x <= 0 && x >= -940 && y <= 0 && y >= -507) return 0;
+		if ( x <= 0 && x >= -852 && y <= 0 && y >= -691) return 0;
+		if ( x <= -180 && x >= -692 && y <= 0 && y >= -751) return 0;
+		if ( x <= -180 && x >= -608 && y <= 0 && y >= -791) return 0;
+		if ( x <= -180 && x >= -240 && y <= 0 && y >= -811) return 0;
+		if ( x <= 0 && x >= -180 && y <= 0 && y >= -751) return 0;
+		if ( x <= 0 && x >= -144 && y <= 0 && y >= -811) return 0;
 
 		//morrissey
 		if ( x <= -640 && x >= -1024 && y <= -1235 && y >= -1402) return 0;
@@ -876,10 +882,8 @@ int canWalk( int x, int y, int inMorrissey ){
 		if ( x <= -758 && x >= -1066 && y <= -1354 && y >= -1446) return 0;
 		//parking lot trees
 		if ( x <= -190 && x >= -468 && y <= -1148 && y >= -1284) return 0;
-		//volleyb all net
+		//volleyball net
 		if ( x <= -308 && x >= -340 && y <= -1004 && y >= -1172) return 0;
-
-
 
 		//Howard Hall
 		if ( x <= -1101 && x >= -1289 && y <= -1353 && y >= -1791) return 0;
@@ -892,6 +896,11 @@ int canWalk( int x, int y, int inMorrissey ){
 		if ( x <= -1101 && x >= -1288 && y <= -988 && y >= -1240) return 0;
 		if ( x <= -1101 && x >= -1370 && y <= -1171 && y >= -1240) return 0;
 		if ( x <= -1101 && x >= -1370 && y <= -988 && y >= -1109) return 0;
+		//Bond quad
+		if ( x <= -1391 && x >= -1723 && y <= -1146 && y >= -1266 ) return 0;
+		if ( x <= -1391 && x >= -1723 && y <= -982 && y >= -1118) return 0;
+		//pokemon statue
+		if ( x <= -2163 && x >= -2215 && y <= -1153 && y >= -1221) return 0;
 		//Bond dumpster and truck
 		if ( x <= -953 && x >= -1110 && y <= -1005 && y >= -1093) return 0;
 		//Lyons to left edge
@@ -900,25 +909,43 @@ int canWalk( int x, int y, int inMorrissey ){
 		if ( x <= 0 && x >= -301 && y <= -1776 && y >= -1855) return 0;
 		//CoMo
 		if ( x <= -1904 && x >= -2212 && y <= -1432 && y >= -1792) return 0;
+		//Walsh Hall
+		if ( x <= -2311 && x >= -2519 && y <= -1125 && y >= -1525) return 0;
+		//Knights of columbus building
+		if ( x <= -2311 && x >= -2563 && y <= -1537 && y >= -1793) return 0;
+		//fence between walsh+koc building
+		if ( x <= -2311 && x >= -2347 && y <= -1489 && y >= -1585) return 0;
+		//weird bond quad building
+		if ( x <= -1595 && x >= -2000 && y <= -724 && y >= -950) return 0;
+		if ( x <= -1535 && x >= -2000 && y <= -820 && y >= -950) return 0;
 
+		//grotto trees
+		if ( x <= -1391 && x >= -2400 && y <= -400 && y >= -464) return 0;
+		//grotto
+		if ( x <= -1491 && x >= -2400 && y <= -100 && y >= -381) return 0;
+		//Dragonite
+		if ( x <= -1623 && x >= -2000 && y <= -370 && y >= -420) return 0;
+		//Grotto benches
+		if ( x <= -1347 && x >= -1391 && y <= -129 && y >= -365) return 0;
+		//Log cabin
+		if ( x <= -900 && x >= -1148  && y <= -742 && y >= -894) return 0;
+		//old college
+		if ( x <= -1108 && x >= -1312 && y <= -534 && y >= -754) return 0;
 
 		//South quad upper trees + fenced areas
-		if ( x <= -541 && x >= -1067 && y <= -1740 && y >= -1855) return 0;
+		if ( x <= -572 && x >= -1067 && y <= -1740 && y >= -1855) return 0;
 		if ( x <= -1083 && x >= -1183 && y <= -1777 && y >= -1855) return 0;
 		if ( x <= -1211 && x >= -1371 && y <= -1353 && y >= -1855) return 0;
 		if ( x <= -1560 && x >= -1720 && y <= -1353 && y >= -1855) return 0;
 		if ( x <= -1904 && x >= -1988 && y <= -1432 && y >= -1855) return 0;
 		if ( x <= -2128 && x >= -2212 && y <= -1432 && y >= -1855) return 0;
 
-
 		//South quad lower trees
 		if ( x <= 0 && x >= -388 && y <= -2130 && y >= -2250) return 0;
 		if ( x <= -472 && x >= -1064 && y <= -2130 && y >= -2250) return 0;
 		if ( x <= -1084 && x >= -1552 && y <= -2130 && y >= -2250) return 0;
+		if ( x <= -1552 && x >= -1597 && y <= -2148 && y >= -2250) return 0;
 		if ( x <= -1780 && x >= -2600 && y <= -2130 && y >= -2250) return 0;
-
-
-
 
 		//Lyons parking lot
 		if ( x <= 0 && x >= -193 && y <= -987 && y >= -1400 ) return 0;
