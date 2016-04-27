@@ -66,8 +66,6 @@ Final Trainer has an infinite number of pokemon, you cannot defeat him.
 
 Pokemon caught above level 18 revert to level 18 and have max exp when they level up the first time.
 
-Inisde of Morrissey has some hit detection issues and may be able to get out of the map.
-
 //Additional Info
 We originally wanted to make all of Notre Dame’s campus, complete with gyms and an Elite Four to battle to be able to win the game. This proved to be a huge task, so we decided to scale down to just a portion of South Quad, with random wild Pokemon encounters, and one trainer to face. Even though we scaled down, we still had a lot of fun and learned a lot with this project.
 
