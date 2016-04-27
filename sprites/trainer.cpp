@@ -72,6 +72,8 @@ void Trainer::add_potion ( Potion  input_potion ) {
 
 //Function when run into wild pokemon and try to capture it 
 void Trainer::encounter_pokemon ( Pokemon & battle_pokemon ) {
+	
+	cout << "You've encountered a wild " << battle_pokemon.get_name() << "!" << endl;
 	int poke_number = 0;
 
 	while (pokemon[poke_number].get_hit_points() == 0 && poke_number < pokemon.size() ) {
@@ -93,6 +95,8 @@ void Trainer::encounter_pokemon ( Pokemon & battle_pokemon ) {
 //All of a trainer's pokemon have fainted 
 int Trainer::battle_trainer ( Trainer & opponent ){
 	srand(time(NULL));
+	
+	cout << opponent.get_name() << " wants to battle!! Take him down " << name << "!" << endl;
 	
 	//List Trainer's stats 
 	list_stats();
