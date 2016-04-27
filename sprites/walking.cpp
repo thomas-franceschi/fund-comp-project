@@ -93,6 +93,7 @@ void battleGFX( int );
 // walking functions
 int canWalk( int, int, int);
 // int enterMorrissey( int&, int&, int&);
+int battleFRV(int x, int y, int inMorrissey, Trainer &trainer, Trainer &opponent);
 
 // The window we'll be rendering to
 SDL_Window* gWindow = NULL;
@@ -823,6 +824,17 @@ void wildBattle( int x, int y, Trainer trainer, Pokemon &wildPoke, LTexture *enc
 	cout << "STATS:" << endl;
 	trainer.list_stats();
 }
+int battleFRV(int x, int y, int inMorrissey, Trainer &trainer, Trainer &opponent ) {
+	if (inMorrissey){
+		if( x <= -1497 && x >= -1513 && y <= -911 && y >= -923){
+			trainer.battle_trainer(opponent);
+			if( trainer.is_winner() == 1 ) return 1; 
+			else return 0;
+		}
+		else return 0;
+	}
+
+}
 
 //enterMorrissey/exitMorrissey----------------------------------------------------------------
 
@@ -975,7 +987,10 @@ int canWalk( int x, int y, int inMorrissey ){
 		//front right abyss
 		if ( x <= -1208 && x >= -1780 && y <= -1186 && y >= -2000 ) return 0;
 
-		//front left abyss
+		//left side
+		if ( x <= 0 && x >= -964 && y <= 0 && y >= -2000 ) return 0;
+
+
 		return 1;
 	}
 	
@@ -1127,7 +1142,7 @@ int main( int argc, char* args[] )
 				
 					// When "up" arrow key is held down...
 					if( currentKeyStates[ SDL_SCANCODE_UP ] ){
-
+						if (battleFRV( x, y, inMorrissey, trainer, fatherV ) == 1) return 1;
 						// moves the trainer in the y direction, rendering a different up image each frame to
 						//  make it look like the tainer is walking with one foot forward at a time
 						if (framecounter%4 == 0) currentTexture = &gUpTexture0;
@@ -1278,7 +1293,7 @@ int main( int argc, char* args[] )
 				// checks if the trainer has entered Morrissey
 				inMorrissey = enterMorrissey( x, y, inMorrissey);
 				inMorrissey = exitMorrissey( x, y, inMorrissey);
-				
+				//check for win
 				// increment frames
 				framecounter++;
 				//cout << "in Morrissey: " << inMorrissey << endl;
