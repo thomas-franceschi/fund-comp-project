@@ -15,7 +15,7 @@ using namespace std;
 class Pokemon {
 	
 	public:
-	Pokemon(string name="Pokemon", int max_hit_points = 100, int hit_points = 0, int attack = 0, int defense = 0, int level = 2, int evolve_level = 12, int exp = 10 );
+	Pokemon(string name="Pokemon", int max_hit_points = 100, int hit_points = 50, int attack = 50, int defense = 50, int level = 2, int evolve_level = 12, int exp = 10 );
 	int battle( Pokemon & );
 	void heal( Potion );			//Uses potion to heal pokemon 
 	int get_hit_points();			//get function

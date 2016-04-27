@@ -32,7 +32,11 @@ int Pokemon::battle ( Pokemon &opponent ) {
 	int choice;
 	
 	srand(time(NULL));
-	
+
+	cout << "Your HitPoints: " << hit_points << endl;
+	cout << "Opponent HitPoints: " << opponent.get_hit_points() << endl;
+	cout << endl;
+
 	//While neither pokemon has fainted, continue the battle 
 	while (hit_points > 0 && opponent.get_hit_points() > 0 && kill == 0 ) {
 		//Allow user the option to fight or run 
@@ -116,7 +120,8 @@ void Pokemon::make_attack( Pokemon &opponent ) {
 	move_power = moves[move_number].get_power();
 
 	//Calculate force and accuracy of attack
-	strike_power = attack + move_power - opponent.get_defense() - (rand() % 10 + 55);
+	strike_power = attack + move_power - opponent.get_defense(); 
+	cout << strike_power << endl; // - (rand() % 10 + 55);
 
 	//Determine if attack is accurate 
 	strike_accuracy = rand() % 100 + 1;     // strike_accuracy in the range 1 to 100
@@ -156,7 +161,7 @@ void Pokemon::defend( Pokemon &opponent ) {
 	move_power = moves[move_number].get_power();
 	
 	//Calculate power of a strike based off various attributes (rand added at end to make strike values more realistic)
-	strike_power = opponent.get_attack() + move_power - defense - (rand() % 10 + 55);
+	strike_power = opponent.get_attack() + move_power - defense;//- (rand() % 10 + 5);
 
 	//Determine if attack is accurate 
 	strike_accuracy = rand() % 100 + 1;     // strike_accuracy in the range 1 to 100

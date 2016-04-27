@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <cstdlib>
+#include <vector>
 
 #include "trainer.h" // Include the trainer class
 
@@ -134,7 +135,13 @@ LTexture morrissey;
 LTexture encounterGFX;
 LTexture battleTXT;
 LTexture trainerBackGFX;
+
 LTexture SquirtleGFX;
+LTexture DragoniteGFX;
+LTexture MankeyGFX;
+LTexture CharmanderGFX;
+LTexture MagikarpGFX;
+LTexture PidgeyGFX
 
 //======================================================================================================================//
 
@@ -496,15 +503,6 @@ bool loadMedia()
 
 //================================================================================//
 
-	// Load wild squirtle texture
-	if( !SquirtleGFX.loadFromFile( "./squirtle.png" ) )
-	{
-		printf( "Failed to load press texture!\n" );
-		success = false;
-	}
-
-//================================================================================//
-
 	// Load trainer texture
 	if( !trainerBackGFX.loadFromFile( "./trainerBack.png" ) )
 	{
@@ -516,6 +514,24 @@ bool loadMedia()
 
 	// Load battle text texture
 	if( !battleTXT.loadFromFile( "./battletext.png" ) )
+	{
+		printf( "Failed to load press texture!\n" );
+		success = false;
+	}
+
+//================================================================================//
+
+	// Load wild squirtle texture
+	if( !SquirtleGFX.loadFromFile( "./squirtle.png" ) )
+	{
+		printf( "Failed to load press texture!\n" );
+		success = false;
+	}
+
+//================================================================================//
+
+	// Load wild dragonite texture
+	if( !DragoniteGFX.loadFromFile( "./dragonite.png" ) )
 	{
 		printf( "Failed to load press texture!\n" );
 		success = false;
@@ -704,25 +720,31 @@ void wildBattle( int x, int y, Trainer trainer, Pokemon &wildPoke, LTexture *enc
 	srand(time(NULL));
 	int encounter = rand() % 5;
 	char battleOver = ' ';
-	cout << "encounter number" << encounter << endl;
+	//cout << "encounter number" << encounter << endl;
 
 	//square patch on south quad
 	if ( x <= -632 && x >= -1004){
 		if ( y <= -1940 && y >= -2108) {
 			if ( encounter == 0 ){
-				cout << "Pokemon encounter!" << endl;
+				cout << "You've encountered a wild " << wildPoke.get_name() << endl;
 				while ( battleOver != 'e' )
 				{
 					battleGFX();
 					trainer.encounter_pokemon( wildPoke );
-					cout << "press 'e' to exit battle" << endl;
+					cout << "press 'e' to exit battle and 's' to list stats" << endl;
 					cin >> battleOver;
-					if (battleOver != 'e') battleOver = ' ';
+					if (battleOver == 's' ) {
+						trainer.list_stats();
+						battleOver = 'e';
+					}
+					if (battleOver != 'e' && battleOver != 's') battleOver = ' ';
 			 	}
 			}
 		}
 	}
 
+	cout << "STATS:" << endl;
+	trainer.list_stats();
 }
 
 //enterMorrissey/exitMorrissey----------------------------------------------------------------
@@ -825,34 +847,103 @@ int main( int argc, char* args[] )
 	int x = -716; // initial x position
 	int y = -1450; // initial y position
 	int inMorrissey = 0; // integer telling whether or not the player is inside Morrissey
+	string name;
+	int pokemon_val = 0;
 
 	// Trainer object instantiation
-	Trainer trainer;
 
-	// initializes Pokemon Move objects
-	Moves pound("Pound", 40, 90);
-	Moves tackle("Tackle", 50, 90 );
+	//Ask user what they want to be named
+	cout << "Hello friend! What would you like your training name to be: ";
+	cin >> name;
+	cout << endl;
+	//Trainers
+	Trainer trainer(name, 2); //Sets trainers name to inputted value
+	cout << "Welcome " << name << "!" << endl << endl;
 
-	// initialize Pokemon Potion objects
+	Trainer fatherV( "Father V", 0); //Initialize Father V
+
+	//Pokemon
+	//Initialize firetype pokemon
+	Firetype Charmander("Charmander", 39, 39, 52, 43, 3, 12, 0, 0, 0);
+	Firetype Mankey("Mankey", 40, 40, 80, 35, 3, 12, 0, 0, 0); 
+
+	//Initialize watertype pokemon 
+	Watertype Squirtle("Squirtle", 44, 44, 48, 65, 4, 12, 0, 0, 0 );
+	Watertype Magikarp("Magikarp", 20, 20, 10, 55, 3, 12, 0, 0, 0);
+
+	//Initialize Flyingtype Pokemon
+	Flyingtype Pidgey("Pidgey", 40, 40, 45, 40, 3, 12, 0, 0, 0);
+	Flyingtype Dragonite("Dragonite", 91, 91, 134, 95, 20, 40, 0, 0, 0);
+
+
+	//Potions
 	Potion potion("potion", 20);
-	Potion super_potion("Super Potion", 50);
+	Potion super_potion ("super_potion", 50);
+		
 
-	// initialize Pokemon objects based on type
-	Watertype Squirtle("Squirtle", 44, 48, 65, 4, 12, 0, 0 );
-	Flyingtype Caterpie("Caterpie", 45, 30, 35, 2, 12, 0, 0);
+	//Moves 
+	Moves pound("Pound", 40, 90);
+	Moves hydro_pump("Hydro Pump", 110, 80);
+	Moves headbutt("Headbutt", 70, 100);
+	Moves tackle("Tackle", 50, 90);
+	Moves bodyslam("Bodyslam", 85, 75);
+	Moves peck("Peck", 35, 100);
+	Moves flamethrower("Flamethrower", 90 , 100); 
+	Moves splash("Splash", 0, 0);
+	Moves vinewhip("Vine Whip", 45, 100);
+	Moves quick_attack("Quick Attack", 40, 100);
+	Moves thunder("Thunder", 110, 70);
+	Moves powder_snow("Powder Snow", 40, 100);
+	Moves slash("Slash", 70, 100);
+	Moves rock_slide("Rock Slide", 75, 90);
+	Moves wing_attack("Wing Attack", 60, 100);
 
-	// add initialized moves to Pokemon
-	Squirtle.add_move(pound);
+
+	//Give Pokemon moves
+	Charmander.add_move(pound);
+	Charmander.add_move(tackle);
+	Charmander.add_move(flamethrower);
+
+	Mankey.add_move(vinewhip);
+	Mankey.add_move(slash);
+	Mankey.add_move(rock_slide);
+
+	Squirtle.add_move(splash);
+	Squirtle.add_move(hydro_pump);
 	Squirtle.add_move(tackle);
 
-	Caterpie.add_move(pound);
-	Caterpie.add_move(tackle);
+	Magikarp.add_move(splash);
+	Magikarp.add_move(pound);
+	Magikarp.add_move(quick_attack);
 
-	// give trainer Pokemon and potions to start with
+	Pidgey.add_move(wing_attack);
+	Pidgey.add_move(quick_attack);
+	Pidgey.add_move(peck);
+
+	Dragonite.add_move(wing_attack);
+	Dragonite.add_move(thunder);
+	Dragonite.add_move(tackle);
+
 	trainer.catch_pokemon(Squirtle);
-	trainer.catch_pokemon(Caterpie);
+	trainer.catch_pokemon(Pidgey);
 	trainer.add_potion(potion);
 	trainer.add_potion(super_potion);
+
+	fatherV.catch_pokemon(Dragonite);
+	fatherV.catch_pokemon(Mankey);
+	fatherV.catch_pokemon(Magikarp);
+	fatherV.catch_pokemon(Charmander);
+
+	vector < Pokemon > game_pokemon;
+	game_pokemon.push_back(Charmander);
+	game_pokemon.push_back(Mankey);
+	game_pokemon.push_back(Squirtle);
+	game_pokemon.push_back(Magikarp);
+	game_pokemon.push_back(Pidgey);
+	game_pokemon.push_back(Dragonite);
+
+
+	//give fatherv Pokemon
 
 	// Start up SDL and create window
 	if( !init() ) printf( "Failed to initialize!\n" );
@@ -868,7 +959,7 @@ int main( int argc, char* args[] )
 
 			// Current rendered texture
 			LTexture* currentTexture = NULL;
-			inMorrissey = 0;
+			
 			// While application is running
 			while( !quit ) {
 				// Handle events on queue
@@ -876,6 +967,14 @@ int main( int argc, char* args[] )
 					// User requests quit
 					if( e.type == SDL_QUIT ) quit = true;
 				}
+
+				srand(time(NULL));
+				pokemon_val = rand () % game_pokemon.size();
+				for (int i = 0; i < game_pokemon.size(); i++ ) {
+					game_pokemon[i].set_hit_points(game_pokemon[i].get_max_hit_points()); //Make all encounterable pokemon full health
+				}
+				//cout << "MENU: " << endl << "===================" << "PRESS 1 to list stats" << endl << "PRESS 2 to list Pokemon" << endl << "PRESS e TO EXIT" << endl;
+				//Trainer.check_press();
 				// Set texture based on current keystate
 				const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
 				
@@ -904,11 +1003,11 @@ int main( int argc, char* args[] )
 						clipSwitch = 1;
 
 						// checks if trainer has entered a wild Pokemon battle
-						wildBattle(x, y, trainer, Squirtle, &encounterGFX);
+						wildBattle(x, y, trainer, game_pokemon[pokemon_val] , &encounterGFX);
 
 						// displays x and y position and framecount to terminal
-						cout << x << endl << y << endl;
-						cout << "frame count:" << framecounter << endl;
+						//cout << x << endl << y << endl;
+						//cout << "frame count:" << framecounter << endl;
 					}
 					// When "down" arrow key is held down...
 					else if( currentKeyStates[ SDL_SCANCODE_DOWN ] )
@@ -935,11 +1034,11 @@ int main( int argc, char* args[] )
 						clipSwitch = 2;
 
 						// checks if trainer has entered a wild Pokemon battle
-						wildBattle(x, y, trainer, Squirtle, &encounterGFX);
+						wildBattle(x, y, trainer, game_pokemon[pokemon_val], &encounterGFX);
 
 						// displays x and y position and framecount to terminal
-						cout << x << endl << y << endl;
-						cout << "frame count:" << framecounter << endl;
+						//cout << x << endl << y << endl;
+						//cout << "frame count:" << framecounter << endl;
 					}
 					// When "left" arrow key is held down...
 					else if( currentKeyStates[ SDL_SCANCODE_LEFT ] )
@@ -967,11 +1066,11 @@ int main( int argc, char* args[] )
 						clipSwitch = 3;
 
 						// checks if trainer has entered a wild Pokemon battle
-						wildBattle(x, y, trainer, Squirtle, &encounterGFX);
+						wildBattle(x, y, trainer, game_pokemon[pokemon_val], &encounterGFX);
 
 						// displays x and y position and framecount to terminal
-						cout << x << endl << y << endl;
-						cout << "frame count:" << framecounter << endl;
+						//cout << x << endl << y << endl;
+						//cout << "frame count:" << framecounter << endl;
 
 					}
 					// When "right" arrow key is held down...
@@ -1000,11 +1099,11 @@ int main( int argc, char* args[] )
 						clipSwitch = 4;
 
 						// checks if trainer has entered a wild Pokemon battle
-						wildBattle(x, y, trainer, Squirtle, &encounterGFX);
+						wildBattle(x, y, trainer, game_pokemon[pokemon_val] , &encounterGFX);
 
 						// displays x and y position and framecount to terminal
-						cout << x << endl << y << endl;
-						cout << "frame count:" << framecounter << endl;
+						//cout << x << endl << y << endl;
+						//cout << "frame count:" << framecounter << endl;
 					}
 					else
 					{
