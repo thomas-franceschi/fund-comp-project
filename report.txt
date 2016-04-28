@@ -37,29 +37,29 @@ Brittany DiGenova:
 
 ---------------------------------------------------------------------------------
 Thomas Franceschi:
-Thursday 3/3/16 9 pm - 10 pm:
-First Team Meeting: Brainstormed project ideas, how to implement them, general game flow.
 
-Monday 2/29/16 3 pm - 4 pm:
-Computing Lab: Worked through LazyFoo SDL tutorials
-
-Tuesday 3/1/2016 7 pm - 8 pm:
-Art brainstorming: Hand drew basis for maps/building interiors/game flow. 
-
-Monday 3/14/16 3 pm - 4 pm:
-Computing Lab: Worked through LazyFoo SDL tutorials
-
-Monday 3/14/2016 8 pm - 10 pm:
-LazyFoo Tutorials: Worked through more SDL tutorials on my own.
-
-Sunday 3/20/2016 9 pm - 11 pm:
-LazyFoo Tutorials: Worked through more SDL tutorials on my own.
-
-Sunday 3/20/2016 11 pm - 12:30 am:
-GIMP: Read documentation and practiced using GIMP to create/manipulate sprites, 
-maps, etc. and created a demo sprite for the lab deliverable. Created a sprite 
-sheet for a bouncing ball. Allignments was slightly off so some bits gets cut off 
-of certain frames.
+-1 hour  First Team Meeting: Brainstormed project ideas, how to implement them, general game flow. 3/3/16 9pm-10pm
+-1 hour  Computing Lab: Worked through LazyFoo SDL tutorials. 2/29/16 3pm-4pm
+-1 hour  Art brainstorming: Hand drew basis for maps/building interiors/game flow. 3/1/2016 7pm-8pm
+-1 hour  Computing Lab: Worked through LazyFoo SDL tutorials. 3/14/16 3pm-4pm
+-2 hours LazyFoo Tutorials: Worked through more SDL tutorials on my own. 3/14/2016 8pm-10pm
+-2 hours Initial SDL2 Animation Attempt 3/16/2016, 9:00pm-11:00pm
+-2 hours LazyFoo Tutorials: Worked through more SDL tutorials on my own. 3/20/2016 9pm-11pm
+-2.5 hours GIMP: Read documentation and practiced using GIMP to create/manipulate sprites, maps, etc. and created a demo sprite for the lab deliverable. Created a sprite sheet for a bouncing ball. Allignments was slightly off so some bits gets cut off of certain frames. 3/20/2016 11 pm - 12:30 am:
+-1 hour  Computing Lab: Worked on more l/azy Foo tutorials. 3/21/16 3pm-4pm
+-3 hours Researched map building tools and sprite sheets and began designing overworld map. 3/21/16 5pm-8pm
+-3 hours Continued building map. 3/24/16 4pm-7pm
+-2 hours Continued map building. 3/30/16 8pm-10pm
+-1 hour  Discussed desired game features in initial design 4/6/2016 10:20am-11:20am
+-2 hours Refined walking mechanic and added general pokemon encounter mechanic. 4/12/2016 9pm-11pm
+-1 hour  Scaled back original design and assigned tasks 4/13/2016, 10:20am-11:20am
+-5 hours Created Morrissey indoor map. 4/16/16 3pm-7pm 8pm-9pm
+-3 hours Added door functionality to walk in and out of Morrissey. 4/17/16 2pm-5pm
+-1 hour  Worked on combining graphics and game logic, debugged hit detection 4/20/2016, 10:20am-11:20am
+-3 hours Added hit deteciton to map and refined map layout. 4/25/16 8pm-11pm
+-3 hours Combining, finetuning, debugging game before turn in 4/26/2016, 9:00pm-12:00am
+-3 hours Adding hit detection to map and refined layout more. 4/27/16 12am-3am
+-2.5 hours Added hit detection for inside of Morrissey as well as trainer battle trigger. 4/27/16 9:30am-11am 12:30pm-1:30pm
 
 ---------------------------------------------------------------------------------
 Kyle Williams:
