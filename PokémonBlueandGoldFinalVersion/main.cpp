@@ -998,10 +998,15 @@ int canWalk( int x, int y, int inMorrissey ){
 		if ( x <= -1146 && x >= -1474 && y <= -1023 && y >= -1091 ) return 0;
 		if ( x <= -1198 && x >= -1354 && y <= 0  && y >= -1051 ) return 0;
 		if ( x <= -1198 && x >= -2000 && y <= 0 && y >= -887 ) return 0;
-
-
-
-
+		//Chapel wing
+		if ( x <= -1136 && x >= -2000 && y <= 0 && y >= -642 ) return 0;
+		if ( x <= -0 && x >= -1056 && y <= 0 && y >= -642 ) return 0;
+		if ( x <= 0 && x >= -2000 && y <= 0 && y >= -562 ) return 0;
+		if ( x <= 0 && x >= -992 && y <= 0 && y >= -850 ) return 0;
+		if ( x <= -1000 && x >= -1084 && y <= -670 && y >= -870 ) return 0;
+		if ( x <= -1104 && x >= -1188 && y <= -670 && y >= -870 ) return 0;
+		if ( x <= -1104 && x >= -1200 && y <= -839 && y >= -955 ) return 0;
+		if ( x <= -0 && x >= -1084 && y <= -839 && y >= -989 ) return 0;
 		//left side
 		if ( x <= 0 && x >= -964 && y <= 0 && y >= -2000 ) return 0;
 
